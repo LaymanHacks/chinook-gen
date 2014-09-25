@@ -7,6 +7,19 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Domain.Entities", "
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Data", "Chinook.Data\Chinook.Data.vbproj", "{3520C424-4705-4DC8-9C61-B941EFCEDF6C}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Data.Repository", "Chinook.Data.Repository\Chinook.Data.Repository.vbproj", "{AB78F502-63E0-4147-A241-54547229CDC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{F55E4D19-9806-4654-A72F-283B45909C5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{FA9337C6-5307-477D-B914-730B50910E92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{6B3BB921-FDAA-48CC-908F-7D6C948E65F6}"
+	ProjectSection(SolutionItems) = preProject
+		Database\Scripts\Chinook_StoredProcedures.sql = Database\Scripts\Chinook_StoredProcedures.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schema", "Schema", "{2222D232-E903-49CC-9008-F1F0133B452A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +34,19 @@ Global
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB78F502-63E0-4147-A241-54547229CDC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB78F502-63E0-4147-A241-54547229CDC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB78F502-63E0-4147-A241-54547229CDC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB78F502-63E0-4147-A241-54547229CDC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906} = {F55E4D19-9806-4654-A72F-283B45909C5F}
+		{3520C424-4705-4DC8-9C61-B941EFCEDF6C} = {F55E4D19-9806-4654-A72F-283B45909C5F}
+		{AB78F502-63E0-4147-A241-54547229CDC8} = {F55E4D19-9806-4654-A72F-283B45909C5F}
+		{6B3BB921-FDAA-48CC-908F-7D6C948E65F6} = {FA9337C6-5307-477D-B914-730B50910E92}
+		{2222D232-E903-49CC-9008-F1F0133B452A} = {FA9337C6-5307-477D-B914-730B50910E92}
 	EndGlobalSection
 EndGlobal
