@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:msd="urn:schemas-microsoft-com:xml-msdatasource" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3520C424-4705-4DC8-9C61-B941EFCEDF6C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace />
+    <AssemblyName>Chinook.Data</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ClassLibrary1.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IDbCommandProvider\IDbAlbumCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbArtistCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbCustomerCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbEmployeeCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbGenreCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbInvoiceCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbInvoiceLineCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbMediaTypeCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbPlaylistCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbPlaylistTrackCommandProvider.vb" />
+    <Compile Include="Interfaces\IDbCommandProvider\IDbTrackCommandProvider.vb" />
+    <Compile Include="Interfaces\IRepository\IAlbumRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IArtistRepository.vb" />
+    <Compile Include="Interfaces\IRepository\ICustomerRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IEmployeeRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IGenreRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IInvoiceLineRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IInvoiceRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IMediaTypeRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IPlaylistRepository.vb" />
+    <Compile Include="Interfaces\IRepository\IPlaylistTrackRepository.vb" />
+    <Compile Include="Interfaces\IRepository\ITrackRepository.vb" />
+    <Compile Include="ConnectionHelper.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chinook.Domain.Entities\Chinook.Domain.Entities.vbproj">
+      <Project>{dae1ae1b-cae3-4f49-ad82-8ba709842906}</Project>
+      <Name>Chinook.Domain.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
