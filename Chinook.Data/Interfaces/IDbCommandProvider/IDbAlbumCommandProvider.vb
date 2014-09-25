@@ -15,15 +15,15 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property AlbumDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32) As IDbCommand
-        Function GetInsertDbCommand( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32) As IDbCommand
-        Function GetDeleteDbCommand( ByVal albumId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32) As IDbCommand
+        Function GetUpdateDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand
+        Function GetInsertDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand
+        Function GetDeleteDbCommand(ByVal albumId As Int32) As IDbCommand
+        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByAlbumIdDbCommand( ByVal albumId As Int32) As IDbCommand
-        Function GetGetDataByArtistIdDbCommand( ByVal artistId As Int32) As IDbCommand
-        Function GetGetDataByArtistIdPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal artistId As Int32) As IDbCommand
-        Function GetGetDataByArtistIdRowCountDbCommand( ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataByAlbumIdDbCommand(ByVal albumId As Int32) As IDbCommand
+        Function GetGetDataByArtistIdDbCommand(ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataByArtistIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataByArtistIdRowCountDbCommand(ByVal artistId As Int32) As IDbCommand
 
     End Interface
 End Namespace

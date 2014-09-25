@@ -15,18 +15,18 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property InvoiceLineDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32) As IDbCommand
-        Function GetInsertDbCommand( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32) As IDbCommand
-        Function GetDeleteDbCommand( ByVal invoiceLineId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32) As IDbCommand
+        Function GetUpdateDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand
+        Function GetInsertDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand
+        Function GetDeleteDbCommand(ByVal invoiceLineId As Int32) As IDbCommand
+        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByInvoiceLineIdDbCommand( ByVal invoiceLineId As Int32) As IDbCommand
-        Function GetGetDataByInvoiceIdDbCommand( ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetDataByInvoiceIdPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetDataByInvoiceIdRowCountDbCommand( ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetDataByTrackIdDbCommand( ByVal trackId As Int32) As IDbCommand
-        Function GetGetDataByTrackIdPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal trackId As Int32) As IDbCommand
-        Function GetGetDataByTrackIdRowCountDbCommand( ByVal trackId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceLineIdDbCommand(ByVal invoiceLineId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceIdDbCommand(ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceIdRowCountDbCommand(ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand
+        Function GetGetDataByTrackIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand
+        Function GetGetDataByTrackIdRowCountDbCommand(ByVal trackId As Int32) As IDbCommand
 
     End Interface
 End Namespace

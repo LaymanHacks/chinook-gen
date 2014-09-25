@@ -12,31 +12,30 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-  
- Namespace Chinook.Data.Repository     
+
+Namespace Chinook.Data.Repository
     Public Interface ITrackRepository
-        Function GetData()  as ICollection(Of Track)
-        Sub Update( ByVal trackId As Int32,  ByVal name As String,  ByVal albumId As Int32,  ByVal mediaTypeId As Int32,  ByVal genreId As Int32,  ByVal composer As String,  ByVal milliseconds As Int32,  ByVal bytes As Int32,  ByVal unitPrice As Decimal) 
-        Sub Update(ByVal track as Track) 
-        Function Insert( ByVal trackId As Int32,  ByVal name As String,  ByVal albumId As Int32,  ByVal mediaTypeId As Int32,  ByVal genreId As Int32,  ByVal composer As String,  ByVal milliseconds As Int32,  ByVal bytes As Int32,  ByVal unitPrice As Decimal)  as Int32
-        Function Insert(ByVal track as Track)  as Int32
-        Sub Delete( ByVal trackId As Int32) 
-        Sub Delete(ByVal track as Track) 
-        Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Track)
-        Function GetRowCount()  as Int32
-        Function GetDataByTrackId( ByVal trackId As Int32)  as ICollection(Of Track)
-        Function GetTracksByPlaylistId( ByVal playlistId As Int32)  as ICollection(Of Track)
-        Function GetTracksByPlaylistIdPagableSubSet( ByVal playlistId As Int32,  ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Track)
-        Function GetTracksByPlaylistIdRowCount( ByVal playlistId As Int32)  as Int32
-        Function GetDataByAlbumId( ByVal albumId As Int32)  as ICollection(Of Track)
-        Function GetDataByAlbumIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal albumId As Int32)  as ICollection(Of Track)
-        Function GetDataByAlbumIdRowCount( ByVal albumId As Int32)  as Int32
-        Function GetDataByGenreId( ByVal genreId As Int32)  as ICollection(Of Track)
-        Function GetDataByGenreIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal genreId As Int32)  as ICollection(Of Track)
-        Function GetDataByGenreIdRowCount( ByVal genreId As Int32)  as Int32
-        Function GetDataByMediaTypeId( ByVal mediaTypeId As Int32)  as ICollection(Of Track)
-        Function GetDataByMediaTypeIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal mediaTypeId As Int32)  as ICollection(Of Track)
-        Function GetDataByMediaTypeIdRowCount( ByVal mediaTypeId As Int32)  as Int32
-    End Interface 
-End NameSpace
-  
+        Function GetData() As ICollection(Of Track)
+        Sub Update(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal)
+        Sub Update(ByVal track As Track)
+        Function Insert(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal) As Int32
+        Function Insert(ByVal track As Track) As Int32
+        Sub Delete(ByVal trackId As Int32)
+        Sub Delete(ByVal track As Track)
+        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Track)
+        Function GetRowCount() As Int32
+        Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of Track)
+        Function GetTracksByPlaylistId(ByVal playlistId As Int32) As ICollection(Of Track)
+        Function GetTracksByPlaylistIdPagableSubSet(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Track)
+        Function GetTracksByPlaylistIdRowCount(ByVal playlistId As Int32) As Int32
+        Function GetDataByAlbumId(ByVal albumId As Int32) As ICollection(Of Track)
+        Function GetDataByAlbumIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal albumId As Int32) As ICollection(Of Track)
+        Function GetDataByAlbumIdRowCount(ByVal albumId As Int32) As Int32
+        Function GetDataByGenreId(ByVal genreId As Int32) As ICollection(Of Track)
+        Function GetDataByGenreIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal genreId As Int32) As ICollection(Of Track)
+        Function GetDataByGenreIdRowCount(ByVal genreId As Int32) As Int32
+        Function GetDataByMediaTypeId(ByVal mediaTypeId As Int32) As ICollection(Of Track)
+        Function GetDataByMediaTypeIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal mediaTypeId As Int32) As ICollection(Of Track)
+        Function GetDataByMediaTypeIdRowCount(ByVal mediaTypeId As Int32) As Int32
+    End Interface
+End Namespace

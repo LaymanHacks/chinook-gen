@@ -15,12 +15,12 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property MediaTypeDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand( ByVal mediaTypeId As Int32,  ByVal name As String) As IDbCommand
-        Function GetInsertDbCommand( ByVal mediaTypeId As Int32,  ByVal name As String) As IDbCommand
-        Function GetDeleteDbCommand( ByVal mediaTypeId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32) As IDbCommand
+        Function GetUpdateDbCommand(ByVal mediaTypeId As Int32, ByVal name As String) As IDbCommand
+        Function GetInsertDbCommand(ByVal mediaTypeId As Int32, ByVal name As String) As IDbCommand
+        Function GetDeleteDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
+        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByMediaTypeIdDbCommand( ByVal mediaTypeId As Int32) As IDbCommand
+        Function GetGetDataByMediaTypeIdDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
 
     End Interface
 End Namespace

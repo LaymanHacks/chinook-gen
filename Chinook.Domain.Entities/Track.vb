@@ -12,241 +12,240 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class TrackList
-     Inherits Collection(Of Track)
-                
-          Public Function First() As Track
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class TrackList
+        Inherits Collection(Of Track)
 
-<Serializable()> _
-Partial Public Class Track
-     Private _trackId as Int32
-     Private _name as String
-     Private _albumId as  Nullable(Of Int32)
-     Private _mediaTypeId as Int32
-     Private _genreId as  Nullable(Of Int32)
-     Private _composer as String
-     Private _milliseconds as Int32
-     Private _bytes as  Nullable(Of Int32)
-     Private _unitPrice as Decimal
-    Private _InvoiceLines as InvoiceLineList
-    Private _Playlists as PlaylistList
-    Private _Album as Album
-    Private _Genre as Genre
-    Private _MediaType as MediaType  
+        Public Function First() As Track
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Track
+        Private _trackId As Int32
+        Private _name As String
+        Private _albumId As Nullable(Of Int32)
+        Private _mediaTypeId As Int32
+        Private _genreId As Nullable(Of Int32)
+        Private _composer As String
+        Private _milliseconds As Int32
+        Private _bytes As Nullable(Of Int32)
+        Private _unitPrice As Decimal
+        Private _InvoiceLines As InvoiceLineList
+        Private _Playlists As PlaylistList
+        Private _Album As Album
+        Private _Genre As Genre
+        Private _MediaType As MediaType
 
-  Public Sub New(ByVal trackId as Int32, ByVal name as String, ByVal albumId as  Nullable(Of Int32), ByVal mediaTypeId as Int32, ByVal genreId as  Nullable(Of Int32), ByVal composer as String, ByVal milliseconds as Int32, ByVal bytes as  Nullable(Of Int32), ByVal unitPrice as Decimal)
-      MyBase.New()
-      
-        _trackId = trackId
-        _name = name
-        _albumId = albumId
-        _mediaTypeId = mediaTypeId
-        _genreId = genreId
-        _composer = composer
-        _milliseconds = milliseconds
-        _bytes = bytes
-        _unitPrice = unitPrice
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property TrackId
-    ''' </summary>
-    ''' <returns>TrackId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property TrackId() as Int32
-        Get
-            Return Me._trackId
-        End Get
-        Set(ByVal value as Int32)
-             Me._trackId = value
-        End Set
-    End Property
+        Public Sub New(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Nullable(Of Int32), ByVal mediaTypeId As Int32, ByVal genreId As Nullable(Of Int32), ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Nullable(Of Int32), ByVal unitPrice As Decimal)
+            MyBase.New()
+
+            _trackId = trackId
+            _name = name
+            _albumId = albumId
+            _mediaTypeId = mediaTypeId
+            _genreId = genreId
+            _composer = composer
+            _milliseconds = milliseconds
+            _bytes = bytes
+            _unitPrice = unitPrice
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property Name
-    ''' </summary>
-    ''' <returns>Name as String</returns>
-    ''' <remarks></remarks>
-    Public Property Name() as String
-        Get
-            Return Me._name
-        End Get
-        Set(ByVal value as String)
-             Me._name = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property TrackId
+        ''' </summary>
+        ''' <returns>TrackId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property TrackId() As Int32
+            Get
+                Return Me._trackId
+            End Get
+            Set(ByVal value As Int32)
+                Me._trackId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property AlbumId
-    ''' </summary>
-    ''' <returns>AlbumId as  Nullable(Of Int32)</returns>
-    ''' <remarks></remarks>
-    Public Property AlbumId() as  Nullable(Of Int32)
-        Get
-            Return Me._albumId
-        End Get
-        Set(ByVal value as  Nullable(Of Int32))
-             Me._albumId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Name
+        ''' </summary>
+        ''' <returns>Name as String</returns>
+        ''' <remarks></remarks>
+        Public Property Name() As String
+            Get
+                Return Me._name
+            End Get
+            Set(ByVal value As String)
+                Me._name = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property MediaTypeId
-    ''' </summary>
-    ''' <returns>MediaTypeId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property MediaTypeId() as Int32
-        Get
-            Return Me._mediaTypeId
-        End Get
-        Set(ByVal value as Int32)
-             Me._mediaTypeId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property AlbumId
+        ''' </summary>
+        ''' <returns>AlbumId as  Nullable(Of Int32)</returns>
+        ''' <remarks></remarks>
+        Public Property AlbumId() As Nullable(Of Int32)
+            Get
+                Return Me._albumId
+            End Get
+            Set(ByVal value As Nullable(Of Int32))
+                Me._albumId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property GenreId
-    ''' </summary>
-    ''' <returns>GenreId as  Nullable(Of Int32)</returns>
-    ''' <remarks></remarks>
-    Public Property GenreId() as  Nullable(Of Int32)
-        Get
-            Return Me._genreId
-        End Get
-        Set(ByVal value as  Nullable(Of Int32))
-             Me._genreId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property MediaTypeId
+        ''' </summary>
+        ''' <returns>MediaTypeId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property MediaTypeId() As Int32
+            Get
+                Return Me._mediaTypeId
+            End Get
+            Set(ByVal value As Int32)
+                Me._mediaTypeId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Composer
-    ''' </summary>
-    ''' <returns>Composer as String</returns>
-    ''' <remarks></remarks>
-    Public Property Composer() as String
-        Get
-            Return Me._composer
-        End Get
-        Set(ByVal value as String)
-             Me._composer = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property GenreId
+        ''' </summary>
+        ''' <returns>GenreId as  Nullable(Of Int32)</returns>
+        ''' <remarks></remarks>
+        Public Property GenreId() As Nullable(Of Int32)
+            Get
+                Return Me._genreId
+            End Get
+            Set(ByVal value As Nullable(Of Int32))
+                Me._genreId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Milliseconds
-    ''' </summary>
-    ''' <returns>Milliseconds as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property Milliseconds() as Int32
-        Get
-            Return Me._milliseconds
-        End Get
-        Set(ByVal value as Int32)
-             Me._milliseconds = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Composer
+        ''' </summary>
+        ''' <returns>Composer as String</returns>
+        ''' <remarks></remarks>
+        Public Property Composer() As String
+            Get
+                Return Me._composer
+            End Get
+            Set(ByVal value As String)
+                Me._composer = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Bytes
-    ''' </summary>
-    ''' <returns>Bytes as  Nullable(Of Int32)</returns>
-    ''' <remarks></remarks>
-    Public Property Bytes() as  Nullable(Of Int32)
-        Get
-            Return Me._bytes
-        End Get
-        Set(ByVal value as  Nullable(Of Int32))
-             Me._bytes = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Milliseconds
+        ''' </summary>
+        ''' <returns>Milliseconds as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property Milliseconds() As Int32
+            Get
+                Return Me._milliseconds
+            End Get
+            Set(ByVal value As Int32)
+                Me._milliseconds = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property UnitPrice
-    ''' </summary>
-    ''' <returns>UnitPrice as Decimal</returns>
-    ''' <remarks></remarks>
-    Public Property UnitPrice() as Decimal
-        Get
-            Return Me._unitPrice
-        End Get
-        Set(ByVal value as Decimal)
-             Me._unitPrice = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Bytes
+        ''' </summary>
+        ''' <returns>Bytes as  Nullable(Of Int32)</returns>
+        ''' <remarks></remarks>
+        Public Property Bytes() As Nullable(Of Int32)
+            Get
+                Return Me._bytes
+            End Get
+            Set(ByVal value As Nullable(Of Int32))
+                Me._bytes = value
+            End Set
+        End Property
 
 
-  Public Overridable Property InvoiceLines() as InvoiceLineList
-      Get
-          Return  _InvoiceLines
-      End Get
-      Set(ByVal value As InvoiceLineList)
-          _InvoiceLines = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property UnitPrice
+        ''' </summary>
+        ''' <returns>UnitPrice as Decimal</returns>
+        ''' <remarks></remarks>
+        Public Property UnitPrice() As Decimal
+            Get
+                Return Me._unitPrice
+            End Get
+            Set(ByVal value As Decimal)
+                Me._unitPrice = value
+            End Set
+        End Property
 
-  Public Overridable Property Playlists() as PlaylistList
-      Get
-          Return  _Playlists
-      End Get
-      Set(ByVal value As PlaylistList)
-          _Playlists = value
-      End Set
-  End Property   
-  
 
-  Public Overridable Property Album() as Album
-      Get
-          Return  _Album
-      End Get
-      Set(ByVal value As Album)
-          _Album = value
-      End Set
-  End Property   
-  
+        Public Overridable Property InvoiceLines() As InvoiceLineList
+            Get
+                Return _InvoiceLines
+            End Get
+            Set(ByVal value As InvoiceLineList)
+                _InvoiceLines = value
+            End Set
+        End Property
 
-  Public Overridable Property Genre() as Genre
-      Get
-          Return  _Genre
-      End Get
-      Set(ByVal value As Genre)
-          _Genre = value
-      End Set
-  End Property   
-  
 
-  Public Overridable Property MediaType() as MediaType
-      Get
-          Return  _MediaType
-      End Get
-      Set(ByVal value As MediaType)
-          _MediaType = value
-      End Set
-  End Property   
-  
+        Public Overridable Property Playlists() As PlaylistList
+            Get
+                Return _Playlists
+            End Get
+            Set(ByVal value As PlaylistList)
+                _Playlists = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Album() As Album
+            Get
+                Return _Album
+            End Get
+            Set(ByVal value As Album)
+                _Album = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Genre() As Genre
+            Get
+                Return _Genre
+            End Get
+            Set(ByVal value As Genre)
+                _Genre = value
+            End Set
+        End Property
+
+
+        Public Overridable Property MediaType() As MediaType
+            Get
+                Return _MediaType
+            End Get
+            Set(ByVal value As MediaType)
+                _MediaType = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

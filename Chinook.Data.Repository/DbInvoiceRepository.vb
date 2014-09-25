@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-  
-Namespace Chinook.Data.Repository    
-    
-    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
+
+Namespace Chinook.Data.Repository
+
+    <Global.System.ComponentModel.DataObjectAttribute(True)> _
     Public Class DbInvoiceRepository
         Implements IInvoiceRepository
         Implements IDisposable
@@ -28,251 +28,251 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbInvoiceCommandProvider As IDbInvoiceCommandProvider)
             _dbInvoiceCommandProvider = dbInvoiceCommandProvider
-            _dbConnHolder =_dbInvoiceCommandProvider.InvoiceDbConnectionHolder
+            _dbConnHolder = _dbInvoiceCommandProvider.InvoiceDbConnectionHolder
         End Sub
 
-      
-    ''' <summary>
-    ''' Selects one or more records from the Invoice table 
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
-    Public Function GetData()  as ICollection(Of Invoice) Implements IInvoiceRepository.GetData
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataDbCommand()
+
+        ''' <summary>
+        ''' Selects one or more records from the Invoice table 
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
+        Public Function GetData() As ICollection(Of Invoice) Implements IInvoiceRepository.GetData
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Invoice)
+            Dim entList As New Collection(Of Invoice)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Invoice( reader.GetInt32("InvoiceId"),  reader.GetInt32("CustomerId"),  reader.GetDateTime("InvoiceDate"),  reader.GetString("BillingAddress") ,  reader.GetString("BillingCity") ,  reader.GetString("BillingState") ,  reader.GetString("BillingCountry") ,  reader.GetString("BillingPostalCode") ,  reader.GetDecimal("Total") )
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Invoice(reader.GetInt32("InvoiceId"), reader.GetInt32("CustomerId"), reader.GetDateTime("InvoiceDate"), reader.GetString("BillingAddress"), reader.GetString("BillingCity"), reader.GetString("BillingState"), reader.GetString("BillingCountry"), reader.GetString("BillingPostalCode"), reader.GetDecimal("Total"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Updates one or more records from the Invoice table 
-    ''' </summary>
-   ''' <param name="InvoiceId"></param>
-   ''' <param name="CustomerId"></param>
-   ''' <param name="InvoiceDate"></param>
-   ''' <param name="BillingAddress"></param>
-   ''' <param name="BillingCity"></param>
-   ''' <param name="BillingState"></param>
-   ''' <param name="BillingCountry"></param>
-   ''' <param name="BillingPostalCode"></param>
-   ''' <param name="Total"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
-    Public Sub Update( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal)  Implements IInvoiceRepository.Update
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetUpdateDbCommand(InvoiceId, CustomerId, InvoiceDate, BillingAddress, BillingCity, BillingState, BillingCountry, BillingPostalCode, Total)
+
+        End Function
+
+        ''' <summary>
+        ''' Updates one or more records from the Invoice table 
+        ''' </summary>
+        ''' <param name="InvoiceId"></param>
+        ''' <param name="CustomerId"></param>
+        ''' <param name="InvoiceDate"></param>
+        ''' <param name="BillingAddress"></param>
+        ''' <param name="BillingCity"></param>
+        ''' <param name="BillingState"></param>
+        ''' <param name="BillingCountry"></param>
+        ''' <param name="BillingPostalCode"></param>
+        ''' <param name="Total"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
+        Public Sub Update(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) Implements IInvoiceRepository.Update
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetUpdateDbCommand(invoiceId, customerId, invoiceDate, billingAddress, billingCity, billingState, billingCountry, billingPostalCode, total)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Updates one or more records from the Invoice table 
-    ''' </summary>
-    ''' <param name="Invoice"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
-    Public Sub Update(ByVal invoice as Invoice)  Implements IInvoiceRepository.Update
-             With Invoice
-Update(.InvoiceId, .CustomerId, .InvoiceDate, .BillingAddress, .BillingCity, .BillingState, .BillingCountry, .BillingPostalCode, .Total)
-       End With
+        End Sub
 
-    End Sub
-  
-    ''' <summary>
-    ''' Inserts an entity of Invoice into the database.
-    ''' </summary>
-   ''' <param name="InvoiceId"></param>
-   ''' <param name="CustomerId"></param>
-   ''' <param name="InvoiceDate"></param>
-   ''' <param name="BillingAddress"></param>
-   ''' <param name="BillingCity"></param>
-   ''' <param name="BillingState"></param>
-   ''' <param name="BillingCountry"></param>
-   ''' <param name="BillingPostalCode"></param>
-   ''' <param name="Total"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
-    Public Function Insert( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal)  as Int32 Implements IInvoiceRepository.Insert
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetInsertDbCommand(InvoiceId, CustomerId, InvoiceDate, BillingAddress, BillingCity, BillingState, BillingCountry, BillingPostalCode, Total)
+        ''' <summary>
+        ''' Updates one or more records from the Invoice table 
+        ''' </summary>
+        ''' <param name="Invoice"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
+        Public Sub Update(ByVal invoice As Invoice) Implements IInvoiceRepository.Update
+            With invoice
+                Update(.InvoiceId, .CustomerId, .InvoiceDate, .BillingAddress, .BillingCity, .BillingState, .BillingCountry, .BillingPostalCode, .Total)
+            End With
+
+        End Sub
+
+        ''' <summary>
+        ''' Inserts an entity of Invoice into the database.
+        ''' </summary>
+        ''' <param name="InvoiceId"></param>
+        ''' <param name="CustomerId"></param>
+        ''' <param name="InvoiceDate"></param>
+        ''' <param name="BillingAddress"></param>
+        ''' <param name="BillingCity"></param>
+        ''' <param name="BillingState"></param>
+        ''' <param name="BillingCountry"></param>
+        ''' <param name="BillingPostalCode"></param>
+        ''' <param name="Total"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
+        Public Function Insert(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As Int32 Implements IInvoiceRepository.Insert
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetInsertDbCommand(invoiceId, customerId, invoiceDate, billingAddress, billingCity, billingState, billingCountry, billingPostalCode, total)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-  
-    ''' <summary>
-    ''' Inserts an entity of Invoice into the database.
-    ''' </summary>
-    ''' <param name="Invoice"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
-    Public Function Insert(ByVal invoice as Invoice)  as Int32 Implements IInvoiceRepository.Insert
-             With Invoice
- Return Insert(.InvoiceId, .CustomerId, .InvoiceDate, .BillingAddress, .BillingCity, .BillingState, .BillingCountry, .BillingPostalCode, .Total)
-       End With
+        End Function
 
-    End Function
-  
-    ''' <summary>
-    ''' Deletes one or more records from the Invoice table 
-    ''' </summary>
-   ''' <param name="InvoiceId"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
-    Public Sub Delete( ByVal invoiceId As Int32)  Implements IInvoiceRepository.Delete
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetDeleteDbCommand(InvoiceId)
+        ''' <summary>
+        ''' Inserts an entity of Invoice into the database.
+        ''' </summary>
+        ''' <param name="Invoice"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
+        Public Function Insert(ByVal invoice As Invoice) As Int32 Implements IInvoiceRepository.Insert
+            With invoice
+                Return Insert(.InvoiceId, .CustomerId, .InvoiceDate, .BillingAddress, .BillingCity, .BillingState, .BillingCountry, .BillingPostalCode, .Total)
+            End With
+
+        End Function
+
+        ''' <summary>
+        ''' Deletes one or more records from the Invoice table 
+        ''' </summary>
+        ''' <param name="InvoiceId"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
+        Public Sub Delete(ByVal invoiceId As Int32) Implements IInvoiceRepository.Delete
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetDeleteDbCommand(invoiceId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Deletes one or more records from the Invoice table 
-    ''' </summary>
-    ''' <param name="Invoice"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
-    Public Sub Delete(ByVal invoice as Invoice)  Implements IInvoiceRepository.Delete
-             With Invoice
-Delete(.InvoiceId)
-       End With
+        End Sub
 
-    End Sub
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Invoice
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Invoice) Implements IInvoiceRepository.GetPagableSubSet
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows)
+        ''' <summary>
+        ''' Deletes one or more records from the Invoice table 
+        ''' </summary>
+        ''' <param name="Invoice"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
+        Public Sub Delete(ByVal invoice As Invoice) Implements IInvoiceRepository.Delete
+            With invoice
+                Delete(.InvoiceId)
+            End With
+
+        End Sub
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Invoice
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Invoice) Implements IInvoiceRepository.GetPagableSubSet
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Invoice)
+            Dim entList As New Collection(Of Invoice)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Invoice( reader.GetInt32("InvoiceId"),  reader.GetInt32("CustomerId"),  reader.GetDateTime("InvoiceDate"),  reader.GetString("BillingAddress") ,  reader.GetString("BillingCity") ,  reader.GetString("BillingState") ,  reader.GetString("BillingCountry") ,  reader.GetString("BillingPostalCode") ,  reader.GetDecimal("Total") )
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Invoice(reader.GetInt32("InvoiceId"), reader.GetInt32("CustomerId"), reader.GetDateTime("InvoiceDate"), reader.GetString("BillingAddress"), reader.GetString("BillingCity"), reader.GetString("BillingState"), reader.GetString("BillingCountry"), reader.GetString("BillingPostalCode"), reader.GetDecimal("Total"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for Invoice
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetRowCount()  as Int32 Implements IInvoiceRepository.GetRowCount
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetRowCountDbCommand()
-            command.Connection = _dbConnHolder.Connection
-            _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
-            _dbConnHolder.Close()
-            Return returnValue 
 
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByInvoiceId returns a IDataReader for Invoice
-    ''' </summary>
-   ''' <param name="InvoiceId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByInvoiceId( ByVal invoiceId As Int32)  as ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByInvoiceId
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByInvoiceIdDbCommand(InvoiceId)
-            command.Connection = _dbConnHolder.Connection
-            _dbConnHolder.Open()
-              Dim entList as new Collection(Of Invoice)
-            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
-            Do While (reader.Read())
-                 Dim tempEntity As New Invoice( reader.GetInt32("InvoiceId"),  reader.GetInt32("CustomerId"),  reader.GetDateTime("InvoiceDate"),  reader.GetString("BillingAddress") ,  reader.GetString("BillingCity") ,  reader.GetString("BillingState") ,  reader.GetString("BillingCountry") ,  reader.GetString("BillingPostalCode") ,  reader.GetDecimal("Total") )
-                 entList.Add(tempEntity)
-            Loop
-            reader.Close
-            Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByCustomerId returns a IDataReader for Invoice
-    ''' </summary>
-   ''' <param name="CustomerId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByCustomerId( ByVal customerId As Int32)  as ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByCustomerId
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdDbCommand(CustomerId)
-            command.Connection = _dbConnHolder.Connection
-            _dbConnHolder.Open()
-              Dim entList as new Collection(Of Invoice)
-            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
-            Do While (reader.Read())
-                 Dim tempEntity As New Invoice( reader.GetInt32("InvoiceId"),  reader.GetInt32("CustomerId"),  reader.GetDateTime("InvoiceDate"),  reader.GetString("BillingAddress") ,  reader.GetString("BillingCity") ,  reader.GetString("BillingState") ,  reader.GetString("BillingCountry") ,  reader.GetString("BillingPostalCode") ,  reader.GetDecimal("Total") )
-                 entList.Add(tempEntity)
-            Loop
-            reader.Close
-            Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Invoice
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>
-   ''' <param name="CustomerId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByCustomerIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal customerId As Int32)  as ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByCustomerIdPagableSubSet
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows, CustomerId)
-            command.Connection = _dbConnHolder.Connection
-            _dbConnHolder.Open()
-              Dim entList as new Collection(Of Invoice)
-            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
-            Do While (reader.Read())
-                 Dim tempEntity As New Invoice( reader.GetInt32("InvoiceId"),  reader.GetInt32("CustomerId"),  reader.GetDateTime("InvoiceDate"),  reader.GetString("BillingAddress") ,  reader.GetString("BillingCity") ,  reader.GetString("BillingState") ,  reader.GetString("BillingCountry") ,  reader.GetString("BillingPostalCode") ,  reader.GetDecimal("Total") )
-                 entList.Add(tempEntity)
-            Loop
-            reader.Close
-            Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for Invoice
-    ''' </summary>
-   ''' <param name="CustomerId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByCustomerIdRowCount( ByVal customerId As Int32)  as Int32 Implements IInvoiceRepository.GetDataByCustomerIdRowCount
-        Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdRowCountDbCommand(CustomerId)
-            command.Connection = _dbConnHolder.Connection
-            _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
-            _dbConnHolder.Close()
-            Return returnValue 
+        End Function
 
-    End Function
-   
-  
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for Invoice
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetRowCount() As Int32 Implements IInvoiceRepository.GetRowCount
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetRowCountDbCommand()
+            command.Connection = _dbConnHolder.Connection
+            _dbConnHolder.Open()
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            _dbConnHolder.Close()
+            Return returnValue
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByInvoiceId returns a IDataReader for Invoice
+        ''' </summary>
+        ''' <param name="InvoiceId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByInvoiceId(ByVal invoiceId As Int32) As ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByInvoiceId
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByInvoiceIdDbCommand(invoiceId)
+            command.Connection = _dbConnHolder.Connection
+            _dbConnHolder.Open()
+            Dim entList As New Collection(Of Invoice)
+            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
+            Do While (reader.Read())
+                Dim tempEntity As New Invoice(reader.GetInt32("InvoiceId"), reader.GetInt32("CustomerId"), reader.GetDateTime("InvoiceDate"), reader.GetString("BillingAddress"), reader.GetString("BillingCity"), reader.GetString("BillingState"), reader.GetString("BillingCountry"), reader.GetString("BillingPostalCode"), reader.GetDecimal("Total"))
+                entList.Add(tempEntity)
+            Loop
+            reader.Close()
+            Return entList
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByCustomerId returns a IDataReader for Invoice
+        ''' </summary>
+        ''' <param name="CustomerId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByCustomerId
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdDbCommand(customerId)
+            command.Connection = _dbConnHolder.Connection
+            _dbConnHolder.Open()
+            Dim entList As New Collection(Of Invoice)
+            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
+            Do While (reader.Read())
+                Dim tempEntity As New Invoice(reader.GetInt32("InvoiceId"), reader.GetInt32("CustomerId"), reader.GetDateTime("InvoiceDate"), reader.GetString("BillingAddress"), reader.GetString("BillingCity"), reader.GetString("BillingState"), reader.GetString("BillingCountry"), reader.GetString("BillingPostalCode"), reader.GetDecimal("Total"))
+                entList.Add(tempEntity)
+            Loop
+            reader.Close()
+            Return entList
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Invoice
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>
+        ''' <param name="CustomerId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByCustomerIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal customerId As Int32) As ICollection(Of Invoice) Implements IInvoiceRepository.GetDataByCustomerIdPagableSubSet
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, customerId)
+            command.Connection = _dbConnHolder.Connection
+            _dbConnHolder.Open()
+            Dim entList As New Collection(Of Invoice)
+            Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
+            Do While (reader.Read())
+                Dim tempEntity As New Invoice(reader.GetInt32("InvoiceId"), reader.GetInt32("CustomerId"), reader.GetDateTime("InvoiceDate"), reader.GetString("BillingAddress"), reader.GetString("BillingCity"), reader.GetString("BillingState"), reader.GetString("BillingCountry"), reader.GetString("BillingPostalCode"), reader.GetDecimal("Total"))
+                entList.Add(tempEntity)
+            Loop
+            reader.Close()
+            Return entList
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for Invoice
+        ''' </summary>
+        ''' <param name="CustomerId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByCustomerIdRowCount(ByVal customerId As Int32) As Int32 Implements IInvoiceRepository.GetDataByCustomerIdRowCount
+            Dim command As IDbCommand = _dbInvoiceCommandProvider.GetGetDataByCustomerIdRowCountDbCommand(customerId)
+            command.Connection = _dbConnHolder.Connection
+            _dbConnHolder.Open()
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            _dbConnHolder.Close()
+            Return returnValue
+
+        End Function
+
+
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -294,6 +294,6 @@ Delete(.InvoiceId)
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
- 
-  End Class 
-End NameSpace
+
+    End Class
+End Namespace

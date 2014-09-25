@@ -12,78 +12,77 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class MediaTypeList
-     Inherits Collection(Of MediaType)
-                
-          Public Function First() As MediaType
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class MediaTypeList
+        Inherits Collection(Of MediaType)
 
-<Serializable()> _
-Partial Public Class MediaType
-     Private _mediaTypeId as Int32
-     Private _name as String
-    Private _Tracks as TrackList  
+        Public Function First() As MediaType
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class MediaType
+        Private _mediaTypeId As Int32
+        Private _name As String
+        Private _Tracks As TrackList
 
-  Public Sub New(ByVal mediaTypeId as Int32, ByVal name as String)
-      MyBase.New()
-      
-        _mediaTypeId = mediaTypeId
-        _name = name
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property MediaTypeId
-    ''' </summary>
-    ''' <returns>MediaTypeId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property MediaTypeId() as Int32
-        Get
-            Return Me._mediaTypeId
-        End Get
-        Set(ByVal value as Int32)
-             Me._mediaTypeId = value
-        End Set
-    End Property
+        Public Sub New(ByVal mediaTypeId As Int32, ByVal name As String)
+            MyBase.New()
+
+            _mediaTypeId = mediaTypeId
+            _name = name
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property Name
-    ''' </summary>
-    ''' <returns>Name as String</returns>
-    ''' <remarks></remarks>
-    Public Property Name() as String
-        Get
-            Return Me._name
-        End Get
-        Set(ByVal value as String)
-             Me._name = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property MediaTypeId
+        ''' </summary>
+        ''' <returns>MediaTypeId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property MediaTypeId() As Int32
+            Get
+                Return Me._mediaTypeId
+            End Get
+            Set(ByVal value As Int32)
+                Me._mediaTypeId = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Tracks() as TrackList
-      Get
-          Return  _Tracks
-      End Get
-      Set(ByVal value As TrackList)
-          _Tracks = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Name
+        ''' </summary>
+        ''' <returns>Name as String</returns>
+        ''' <remarks></remarks>
+        Public Property Name() As String
+            Get
+                Return Me._name
+            End Get
+            Set(ByVal value As String)
+                Me._name = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Tracks() As TrackList
+            Get
+                Return _Tracks
+            End Get
+            Set(ByVal value As TrackList)
+                _Tracks = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

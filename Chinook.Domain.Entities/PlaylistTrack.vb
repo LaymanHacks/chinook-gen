@@ -12,89 +12,88 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class PlaylistTrackList
-     Inherits Collection(Of PlaylistTrack)
-                
-          Public Function First() As PlaylistTrack
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class PlaylistTrackList
+        Inherits Collection(Of PlaylistTrack)
 
-<Serializable()> _
-Partial Public Class PlaylistTrack
-     Private _playlistId as Int32
-     Private _trackId as Int32
-    Private _Playlist as Playlist
-    Private _Track as Track  
+        Public Function First() As PlaylistTrack
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class PlaylistTrack
+        Private _playlistId As Int32
+        Private _trackId As Int32
+        Private _Playlist As Playlist
+        Private _Track As Track
 
-  Public Sub New(ByVal playlistId as Int32, ByVal trackId as Int32)
-      MyBase.New()
-      
-        _playlistId = playlistId
-        _trackId = trackId
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property PlaylistId
-    ''' </summary>
-    ''' <returns>PlaylistId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property PlaylistId() as Int32
-        Get
-            Return Me._playlistId
-        End Get
-        Set(ByVal value as Int32)
-             Me._playlistId = value
-        End Set
-    End Property
+        Public Sub New(ByVal playlistId As Int32, ByVal trackId As Int32)
+            MyBase.New()
+
+            _playlistId = playlistId
+            _trackId = trackId
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property TrackId
-    ''' </summary>
-    ''' <returns>TrackId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property TrackId() as Int32
-        Get
-            Return Me._trackId
-        End Get
-        Set(ByVal value as Int32)
-             Me._trackId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property PlaylistId
+        ''' </summary>
+        ''' <returns>PlaylistId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property PlaylistId() As Int32
+            Get
+                Return Me._playlistId
+            End Get
+            Set(ByVal value As Int32)
+                Me._playlistId = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Playlist() as Playlist
-      Get
-          Return  _Playlist
-      End Get
-      Set(ByVal value As Playlist)
-          _Playlist = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property TrackId
+        ''' </summary>
+        ''' <returns>TrackId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property TrackId() As Int32
+            Get
+                Return Me._trackId
+            End Get
+            Set(ByVal value As Int32)
+                Me._trackId = value
+            End Set
+        End Property
 
-  Public Overridable Property Track() as Track
-      Get
-          Return  _Track
-      End Get
-      Set(ByVal value As Track)
-          _Track = value
-      End Set
-  End Property   
-  
+
+        Public Overridable Property Playlist() As Playlist
+            Get
+                Return _Playlist
+            End Get
+            Set(ByVal value As Playlist)
+                _Playlist = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Track() As Track
+            Get
+                Return _Track
+            End Get
+            Set(ByVal value As Track)
+                _Track = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

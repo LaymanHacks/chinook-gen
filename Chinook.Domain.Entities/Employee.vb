@@ -12,321 +12,320 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class EmployeeList
-     Inherits Collection(Of Employee)
-                
-          Public Function First() As Employee
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class EmployeeList
+        Inherits Collection(Of Employee)
 
-<Serializable()> _
-Partial Public Class Employee
-     Private _employeeId as Int32
-     Private _lastName as String
-     Private _firstName as String
-     Private _title as String
-     Private _reportsTo as  Nullable(Of Int32)
-     Private _birthDate as  Nullable(Of DateTime)
-     Private _hireDate as  Nullable(Of DateTime)
-     Private _address as String
-     Private _city as String
-     Private _state as String
-     Private _country as String
-     Private _postalCode as String
-     Private _phone as String
-     Private _fax as String
-     Private _email as String
-    Private _CustomersSupportRepId as CustomerList
-    Private _EmployeesReportsTo as EmployeeList
-    Private _ReportsToEmployee as Employee  
+        Public Function First() As Employee
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Employee
+        Private _employeeId As Int32
+        Private _lastName As String
+        Private _firstName As String
+        Private _title As String
+        Private _reportsTo As Nullable(Of Int32)
+        Private _birthDate As Nullable(Of DateTime)
+        Private _hireDate As Nullable(Of DateTime)
+        Private _address As String
+        Private _city As String
+        Private _state As String
+        Private _country As String
+        Private _postalCode As String
+        Private _phone As String
+        Private _fax As String
+        Private _email As String
+        Private _CustomersSupportRepId As CustomerList
+        Private _EmployeesReportsTo As EmployeeList
+        Private _ReportsToEmployee As Employee
 
-  Public Sub New(ByVal employeeId as Int32, ByVal lastName as String, ByVal firstName as String, ByVal title as String, ByVal reportsTo as  Nullable(Of Int32), ByVal birthDate as  Nullable(Of DateTime), ByVal hireDate as  Nullable(Of DateTime), ByVal address as String, ByVal city as String, ByVal state as String, ByVal country as String, ByVal postalCode as String, ByVal phone as String, ByVal fax as String, ByVal email as String)
-      MyBase.New()
-      
-        _employeeId = employeeId
-        _lastName = lastName
-        _firstName = firstName
-        _title = title
-        _reportsTo = reportsTo
-        _birthDate = birthDate
-        _hireDate = hireDate
-        _address = address
-        _city = city
-        _state = state
-        _country = country
-        _postalCode = postalCode
-        _phone = phone
-        _fax = fax
-        _email = email
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property EmployeeId
-    ''' </summary>
-    ''' <returns>EmployeeId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property EmployeeId() as Int32
-        Get
-            Return Me._employeeId
-        End Get
-        Set(ByVal value as Int32)
-             Me._employeeId = value
-        End Set
-    End Property
+        Public Sub New(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Nullable(Of Int32), ByVal birthDate As Nullable(Of DateTime), ByVal hireDate As Nullable(Of DateTime), ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String)
+            MyBase.New()
+
+            _employeeId = employeeId
+            _lastName = lastName
+            _firstName = firstName
+            _title = title
+            _reportsTo = reportsTo
+            _birthDate = birthDate
+            _hireDate = hireDate
+            _address = address
+            _city = city
+            _state = state
+            _country = country
+            _postalCode = postalCode
+            _phone = phone
+            _fax = fax
+            _email = email
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property LastName
-    ''' </summary>
-    ''' <returns>LastName as String</returns>
-    ''' <remarks></remarks>
-    Public Property LastName() as String
-        Get
-            Return Me._lastName
-        End Get
-        Set(ByVal value as String)
-             Me._lastName = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property EmployeeId
+        ''' </summary>
+        ''' <returns>EmployeeId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property EmployeeId() As Int32
+            Get
+                Return Me._employeeId
+            End Get
+            Set(ByVal value As Int32)
+                Me._employeeId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property FirstName
-    ''' </summary>
-    ''' <returns>FirstName as String</returns>
-    ''' <remarks></remarks>
-    Public Property FirstName() as String
-        Get
-            Return Me._firstName
-        End Get
-        Set(ByVal value as String)
-             Me._firstName = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property LastName
+        ''' </summary>
+        ''' <returns>LastName as String</returns>
+        ''' <remarks></remarks>
+        Public Property LastName() As String
+            Get
+                Return Me._lastName
+            End Get
+            Set(ByVal value As String)
+                Me._lastName = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Title
-    ''' </summary>
-    ''' <returns>Title as String</returns>
-    ''' <remarks></remarks>
-    Public Property Title() as String
-        Get
-            Return Me._title
-        End Get
-        Set(ByVal value as String)
-             Me._title = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property FirstName
+        ''' </summary>
+        ''' <returns>FirstName as String</returns>
+        ''' <remarks></remarks>
+        Public Property FirstName() As String
+            Get
+                Return Me._firstName
+            End Get
+            Set(ByVal value As String)
+                Me._firstName = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property ReportsTo
-    ''' </summary>
-    ''' <returns>ReportsTo as  Nullable(Of Int32)</returns>
-    ''' <remarks></remarks>
-    Public Property ReportsTo() as  Nullable(Of Int32)
-        Get
-            Return Me._reportsTo
-        End Get
-        Set(ByVal value as  Nullable(Of Int32))
-             Me._reportsTo = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Title
+        ''' </summary>
+        ''' <returns>Title as String</returns>
+        ''' <remarks></remarks>
+        Public Property Title() As String
+            Get
+                Return Me._title
+            End Get
+            Set(ByVal value As String)
+                Me._title = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BirthDate
-    ''' </summary>
-    ''' <returns>BirthDate as  Nullable(Of DateTime)</returns>
-    ''' <remarks></remarks>
-    Public Property BirthDate() as  Nullable(Of DateTime)
-        Get
-            Return Me._birthDate
-        End Get
-        Set(ByVal value as  Nullable(Of DateTime))
-             Me._birthDate = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property ReportsTo
+        ''' </summary>
+        ''' <returns>ReportsTo as  Nullable(Of Int32)</returns>
+        ''' <remarks></remarks>
+        Public Property ReportsTo() As Nullable(Of Int32)
+            Get
+                Return Me._reportsTo
+            End Get
+            Set(ByVal value As Nullable(Of Int32))
+                Me._reportsTo = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property HireDate
-    ''' </summary>
-    ''' <returns>HireDate as  Nullable(Of DateTime)</returns>
-    ''' <remarks></remarks>
-    Public Property HireDate() as  Nullable(Of DateTime)
-        Get
-            Return Me._hireDate
-        End Get
-        Set(ByVal value as  Nullable(Of DateTime))
-             Me._hireDate = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BirthDate
+        ''' </summary>
+        ''' <returns>BirthDate as  Nullable(Of DateTime)</returns>
+        ''' <remarks></remarks>
+        Public Property BirthDate() As Nullable(Of DateTime)
+            Get
+                Return Me._birthDate
+            End Get
+            Set(ByVal value As Nullable(Of DateTime))
+                Me._birthDate = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Address
-    ''' </summary>
-    ''' <returns>Address as String</returns>
-    ''' <remarks></remarks>
-    Public Property Address() as String
-        Get
-            Return Me._address
-        End Get
-        Set(ByVal value as String)
-             Me._address = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property HireDate
+        ''' </summary>
+        ''' <returns>HireDate as  Nullable(Of DateTime)</returns>
+        ''' <remarks></remarks>
+        Public Property HireDate() As Nullable(Of DateTime)
+            Get
+                Return Me._hireDate
+            End Get
+            Set(ByVal value As Nullable(Of DateTime))
+                Me._hireDate = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property City
-    ''' </summary>
-    ''' <returns>City as String</returns>
-    ''' <remarks></remarks>
-    Public Property City() as String
-        Get
-            Return Me._city
-        End Get
-        Set(ByVal value as String)
-             Me._city = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Address
+        ''' </summary>
+        ''' <returns>Address as String</returns>
+        ''' <remarks></remarks>
+        Public Property Address() As String
+            Get
+                Return Me._address
+            End Get
+            Set(ByVal value As String)
+                Me._address = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property State
-    ''' </summary>
-    ''' <returns>State as String</returns>
-    ''' <remarks></remarks>
-    Public Property State() as String
-        Get
-            Return Me._state
-        End Get
-        Set(ByVal value as String)
-             Me._state = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property City
+        ''' </summary>
+        ''' <returns>City as String</returns>
+        ''' <remarks></remarks>
+        Public Property City() As String
+            Get
+                Return Me._city
+            End Get
+            Set(ByVal value As String)
+                Me._city = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Country
-    ''' </summary>
-    ''' <returns>Country as String</returns>
-    ''' <remarks></remarks>
-    Public Property Country() as String
-        Get
-            Return Me._country
-        End Get
-        Set(ByVal value as String)
-             Me._country = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property State
+        ''' </summary>
+        ''' <returns>State as String</returns>
+        ''' <remarks></remarks>
+        Public Property State() As String
+            Get
+                Return Me._state
+            End Get
+            Set(ByVal value As String)
+                Me._state = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property PostalCode
-    ''' </summary>
-    ''' <returns>PostalCode as String</returns>
-    ''' <remarks></remarks>
-    Public Property PostalCode() as String
-        Get
-            Return Me._postalCode
-        End Get
-        Set(ByVal value as String)
-             Me._postalCode = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Country
+        ''' </summary>
+        ''' <returns>Country as String</returns>
+        ''' <remarks></remarks>
+        Public Property Country() As String
+            Get
+                Return Me._country
+            End Get
+            Set(ByVal value As String)
+                Me._country = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Phone
-    ''' </summary>
-    ''' <returns>Phone as String</returns>
-    ''' <remarks></remarks>
-    Public Property Phone() as String
-        Get
-            Return Me._phone
-        End Get
-        Set(ByVal value as String)
-             Me._phone = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property PostalCode
+        ''' </summary>
+        ''' <returns>PostalCode as String</returns>
+        ''' <remarks></remarks>
+        Public Property PostalCode() As String
+            Get
+                Return Me._postalCode
+            End Get
+            Set(ByVal value As String)
+                Me._postalCode = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Fax
-    ''' </summary>
-    ''' <returns>Fax as String</returns>
-    ''' <remarks></remarks>
-    Public Property Fax() as String
-        Get
-            Return Me._fax
-        End Get
-        Set(ByVal value as String)
-             Me._fax = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Phone
+        ''' </summary>
+        ''' <returns>Phone as String</returns>
+        ''' <remarks></remarks>
+        Public Property Phone() As String
+            Get
+                Return Me._phone
+            End Get
+            Set(ByVal value As String)
+                Me._phone = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Email
-    ''' </summary>
-    ''' <returns>Email as String</returns>
-    ''' <remarks></remarks>
-    Public Property Email() as String
-        Get
-            Return Me._email
-        End Get
-        Set(ByVal value as String)
-             Me._email = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Fax
+        ''' </summary>
+        ''' <returns>Fax as String</returns>
+        ''' <remarks></remarks>
+        Public Property Fax() As String
+            Get
+                Return Me._fax
+            End Get
+            Set(ByVal value As String)
+                Me._fax = value
+            End Set
+        End Property
 
 
-  Public Overridable Property CustomersSupportRepId() as CustomerList
-      Get
-          Return  _CustomersSupportRepId
-      End Get
-      Set(ByVal value As CustomerList)
-          _CustomersSupportRepId = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Email
+        ''' </summary>
+        ''' <returns>Email as String</returns>
+        ''' <remarks></remarks>
+        Public Property Email() As String
+            Get
+                Return Me._email
+            End Get
+            Set(ByVal value As String)
+                Me._email = value
+            End Set
+        End Property
 
-  Public Overridable Property EmployeesReportsTo() as EmployeeList
-      Get
-          Return  _EmployeesReportsTo
-      End Get
-      Set(ByVal value As EmployeeList)
-          _EmployeesReportsTo = value
-      End Set
-  End Property   
-  
 
-  Public Overridable Property ReportsToEmployee() as Employee
-      Get
-          Return  _ReportsToEmployee
-      End Get
-      Set(ByVal value As Employee)
-          _ReportsToEmployee = value
-      End Set
-  End Property   
-  
+        Public Overridable Property CustomersSupportRepId() As CustomerList
+            Get
+                Return _CustomersSupportRepId
+            End Get
+            Set(ByVal value As CustomerList)
+                _CustomersSupportRepId = value
+            End Set
+        End Property
+
+
+        Public Overridable Property EmployeesReportsTo() As EmployeeList
+            Get
+                Return _EmployeesReportsTo
+            End Get
+            Set(ByVal value As EmployeeList)
+                _EmployeesReportsTo = value
+            End Set
+        End Property
+
+
+        Public Overridable Property ReportsToEmployee() As Employee
+            Get
+                Return _ReportsToEmployee
+            End Get
+            Set(ByVal value As Employee)
+                _ReportsToEmployee = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

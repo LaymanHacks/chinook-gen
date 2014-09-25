@@ -12,19 +12,18 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-  
- Namespace Chinook.Data.Repository     
+
+Namespace Chinook.Data.Repository
     Public Interface IArtistRepository
-        Function GetData()  as ICollection(Of Artist)
-        Sub Update( ByVal artistId As Int32,  ByVal name As String) 
-        Sub Update(ByVal artist as Artist) 
-        Function Insert( ByVal artistId As Int32,  ByVal name As String)  as Int32
-        Function Insert(ByVal artist as Artist)  as Int32
-        Sub Delete( ByVal artistId As Int32) 
-        Sub Delete(ByVal artist as Artist) 
-        Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Artist)
-        Function GetRowCount()  as Int32
-        Function GetDataByArtistId( ByVal artistId As Int32)  as ICollection(Of Artist)
-    End Interface 
-End NameSpace
-  
+        Function GetData() As ICollection(Of Artist)
+        Sub Update(ByVal artistId As Int32, ByVal name As String)
+        Sub Update(ByVal artist As Artist)
+        Function Insert(ByVal artistId As Int32, ByVal name As String) As Int32
+        Function Insert(ByVal artist As Artist) As Int32
+        Sub Delete(ByVal artistId As Int32)
+        Sub Delete(ByVal artist As Artist)
+        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Artist)
+        Function GetRowCount() As Int32
+        Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Artist)
+    End Interface
+End Namespace

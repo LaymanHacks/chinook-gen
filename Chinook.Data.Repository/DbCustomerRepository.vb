@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-  
-Namespace Chinook.Data.Repository    
-    
-    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
+
+Namespace Chinook.Data.Repository
+
+    <Global.System.ComponentModel.DataObjectAttribute(True)> _
     Public Class DbCustomerRepository
         Implements ICustomerRepository
         Implements IDisposable
@@ -28,259 +28,259 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbCustomerCommandProvider As IDbCustomerCommandProvider)
             _dbCustomerCommandProvider = dbCustomerCommandProvider
-            _dbConnHolder =_dbCustomerCommandProvider.CustomerDbConnectionHolder
+            _dbConnHolder = _dbCustomerCommandProvider.CustomerDbConnectionHolder
         End Sub
 
-      
-    ''' <summary>
-    ''' Selects one or more records from the Customer table 
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
-    Public Function GetData()  as ICollection(Of Customer) Implements ICustomerRepository.GetData
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataDbCommand()
+
+        ''' <summary>
+        ''' Selects one or more records from the Customer table 
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
+        Public Function GetData() As ICollection(Of Customer) Implements ICustomerRepository.GetData
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Customer)
+            Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Customer( reader.GetInt32("CustomerId"),  reader.GetString("FirstName") ,  reader.GetString("LastName") ,  reader.GetString("Company") ,  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") ,  reader.GetInt32("SupportRepId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Updates one or more records from the Customer table 
-    ''' </summary>
-   ''' <param name="CustomerId"></param>
-   ''' <param name="FirstName"></param>
-   ''' <param name="LastName"></param>
-   ''' <param name="Company"></param>
-   ''' <param name="Address"></param>
-   ''' <param name="City"></param>
-   ''' <param name="State"></param>
-   ''' <param name="Country"></param>
-   ''' <param name="PostalCode"></param>
-   ''' <param name="Phone"></param>
-   ''' <param name="Fax"></param>
-   ''' <param name="Email"></param>
-   ''' <param name="SupportRepId"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
-    Public Sub Update( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As Int32)  Implements ICustomerRepository.Update
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetUpdateDbCommand(CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId)
+
+        End Function
+
+        ''' <summary>
+        ''' Updates one or more records from the Customer table 
+        ''' </summary>
+        ''' <param name="CustomerId"></param>
+        ''' <param name="FirstName"></param>
+        ''' <param name="LastName"></param>
+        ''' <param name="Company"></param>
+        ''' <param name="Address"></param>
+        ''' <param name="City"></param>
+        ''' <param name="State"></param>
+        ''' <param name="Country"></param>
+        ''' <param name="PostalCode"></param>
+        ''' <param name="Phone"></param>
+        ''' <param name="Fax"></param>
+        ''' <param name="Email"></param>
+        ''' <param name="SupportRepId"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
+        Public Sub Update(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) Implements ICustomerRepository.Update
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetUpdateDbCommand(customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Updates one or more records from the Customer table 
-    ''' </summary>
-    ''' <param name="Customer"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
-    Public Sub Update(ByVal customer as Customer)  Implements ICustomerRepository.Update
-             With Customer
+        End Sub
+
+        ''' <summary>
+        ''' Updates one or more records from the Customer table 
+        ''' </summary>
+        ''' <param name="Customer"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
+        Public Sub Update(ByVal customer As Customer) Implements ICustomerRepository.Update
+            With customer
                 Update(.CustomerId, .FirstName, .LastName, .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email, CInt(.SupportRepId))
-       End With
+            End With
 
-    End Sub
-  
-    ''' <summary>
-    ''' Inserts an entity of Customer into the database.
-    ''' </summary>
-   ''' <param name="CustomerId"></param>
-   ''' <param name="FirstName"></param>
-   ''' <param name="LastName"></param>
-   ''' <param name="Company"></param>
-   ''' <param name="Address"></param>
-   ''' <param name="City"></param>
-   ''' <param name="State"></param>
-   ''' <param name="Country"></param>
-   ''' <param name="PostalCode"></param>
-   ''' <param name="Phone"></param>
-   ''' <param name="Fax"></param>
-   ''' <param name="Email"></param>
-   ''' <param name="SupportRepId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
-    Public Function Insert( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As Int32)  as Int32 Implements ICustomerRepository.Insert
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetInsertDbCommand(CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId)
+        End Sub
+
+        ''' <summary>
+        ''' Inserts an entity of Customer into the database.
+        ''' </summary>
+        ''' <param name="CustomerId"></param>
+        ''' <param name="FirstName"></param>
+        ''' <param name="LastName"></param>
+        ''' <param name="Company"></param>
+        ''' <param name="Address"></param>
+        ''' <param name="City"></param>
+        ''' <param name="State"></param>
+        ''' <param name="Country"></param>
+        ''' <param name="PostalCode"></param>
+        ''' <param name="Phone"></param>
+        ''' <param name="Fax"></param>
+        ''' <param name="Email"></param>
+        ''' <param name="SupportRepId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
+        Public Function Insert(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As Int32 Implements ICustomerRepository.Insert
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetInsertDbCommand(customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-  
-    ''' <summary>
-    ''' Inserts an entity of Customer into the database.
-    ''' </summary>
-    ''' <param name="Customer"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
-    Public Function Insert(ByVal customer as Customer)  as Int32 Implements ICustomerRepository.Insert
-             With Customer
+        End Function
+
+        ''' <summary>
+        ''' Inserts an entity of Customer into the database.
+        ''' </summary>
+        ''' <param name="Customer"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
+        Public Function Insert(ByVal customer As Customer) As Int32 Implements ICustomerRepository.Insert
+            With customer
                 Return Insert(.CustomerId, .FirstName, .LastName, .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email, CInt(.SupportRepId))
-       End With
+            End With
 
-    End Function
-  
-    ''' <summary>
-    ''' Deletes one or more records from the Customer table 
-    ''' </summary>
-   ''' <param name="CustomerId"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
-    Public Sub Delete( ByVal customerId As Int32)  Implements ICustomerRepository.Delete
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetDeleteDbCommand(CustomerId)
+        End Function
+
+        ''' <summary>
+        ''' Deletes one or more records from the Customer table 
+        ''' </summary>
+        ''' <param name="CustomerId"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
+        Public Sub Delete(ByVal customerId As Int32) Implements ICustomerRepository.Delete
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetDeleteDbCommand(customerId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Deletes one or more records from the Customer table 
-    ''' </summary>
-    ''' <param name="Customer"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
-    Public Sub Delete(ByVal customer as Customer)  Implements ICustomerRepository.Delete
-             With Customer
-Delete(.CustomerId)
-       End With
+        End Sub
 
-    End Sub
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Customer) Implements ICustomerRepository.GetPagableSubSet
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows)
+        ''' <summary>
+        ''' Deletes one or more records from the Customer table 
+        ''' </summary>
+        ''' <param name="Customer"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
+        Public Sub Delete(ByVal customer As Customer) Implements ICustomerRepository.Delete
+            With customer
+                Delete(.CustomerId)
+            End With
+
+        End Sub
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetPagableSubSet
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Customer)
+            Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Customer( reader.GetInt32("CustomerId"),  reader.GetString("FirstName") ,  reader.GetString("LastName") ,  reader.GetString("Company") ,  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") ,  reader.GetInt32("SupportRepId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for Customer
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetRowCount()  as Int32 Implements ICustomerRepository.GetRowCount
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetRowCountDbCommand()
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for Customer
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetRowCount() As Int32 Implements ICustomerRepository.GetRowCount
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByCustomerId returns a IDataReader for Customer
-    ''' </summary>
-   ''' <param name="CustomerId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByCustomerId( ByVal customerId As Int32)  as ICollection(Of Customer) Implements ICustomerRepository.GetDataByCustomerId
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand(CustomerId)
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByCustomerId returns a IDataReader for Customer
+        ''' </summary>
+        ''' <param name="CustomerId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataByCustomerId
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand(customerId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Customer)
+            Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Customer( reader.GetInt32("CustomerId"),  reader.GetString("FirstName") ,  reader.GetString("LastName") ,  reader.GetString("Company") ,  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") ,  reader.GetInt32("SupportRepId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataBySupportRepId returns a IDataReader for Customer
-    ''' </summary>
-   ''' <param name="SupportRepId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataBySupportRepId( ByVal supportRepId As Int32)  as ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepId
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand(SupportRepId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataBySupportRepId returns a IDataReader for Customer
+        ''' </summary>
+        ''' <param name="SupportRepId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataBySupportRepId(ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepId
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand(supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Customer)
+            Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Customer( reader.GetInt32("CustomerId"),  reader.GetString("FirstName") ,  reader.GetString("LastName") ,  reader.GetString("Company") ,  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") ,  reader.GetInt32("SupportRepId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>
-   ''' <param name="SupportRepId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataBySupportRepIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal supportRepId As Int32)  as ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPagableSubSet
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows, SupportRepId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>
+        ''' <param name="SupportRepId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataBySupportRepIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPagableSubSet
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of Customer)
+            Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Customer( reader.GetInt32("CustomerId"),  reader.GetString("FirstName") ,  reader.GetString("LastName") ,  reader.GetString("Company") ,  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") ,  reader.GetInt32("SupportRepId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for Customer
-    ''' </summary>
-   ''' <param name="SupportRepId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataBySupportRepIdRowCount( ByVal supportRepId As Int32)  as Int32 Implements ICustomerRepository.GetDataBySupportRepIdRowCount
-        Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand(SupportRepId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for Customer
+        ''' </summary>
+        ''' <param name="SupportRepId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataBySupportRepIdRowCount(ByVal supportRepId As Int32) As Int32 Implements ICustomerRepository.GetDataBySupportRepIdRowCount
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand(supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-   
-  
+        End Function
+
+
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -302,6 +302,6 @@ Delete(.CustomerId)
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
- 
-  End Class 
-End NameSpace
+
+    End Class
+End Namespace

@@ -12,22 +12,21 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-  
- Namespace Chinook.Data.Repository     
+
+Namespace Chinook.Data.Repository
     Public Interface IPlaylistRepository
-        Function GetData()  as ICollection(Of Playlist)
-        Sub Update( ByVal playlistId As Int32,  ByVal name As String) 
-        Sub Update(ByVal playlist as Playlist) 
-        Function Insert( ByVal playlistId As Int32,  ByVal name As String)  as Int32
-        Function Insert(ByVal playlist as Playlist)  as Int32
-        Sub Delete( ByVal playlistId As Int32) 
-        Sub Delete(ByVal playlist as Playlist) 
-        Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Playlist)
-        Function GetRowCount()  as Int32
-        Function GetDataByPlaylistId( ByVal playlistId As Int32)  as ICollection(Of Playlist)
-        Function GetPlaylistsByTrackId( ByVal trackId As Int32)  as ICollection(Of Playlist)
-        Function GetPlaylistsByTrackIdPagableSubSet( ByVal trackId As Int32,  ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of Playlist)
-        Function GetPlaylistsByTrackIdRowCount( ByVal trackId As Int32)  as Int32
-    End Interface 
-End NameSpace
-  
+        Function GetData() As ICollection(Of Playlist)
+        Sub Update(ByVal playlistId As Int32, ByVal name As String)
+        Sub Update(ByVal playlist As Playlist)
+        Function Insert(ByVal playlistId As Int32, ByVal name As String) As Int32
+        Function Insert(ByVal playlist As Playlist) As Int32
+        Sub Delete(ByVal playlistId As Int32)
+        Sub Delete(ByVal playlist As Playlist)
+        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist)
+        Function GetRowCount() As Int32
+        Function GetDataByPlaylistId(ByVal playlistId As Int32) As ICollection(Of Playlist)
+        Function GetPlaylistsByTrackId(ByVal trackId As Int32) As ICollection(Of Playlist)
+        Function GetPlaylistsByTrackIdPagableSubSet(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist)
+        Function GetPlaylistsByTrackIdRowCount(ByVal trackId As Int32) As Int32
+    End Interface
+End Namespace

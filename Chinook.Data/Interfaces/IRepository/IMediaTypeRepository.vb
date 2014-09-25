@@ -12,19 +12,18 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-  
- Namespace Chinook.Data.Repository     
+
+Namespace Chinook.Data.Repository
     Public Interface IMediaTypeRepository
-        Function GetData()  as ICollection(Of MediaType)
-        Sub Update( ByVal mediaTypeId As Int32,  ByVal name As String) 
-        Sub Update(ByVal mediaType as MediaType) 
-        Function Insert( ByVal mediaTypeId As Int32,  ByVal name As String)  as Int32
-        Function Insert(ByVal mediaType as MediaType)  as Int32
-        Sub Delete( ByVal mediaTypeId As Int32) 
-        Sub Delete(ByVal mediaType as MediaType) 
-        Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of MediaType)
-        Function GetRowCount()  as Int32
-        Function GetDataByMediaTypeId( ByVal mediaTypeId As Int32)  as ICollection(Of MediaType)
-    End Interface 
-End NameSpace
-  
+        Function GetData() As ICollection(Of MediaType)
+        Sub Update(ByVal mediaTypeId As Int32, ByVal name As String)
+        Sub Update(ByVal mediaType As MediaType)
+        Function Insert(ByVal mediaTypeId As Int32, ByVal name As String) As Int32
+        Function Insert(ByVal mediaType As MediaType) As Int32
+        Sub Delete(ByVal mediaTypeId As Int32)
+        Sub Delete(ByVal mediaType As MediaType)
+        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of MediaType)
+        Function GetRowCount() As Int32
+        Function GetDataByMediaTypeId(ByVal mediaTypeId As Int32) As ICollection(Of MediaType)
+    End Interface
+End Namespace

@@ -12,78 +12,77 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class PlaylistList
-     Inherits Collection(Of Playlist)
-                
-          Public Function First() As Playlist
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class PlaylistList
+        Inherits Collection(Of Playlist)
 
-<Serializable()> _
-Partial Public Class Playlist
-     Private _playlistId as Int32
-     Private _name as String
-    Private _Tracks as TrackList  
+        Public Function First() As Playlist
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Playlist
+        Private _playlistId As Int32
+        Private _name As String
+        Private _Tracks As TrackList
 
-  Public Sub New(ByVal playlistId as Int32, ByVal name as String)
-      MyBase.New()
-      
-        _playlistId = playlistId
-        _name = name
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property PlaylistId
-    ''' </summary>
-    ''' <returns>PlaylistId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property PlaylistId() as Int32
-        Get
-            Return Me._playlistId
-        End Get
-        Set(ByVal value as Int32)
-             Me._playlistId = value
-        End Set
-    End Property
+        Public Sub New(ByVal playlistId As Int32, ByVal name As String)
+            MyBase.New()
+
+            _playlistId = playlistId
+            _name = name
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property Name
-    ''' </summary>
-    ''' <returns>Name as String</returns>
-    ''' <remarks></remarks>
-    Public Property Name() as String
-        Get
-            Return Me._name
-        End Get
-        Set(ByVal value as String)
-             Me._name = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property PlaylistId
+        ''' </summary>
+        ''' <returns>PlaylistId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property PlaylistId() As Int32
+            Get
+                Return Me._playlistId
+            End Get
+            Set(ByVal value As Int32)
+                Me._playlistId = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Tracks() as TrackList
-      Get
-          Return  _Tracks
-      End Get
-      Set(ByVal value As TrackList)
-          _Tracks = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Name
+        ''' </summary>
+        ''' <returns>Name as String</returns>
+        ''' <remarks></remarks>
+        Public Property Name() As String
+            Get
+                Return Me._name
+            End Get
+            Set(ByVal value As String)
+                Me._name = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Tracks() As TrackList
+            Get
+                Return _Tracks
+            End Get
+            Set(ByVal value As TrackList)
+                _Tracks = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

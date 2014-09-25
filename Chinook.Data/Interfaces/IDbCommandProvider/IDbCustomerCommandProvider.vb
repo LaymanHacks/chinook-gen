@@ -15,15 +15,15 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property CustomerDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As Int32) As IDbCommand
-        Function GetInsertDbCommand( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As Int32) As IDbCommand
-        Function GetDeleteDbCommand( ByVal customerId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32) As IDbCommand
+        Function GetUpdateDbCommand(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As IDbCommand
+        Function GetInsertDbCommand(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As IDbCommand
+        Function GetDeleteDbCommand(ByVal customerId As Int32) As IDbCommand
+        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByCustomerIdDbCommand( ByVal customerId As Int32) As IDbCommand
-        Function GetGetDataBySupportRepIdDbCommand( ByVal supportRepId As Int32) As IDbCommand
-        Function GetGetDataBySupportRepIdPagableSubSetDbCommand( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal supportRepId As Int32) As IDbCommand
-        Function GetGetDataBySupportRepIdRowCountDbCommand( ByVal supportRepId As Int32) As IDbCommand
+        Function GetGetDataByCustomerIdDbCommand(ByVal customerId As Int32) As IDbCommand
+        Function GetGetDataBySupportRepIdDbCommand(ByVal supportRepId As Int32) As IDbCommand
+        Function GetGetDataBySupportRepIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As IDbCommand
+        Function GetGetDataBySupportRepIdRowCountDbCommand(ByVal supportRepId As Int32) As IDbCommand
 
     End Interface
 End Namespace

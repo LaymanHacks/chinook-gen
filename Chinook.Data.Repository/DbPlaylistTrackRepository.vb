@@ -14,10 +14,10 @@ Imports Chinook.Data
 Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
-  
-Namespace Chinook.Data.Repository    
-    
-    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
+
+Namespace Chinook.Data.Repository
+
+    <Global.System.ComponentModel.DataObjectAttribute(True)> _
     Public Class DbPlaylistTrackRepository
         Implements IPlaylistTrackRepository
         Implements IDisposable
@@ -27,305 +27,305 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbPlaylistTrackCommandProvider As IDbPlaylistTrackCommandProvider)
             _dbPlaylistTrackCommandProvider = dbPlaylistTrackCommandProvider
-            _dbConnHolder =_dbPlaylistTrackCommandProvider.PlaylistTrackDbConnectionHolder
+            _dbConnHolder = _dbPlaylistTrackCommandProvider.PlaylistTrackDbConnectionHolder
         End Sub
 
-      
-    ''' <summary>
-    ''' Selects one or more records from the PlaylistTrack table 
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
-    Public Function GetData()  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetData
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataDbCommand()
+
+        ''' <summary>
+        ''' Selects one or more records from the PlaylistTrack table 
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
+        Public Function GetData() As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetData
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Updates one or more records from the PlaylistTrack table 
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>
-   ''' <param name="TrackId"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
-    Public Sub Update( ByVal playlistId As Int32,  ByVal trackId As Int32)  Implements IPlaylistTrackRepository.Update
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetUpdateDbCommand(PlaylistId, TrackId)
+
+        End Function
+
+        ''' <summary>
+        ''' Updates one or more records from the PlaylistTrack table 
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>
+        ''' <param name="TrackId"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
+        Public Sub Update(ByVal playlistId As Int32, ByVal trackId As Int32) Implements IPlaylistTrackRepository.Update
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetUpdateDbCommand(playlistId, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Updates one or more records from the PlaylistTrack table 
-    ''' </summary>
-    ''' <param name="PlaylistTrack"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
-    Public Sub Update(ByVal playlistTrack as PlaylistTrack)  Implements IPlaylistTrackRepository.Update
-             With PlaylistTrack
-Update(.PlaylistId, .TrackId)
-       End With
+        End Sub
 
-    End Sub
-  
-    ''' <summary>
-    ''' Inserts an entity of PlaylistTrack into the database.
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>
-   ''' <param name="TrackId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
-    Public Function Insert( ByVal playlistId As Int32,  ByVal trackId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.Insert
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetInsertDbCommand(PlaylistId, TrackId)
+        ''' <summary>
+        ''' Updates one or more records from the PlaylistTrack table 
+        ''' </summary>
+        ''' <param name="PlaylistTrack"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
+        Public Sub Update(ByVal playlistTrack As PlaylistTrack) Implements IPlaylistTrackRepository.Update
+            With playlistTrack
+                Update(.PlaylistId, .TrackId)
+            End With
+
+        End Sub
+
+        ''' <summary>
+        ''' Inserts an entity of PlaylistTrack into the database.
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>
+        ''' <param name="TrackId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
+        Public Function Insert(ByVal playlistId As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.Insert
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetInsertDbCommand(playlistId, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Inserts an entity of PlaylistTrack into the database.
-    ''' </summary>
-    ''' <param name="PlaylistTrack"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
-    Public Function Insert(ByVal playlistTrack as PlaylistTrack)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.Insert
-             With PlaylistTrack
- Return Insert(.PlaylistId, .TrackId)
-       End With
 
-    End Function
-  
-    ''' <summary>
-    ''' Deletes one or more records from the PlaylistTrack table 
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>
-   ''' <param name="TrackId"></param>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
-    Public Sub Delete( ByVal playlistId As Int32,  ByVal trackId As Int32)  Implements IPlaylistTrackRepository.Delete
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetDeleteDbCommand(PlaylistId, TrackId)
+        End Function
+
+        ''' <summary>
+        ''' Inserts an entity of PlaylistTrack into the database.
+        ''' </summary>
+        ''' <param name="PlaylistTrack"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
+        Public Function Insert(ByVal playlistTrack As PlaylistTrack) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.Insert
+            With playlistTrack
+                Return Insert(.PlaylistId, .TrackId)
+            End With
+
+        End Function
+
+        ''' <summary>
+        ''' Deletes one or more records from the PlaylistTrack table 
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>
+        ''' <param name="TrackId"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
+        Public Sub Delete(ByVal playlistId As Int32, ByVal trackId As Int32) Implements IPlaylistTrackRepository.Delete
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetDeleteDbCommand(playlistId, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-          Command.ExecuteNonQuery
+            command.ExecuteNonQuery()
             _dbConnHolder.Close()
-    End Sub
-  
-    ''' <summary>
-    ''' Deletes one or more records from the PlaylistTrack table 
-    ''' </summary>
-    ''' <param name="PlaylistTrack"></param>
-    ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
-    Public Sub Delete(ByVal playlistTrack as PlaylistTrack)  Implements IPlaylistTrackRepository.Delete
-             With PlaylistTrack
-Delete(.PlaylistId, .TrackId)
-       End With
+        End Sub
 
-    End Sub
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetPagableSubSet
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows)
+        ''' <summary>
+        ''' Deletes one or more records from the PlaylistTrack table 
+        ''' </summary>
+        ''' <param name="PlaylistTrack"></param>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
+        Public Sub Delete(ByVal playlistTrack As PlaylistTrack) Implements IPlaylistTrackRepository.Delete
+            With playlistTrack
+                Delete(.PlaylistId, .TrackId)
+            End With
+
+        End Sub
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetPagableSubSet
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for PlaylistTrack
-    ''' </summary>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetRowCount()  as Int32 Implements IPlaylistTrackRepository.GetRowCount
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetRowCountDbCommand()
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for PlaylistTrack
+        ''' </summary>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetRowCount() As Int32 Implements IPlaylistTrackRepository.GetRowCount
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByPlaylistIdTrackId returns a IDataReader for PlaylistTrack
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>
-   ''' <param name="TrackId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByPlaylistIdTrackId( ByVal playlistId As Int32,  ByVal trackId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdTrackId
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdTrackIdDbCommand(PlaylistId, TrackId)
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByPlaylistIdTrackId returns a IDataReader for PlaylistTrack
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>
+        ''' <param name="TrackId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByPlaylistIdTrackId(ByVal playlistId As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdTrackId
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdTrackIdDbCommand(playlistId, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByPlaylistId returns a IDataReader for PlaylistTrack
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByPlaylistId( ByVal playlistId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistId
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdDbCommand(PlaylistId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByPlaylistId returns a IDataReader for PlaylistTrack
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByPlaylistId(ByVal playlistId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistId
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdDbCommand(playlistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>
-   ''' <param name="PlaylistId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByPlaylistIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal playlistId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdPagableSubSet
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows, PlaylistId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>
+        ''' <param name="PlaylistId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByPlaylistIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdPagableSubSet
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, playlistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for PlaylistTrack
-    ''' </summary>
-   ''' <param name="PlaylistId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByPlaylistIdRowCount( ByVal playlistId As Int32)  as Int32 Implements IPlaylistTrackRepository.GetDataByPlaylistIdRowCount
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdRowCountDbCommand(PlaylistId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for PlaylistTrack
+        ''' </summary>
+        ''' <param name="PlaylistId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByPlaylistIdRowCount(ByVal playlistId As Int32) As Int32 Implements IPlaylistTrackRepository.GetDataByPlaylistIdRowCount
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdRowCountDbCommand(playlistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-  
-    ''' <summary>
-    ''' Function GetDataByTrackId returns a IDataReader for PlaylistTrack
-    ''' </summary>
-   ''' <param name="TrackId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByTrackId( ByVal trackId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackId
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdDbCommand(TrackId)
+        End Function
+
+        ''' <summary>
+        ''' Function GetDataByTrackId returns a IDataReader for PlaylistTrack
+        ''' </summary>
+        ''' <param name="TrackId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackId
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdDbCommand(trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
-    ''' </summary>
-   ''' <param name="sortExpression"></param>
-   ''' <param name="startRowIndex"></param>
-   ''' <param name="MaximumRows"></param>
-   ''' <param name="TrackId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByTrackIdPagableSubSet( ByVal sortExpression As String,  ByVal startRowIndex As Int32,  ByVal maximumRows As Int32,  ByVal trackId As Int32)  as ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackIdPagableSubSet
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdPagableSubSetDbCommand(sortExpression, startRowIndex, MaximumRows, TrackId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from PlaylistTrack
+        ''' </summary>
+        ''' <param name="sortExpression"></param>
+        ''' <param name="startRowIndex"></param>
+        ''' <param name="MaximumRows"></param>
+        ''' <param name="TrackId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByTrackIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackIdPagableSubSet
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim entList as new Collection(Of PlaylistTrack)
+            Dim entList As New Collection(Of PlaylistTrack)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New PlaylistTrack( reader.GetInt32("PlaylistId"),  reader.GetInt32("TrackId"))
-                 entList.Add(tempEntity)
+                Dim tempEntity As New PlaylistTrack(reader.GetInt32("PlaylistId"), reader.GetInt32("TrackId"))
+                entList.Add(tempEntity)
             Loop
-            reader.Close
+            reader.Close()
             Return entList
-    
-    End Function
-  
-    ''' <summary>
-    ''' Function GetRowCount returns the row count for PlaylistTrack
-    ''' </summary>
-   ''' <param name="TrackId"></param>''' <returns></returns>
-   ''' <remarks></remarks> 
-  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
-    Public Function GetDataByTrackIdRowCount( ByVal trackId As Int32)  as Int32 Implements IPlaylistTrackRepository.GetDataByTrackIdRowCount
-        Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdRowCountDbCommand(TrackId)
+
+        End Function
+
+        ''' <summary>
+        ''' Function GetRowCount returns the row count for PlaylistTrack
+        ''' </summary>
+        ''' <param name="TrackId"></param>''' <returns></returns>
+        ''' <remarks></remarks> 
+        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
+        Public Function GetDataByTrackIdRowCount(ByVal trackId As Int32) As Int32 Implements IPlaylistTrackRepository.GetDataByTrackIdRowCount
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdRowCountDbCommand(trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue 
+            Return returnValue
 
-    End Function
-   
-  
+        End Function
+
+
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -347,6 +347,6 @@ Delete(.PlaylistId, .TrackId)
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
- 
-  End Class 
-End NameSpace
+
+    End Class
+End Namespace

@@ -12,208 +12,207 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class InvoiceList
-     Inherits Collection(Of Invoice)
-                
-          Public Function First() As Invoice
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class InvoiceList
+        Inherits Collection(Of Invoice)
 
-<Serializable()> _
-Partial Public Class Invoice
-     Private _invoiceId as Int32
-     Private _customerId as Int32
-     Private _invoiceDate as DateTime
-     Private _billingAddress as String
-     Private _billingCity as String
-     Private _billingState as String
-     Private _billingCountry as String
-     Private _billingPostalCode as String
-     Private _total as Decimal
-    Private _InvoiceLines as InvoiceLineList
-    Private _Customer as Customer  
+        Public Function First() As Invoice
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Invoice
+        Private _invoiceId As Int32
+        Private _customerId As Int32
+        Private _invoiceDate As DateTime
+        Private _billingAddress As String
+        Private _billingCity As String
+        Private _billingState As String
+        Private _billingCountry As String
+        Private _billingPostalCode As String
+        Private _total As Decimal
+        Private _InvoiceLines As InvoiceLineList
+        Private _Customer As Customer
 
-  Public Sub New(ByVal invoiceId as Int32, ByVal customerId as Int32, ByVal invoiceDate as DateTime, ByVal billingAddress as String, ByVal billingCity as String, ByVal billingState as String, ByVal billingCountry as String, ByVal billingPostalCode as String, ByVal total as Decimal)
-      MyBase.New()
-      
-        _invoiceId = invoiceId
-        _customerId = customerId
-        _invoiceDate = invoiceDate
-        _billingAddress = billingAddress
-        _billingCity = billingCity
-        _billingState = billingState
-        _billingCountry = billingCountry
-        _billingPostalCode = billingPostalCode
-        _total = total
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property InvoiceId
-    ''' </summary>
-    ''' <returns>InvoiceId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property InvoiceId() as Int32
-        Get
-            Return Me._invoiceId
-        End Get
-        Set(ByVal value as Int32)
-             Me._invoiceId = value
-        End Set
-    End Property
+        Public Sub New(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal)
+            MyBase.New()
+
+            _invoiceId = invoiceId
+            _customerId = customerId
+            _invoiceDate = invoiceDate
+            _billingAddress = billingAddress
+            _billingCity = billingCity
+            _billingState = billingState
+            _billingCountry = billingCountry
+            _billingPostalCode = billingPostalCode
+            _total = total
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property CustomerId
-    ''' </summary>
-    ''' <returns>CustomerId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property CustomerId() as Int32
-        Get
-            Return Me._customerId
-        End Get
-        Set(ByVal value as Int32)
-             Me._customerId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property InvoiceId
+        ''' </summary>
+        ''' <returns>InvoiceId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property InvoiceId() As Int32
+            Get
+                Return Me._invoiceId
+            End Get
+            Set(ByVal value As Int32)
+                Me._invoiceId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property InvoiceDate
-    ''' </summary>
-    ''' <returns>InvoiceDate as DateTime</returns>
-    ''' <remarks></remarks>
-    Public Property InvoiceDate() as DateTime
-        Get
-            Return Me._invoiceDate
-        End Get
-        Set(ByVal value as DateTime)
-             Me._invoiceDate = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property CustomerId
+        ''' </summary>
+        ''' <returns>CustomerId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property CustomerId() As Int32
+            Get
+                Return Me._customerId
+            End Get
+            Set(ByVal value As Int32)
+                Me._customerId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BillingAddress
-    ''' </summary>
-    ''' <returns>BillingAddress as String</returns>
-    ''' <remarks></remarks>
-    Public Property BillingAddress() as String
-        Get
-            Return Me._billingAddress
-        End Get
-        Set(ByVal value as String)
-             Me._billingAddress = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property InvoiceDate
+        ''' </summary>
+        ''' <returns>InvoiceDate as DateTime</returns>
+        ''' <remarks></remarks>
+        Public Property InvoiceDate() As DateTime
+            Get
+                Return Me._invoiceDate
+            End Get
+            Set(ByVal value As DateTime)
+                Me._invoiceDate = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BillingCity
-    ''' </summary>
-    ''' <returns>BillingCity as String</returns>
-    ''' <remarks></remarks>
-    Public Property BillingCity() as String
-        Get
-            Return Me._billingCity
-        End Get
-        Set(ByVal value as String)
-             Me._billingCity = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BillingAddress
+        ''' </summary>
+        ''' <returns>BillingAddress as String</returns>
+        ''' <remarks></remarks>
+        Public Property BillingAddress() As String
+            Get
+                Return Me._billingAddress
+            End Get
+            Set(ByVal value As String)
+                Me._billingAddress = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BillingState
-    ''' </summary>
-    ''' <returns>BillingState as String</returns>
-    ''' <remarks></remarks>
-    Public Property BillingState() as String
-        Get
-            Return Me._billingState
-        End Get
-        Set(ByVal value as String)
-             Me._billingState = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BillingCity
+        ''' </summary>
+        ''' <returns>BillingCity as String</returns>
+        ''' <remarks></remarks>
+        Public Property BillingCity() As String
+            Get
+                Return Me._billingCity
+            End Get
+            Set(ByVal value As String)
+                Me._billingCity = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BillingCountry
-    ''' </summary>
-    ''' <returns>BillingCountry as String</returns>
-    ''' <remarks></remarks>
-    Public Property BillingCountry() as String
-        Get
-            Return Me._billingCountry
-        End Get
-        Set(ByVal value as String)
-             Me._billingCountry = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BillingState
+        ''' </summary>
+        ''' <returns>BillingState as String</returns>
+        ''' <remarks></remarks>
+        Public Property BillingState() As String
+            Get
+                Return Me._billingState
+            End Get
+            Set(ByVal value As String)
+                Me._billingState = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property BillingPostalCode
-    ''' </summary>
-    ''' <returns>BillingPostalCode as String</returns>
-    ''' <remarks></remarks>
-    Public Property BillingPostalCode() as String
-        Get
-            Return Me._billingPostalCode
-        End Get
-        Set(ByVal value as String)
-             Me._billingPostalCode = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BillingCountry
+        ''' </summary>
+        ''' <returns>BillingCountry as String</returns>
+        ''' <remarks></remarks>
+        Public Property BillingCountry() As String
+            Get
+                Return Me._billingCountry
+            End Get
+            Set(ByVal value As String)
+                Me._billingCountry = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Total
-    ''' </summary>
-    ''' <returns>Total as Decimal</returns>
-    ''' <remarks></remarks>
-    Public Property Total() as Decimal
-        Get
-            Return Me._total
-        End Get
-        Set(ByVal value as Decimal)
-             Me._total = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property BillingPostalCode
+        ''' </summary>
+        ''' <returns>BillingPostalCode as String</returns>
+        ''' <remarks></remarks>
+        Public Property BillingPostalCode() As String
+            Get
+                Return Me._billingPostalCode
+            End Get
+            Set(ByVal value As String)
+                Me._billingPostalCode = value
+            End Set
+        End Property
 
 
-  Public Overridable Property InvoiceLines() as InvoiceLineList
-      Get
-          Return  _InvoiceLines
-      End Get
-      Set(ByVal value As InvoiceLineList)
-          _InvoiceLines = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Total
+        ''' </summary>
+        ''' <returns>Total as Decimal</returns>
+        ''' <remarks></remarks>
+        Public Property Total() As Decimal
+            Get
+                Return Me._total
+            End Get
+            Set(ByVal value As Decimal)
+                Me._total = value
+            End Set
+        End Property
 
-  Public Overridable Property Customer() as Customer
-      Get
-          Return  _Customer
-      End Get
-      Set(ByVal value As Customer)
-          _Customer = value
-      End Set
-  End Property   
-  
+
+        Public Overridable Property InvoiceLines() As InvoiceLineList
+            Get
+                Return _InvoiceLines
+            End Get
+            Set(ByVal value As InvoiceLineList)
+                _InvoiceLines = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Customer() As Customer
+            Get
+                Return _Customer
+            End Get
+            Set(ByVal value As Customer)
+                _Customer = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

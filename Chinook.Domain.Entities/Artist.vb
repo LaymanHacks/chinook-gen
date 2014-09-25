@@ -12,78 +12,77 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class ArtistList
-     Inherits Collection(Of Artist)
-                
-          Public Function First() As Artist
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class ArtistList
+        Inherits Collection(Of Artist)
 
-<Serializable()> _
-Partial Public Class Artist
-     Private _artistId as Int32
-     Private _name as String
-    Private _Albums as AlbumList  
+        Public Function First() As Artist
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Artist
+        Private _artistId As Int32
+        Private _name As String
+        Private _Albums As AlbumList
 
-  Public Sub New(ByVal artistId as Int32, ByVal name as String)
-      MyBase.New()
-      
-        _artistId = artistId
-        _name = name
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property ArtistId
-    ''' </summary>
-    ''' <returns>ArtistId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property ArtistId() as Int32
-        Get
-            Return Me._artistId
-        End Get
-        Set(ByVal value as Int32)
-             Me._artistId = value
-        End Set
-    End Property
+        Public Sub New(ByVal artistId As Int32, ByVal name As String)
+            MyBase.New()
+
+            _artistId = artistId
+            _name = name
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property Name
-    ''' </summary>
-    ''' <returns>Name as String</returns>
-    ''' <remarks></remarks>
-    Public Property Name() as String
-        Get
-            Return Me._name
-        End Get
-        Set(ByVal value as String)
-             Me._name = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property ArtistId
+        ''' </summary>
+        ''' <returns>ArtistId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property ArtistId() As Int32
+            Get
+                Return Me._artistId
+            End Get
+            Set(ByVal value As Int32)
+                Me._artistId = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Albums() as AlbumList
-      Get
-          Return  _Albums
-      End Get
-      Set(ByVal value As AlbumList)
-          _Albums = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Name
+        ''' </summary>
+        ''' <returns>Name as String</returns>
+        ''' <remarks></remarks>
+        Public Property Name() As String
+            Get
+                Return Me._name
+            End Get
+            Set(ByVal value As String)
+                Me._name = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Albums() As AlbumList
+            Get
+                Return _Albums
+            End Get
+            Set(ByVal value As AlbumList)
+                _Albums = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

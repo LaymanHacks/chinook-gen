@@ -12,106 +12,105 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class AlbumList
-     Inherits Collection(Of Album)
-                
-          Public Function First() As Album
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class AlbumList
+        Inherits Collection(Of Album)
 
-<Serializable()> _
-Partial Public Class Album
-     Private _albumId as Int32
-     Private _title as String
-     Private _artistId as Int32
-    Private _Tracks as TrackList
-    Private _Artist as Artist  
+        Public Function First() As Album
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class Album
+        Private _albumId As Int32
+        Private _title As String
+        Private _artistId As Int32
+        Private _Tracks As TrackList
+        Private _Artist As Artist
 
-  Public Sub New(ByVal albumId as Int32, ByVal title as String, ByVal artistId as Int32)
-      MyBase.New()
-      
-        _albumId = albumId
-        _title = title
-        _artistId = artistId
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property AlbumId
-    ''' </summary>
-    ''' <returns>AlbumId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property AlbumId() as Int32
-        Get
-            Return Me._albumId
-        End Get
-        Set(ByVal value as Int32)
-             Me._albumId = value
-        End Set
-    End Property
+        Public Sub New(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32)
+            MyBase.New()
+
+            _albumId = albumId
+            _title = title
+            _artistId = artistId
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property Title
-    ''' </summary>
-    ''' <returns>Title as String</returns>
-    ''' <remarks></remarks>
-    Public Property Title() as String
-        Get
-            Return Me._title
-        End Get
-        Set(ByVal value as String)
-             Me._title = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property AlbumId
+        ''' </summary>
+        ''' <returns>AlbumId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property AlbumId() As Int32
+            Get
+                Return Me._albumId
+            End Get
+            Set(ByVal value As Int32)
+                Me._albumId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property ArtistId
-    ''' </summary>
-    ''' <returns>ArtistId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property ArtistId() as Int32
-        Get
-            Return Me._artistId
-        End Get
-        Set(ByVal value as Int32)
-             Me._artistId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property Title
+        ''' </summary>
+        ''' <returns>Title as String</returns>
+        ''' <remarks></remarks>
+        Public Property Title() As String
+            Get
+                Return Me._title
+            End Get
+            Set(ByVal value As String)
+                Me._title = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Tracks() as TrackList
-      Get
-          Return  _Tracks
-      End Get
-      Set(ByVal value As TrackList)
-          _Tracks = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property ArtistId
+        ''' </summary>
+        ''' <returns>ArtistId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property ArtistId() As Int32
+            Get
+                Return Me._artistId
+            End Get
+            Set(ByVal value As Int32)
+                Me._artistId = value
+            End Set
+        End Property
 
-  Public Overridable Property Artist() as Artist
-      Get
-          Return  _Artist
-      End Get
-      Set(ByVal value As Artist)
-          _Artist = value
-      End Set
-  End Property   
-  
+
+        Public Overridable Property Tracks() As TrackList
+            Get
+                Return _Tracks
+            End Get
+            Set(ByVal value As TrackList)
+                _Tracks = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Artist() As Artist
+            Get
+                Return _Artist
+            End Get
+            Set(ByVal value As Artist)
+                _Artist = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 

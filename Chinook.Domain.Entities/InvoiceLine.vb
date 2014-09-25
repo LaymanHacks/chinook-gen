@@ -12,140 +12,139 @@ Imports System.Collections.ObjectModel
 Imports System.Xml.Serialization
 
 Namespace Chinook.Domain.Entities
-  <Serializable()>  _
-  Partial Public Class InvoiceLineList
-     Inherits Collection(Of InvoiceLine)
-                
-          Public Function First() As InvoiceLine
-          If  MyBase.Count > 0 Then
-              Return MyBase.Item(0)
-          Else
-              Return Nothing
-          End If
-      End Function
-  End Class
+    <Serializable()> _
+    Partial Public Class InvoiceLineList
+        Inherits Collection(Of InvoiceLine)
 
-<Serializable()> _
-Partial Public Class InvoiceLine
-     Private _invoiceLineId as Int32
-     Private _invoiceId as Int32
-     Private _trackId as Int32
-     Private _unitPrice as Decimal
-     Private _quantity as Int32
-    Private _Invoice as Invoice
-    Private _Track as Track  
+        Public Function First() As InvoiceLine
+            If MyBase.Count > 0 Then
+                Return MyBase.Item(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+    End Class
 
-  Public Sub New()
-    MyBase.New
-    
- End Sub
+    <Serializable()> _
+    Partial Public Class InvoiceLine
+        Private _invoiceLineId As Int32
+        Private _invoiceId As Int32
+        Private _trackId As Int32
+        Private _unitPrice As Decimal
+        Private _quantity As Int32
+        Private _Invoice As Invoice
+        Private _Track As Track
 
-  Public Sub New(ByVal invoiceLineId as Int32, ByVal invoiceId as Int32, ByVal trackId as Int32, ByVal unitPrice as Decimal, ByVal quantity as Int32)
-      MyBase.New()
-      
-        _invoiceLineId = invoiceLineId
-        _invoiceId = invoiceId
-        _trackId = trackId
-        _unitPrice = unitPrice
-        _quantity = quantity
-  End Sub
+        Public Sub New()
+            MyBase.New()
 
+        End Sub
 
-    ''' <summary>
-    ''' Public Property InvoiceLineId
-    ''' </summary>
-    ''' <returns>InvoiceLineId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property InvoiceLineId() as Int32
-        Get
-            Return Me._invoiceLineId
-        End Get
-        Set(ByVal value as Int32)
-             Me._invoiceLineId = value
-        End Set
-    End Property
+        Public Sub New(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32)
+            MyBase.New()
+
+            _invoiceLineId = invoiceLineId
+            _invoiceId = invoiceId
+            _trackId = trackId
+            _unitPrice = unitPrice
+            _quantity = quantity
+        End Sub
 
 
-    ''' <summary>
-    ''' Public Property InvoiceId
-    ''' </summary>
-    ''' <returns>InvoiceId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property InvoiceId() as Int32
-        Get
-            Return Me._invoiceId
-        End Get
-        Set(ByVal value as Int32)
-             Me._invoiceId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property InvoiceLineId
+        ''' </summary>
+        ''' <returns>InvoiceLineId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property InvoiceLineId() As Int32
+            Get
+                Return Me._invoiceLineId
+            End Get
+            Set(ByVal value As Int32)
+                Me._invoiceLineId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property TrackId
-    ''' </summary>
-    ''' <returns>TrackId as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property TrackId() as Int32
-        Get
-            Return Me._trackId
-        End Get
-        Set(ByVal value as Int32)
-             Me._trackId = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property InvoiceId
+        ''' </summary>
+        ''' <returns>InvoiceId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property InvoiceId() As Int32
+            Get
+                Return Me._invoiceId
+            End Get
+            Set(ByVal value As Int32)
+                Me._invoiceId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property UnitPrice
-    ''' </summary>
-    ''' <returns>UnitPrice as Decimal</returns>
-    ''' <remarks></remarks>
-    Public Property UnitPrice() as Decimal
-        Get
-            Return Me._unitPrice
-        End Get
-        Set(ByVal value as Decimal)
-             Me._unitPrice = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property TrackId
+        ''' </summary>
+        ''' <returns>TrackId as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property TrackId() As Int32
+            Get
+                Return Me._trackId
+            End Get
+            Set(ByVal value As Int32)
+                Me._trackId = value
+            End Set
+        End Property
 
 
-    ''' <summary>
-    ''' Public Property Quantity
-    ''' </summary>
-    ''' <returns>Quantity as Int32</returns>
-    ''' <remarks></remarks>
-    Public Property Quantity() as Int32
-        Get
-            Return Me._quantity
-        End Get
-        Set(ByVal value as Int32)
-             Me._quantity = value
-        End Set
-    End Property
+        ''' <summary>
+        ''' Public Property UnitPrice
+        ''' </summary>
+        ''' <returns>UnitPrice as Decimal</returns>
+        ''' <remarks></remarks>
+        Public Property UnitPrice() As Decimal
+            Get
+                Return Me._unitPrice
+            End Get
+            Set(ByVal value As Decimal)
+                Me._unitPrice = value
+            End Set
+        End Property
 
 
-  Public Overridable Property Invoice() as Invoice
-      Get
-          Return  _Invoice
-      End Get
-      Set(ByVal value As Invoice)
-          _Invoice = value
-      End Set
-  End Property   
-  
+        ''' <summary>
+        ''' Public Property Quantity
+        ''' </summary>
+        ''' <returns>Quantity as Int32</returns>
+        ''' <remarks></remarks>
+        Public Property Quantity() As Int32
+            Get
+                Return Me._quantity
+            End Get
+            Set(ByVal value As Int32)
+                Me._quantity = value
+            End Set
+        End Property
 
-  Public Overridable Property Track() as Track
-      Get
-          Return  _Track
-      End Get
-      Set(ByVal value As Track)
-          _Track = value
-      End Set
-  End Property   
-  
+
+        Public Overridable Property Invoice() As Invoice
+            Get
+                Return _Invoice
+            End Get
+            Set(ByVal value As Invoice)
+                _Invoice = value
+            End Set
+        End Property
+
+
+        Public Overridable Property Track() As Track
+            Get
+                Return _Track
+            End Get
+            Set(ByVal value As Track)
+                _Track = value
+            End Set
+        End Property
+
 
     End Class
 End Namespace
- 
