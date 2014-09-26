@@ -9,8 +9,8 @@
     <ProjectGuid>{28D47B3E-0B37-4C1B-97FE-2DB380E2BC86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chinook.Tests</RootNamespace>
-    <AssemblyName>Chinook.Tests</AssemblyName>
+    <RootNamespace>Chinook.Web.UI.Tests</RootNamespace>
+    <AssemblyName>Chinook.Web.UI.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
