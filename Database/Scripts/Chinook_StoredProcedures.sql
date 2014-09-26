@@ -121,7 +121,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Al
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -145,7 +145,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -253,7 +253,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Al
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ArtistId int
@@ -278,7 +278,7 @@ EXEC sp_executesql @sql, N''@INArtistId int'', @ArtistId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ArtistId int
@@ -447,7 +447,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ar
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Artist_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -471,7 +471,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Artist_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -705,7 +705,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cu
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -729,7 +729,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -837,7 +837,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cu
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @SupportRepId int
@@ -862,7 +862,7 @@ EXEC sp_executesql @sql, N''@INSupportRepId int'', @SupportRepId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @SupportRepId int
@@ -1083,7 +1083,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Em
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1107,7 +1107,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1215,7 +1215,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Em
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ReportsTo int
@@ -1240,7 +1240,7 @@ EXEC sp_executesql @sql, N''@INReportsTo int'', @ReportsTo'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ReportsTo int
@@ -1409,7 +1409,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ge
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Genre_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1433,7 +1433,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Genre_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1651,7 +1651,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1675,7 +1675,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1783,7 +1783,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @CustomerId int
@@ -1808,7 +1808,7 @@ EXEC sp_executesql @sql, N''@INCustomerId int'', @CustomerId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @CustomerId int
@@ -1989,7 +1989,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2013,7 +2013,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2121,7 +2121,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @InvoiceId int
@@ -2146,7 +2146,7 @@ EXEC sp_executesql @sql, N''@INInvoiceId int'', @InvoiceId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @InvoiceId int
@@ -2233,7 +2233,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -2258,7 +2258,7 @@ EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -2427,7 +2427,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Me
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[MediaType_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2451,7 +2451,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[MediaType_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2641,7 +2641,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2665,7 +2665,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2782,7 +2782,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
 (
 @TrackId int, 
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2811,7 +2811,7 @@ EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
 (
 @TrackId int, 
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2987,7 +2987,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3011,7 +3011,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3121,7 +3121,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @PlaylistId int
@@ -3146,7 +3146,7 @@ EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @PlaylistId int
@@ -3233,7 +3233,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -3258,7 +3258,7 @@ EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -3455,7 +3455,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3479,7 +3479,7 @@ EXEC sp_executesql @sql '
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3610,7 +3610,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
 (
 @PlaylistId int, 
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3653,7 +3653,7 @@ EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
 (
 @PlaylistId int, 
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3759,7 +3759,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @AlbumId int
@@ -3784,7 +3784,7 @@ EXEC sp_executesql @sql, N''@INAlbumId int'', @AlbumId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @AlbumId int
@@ -3871,7 +3871,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @GenreId int
@@ -3896,7 +3896,7 @@ EXEC sp_executesql @sql, N''@INGenreId int'', @GenreId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @GenreId int
@@ -3983,7 +3983,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @MediaTypeId int
@@ -4008,7 +4008,7 @@ EXEC sp_executesql @sql, N''@INMediaTypeId int'', @MediaTypeId'
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
 (
-@sortExpression VarChar, 
+@sortExpression VarChar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @MediaTypeId int
