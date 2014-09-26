@@ -20,15 +20,25 @@ namespace Chinook.Web.UI.Controllers
     {
         private readonly IAlbumRepository _dbRepository;
 
-        public AlbumController(IDbAlbumCommandProvider sqlDbCommanProvider)
+       public AlbumController(IDbAlbumCommandProvider sqlDbCommanProvider)
         {
             _dbRepository = new DbAlbumRepository(sqlDbCommanProvider);
         }
 
-        // GET api/Album
-        public IQueryable<Album> GetData()
+        [Route("api/albums")]
+        [HttpGet]
+       public IQueryable<Album> GetData(int page = 1, int pageSize = 10)
         {
-            return _dbRepository.GetData().AsQueryable();
+            return _dbRepository.GetPagableSubSet("ArtistId", page, pageSize).AsQueryable();
+
+           // return _dbRepository.GetData().AsQueryable();
+        }
+
+        [Route("api/albums/{albumId:int:min(1)}")]
+        [HttpGet]
+        public Album GetDataByAlbumId(Int32 albumId)
+        {
+            return _dbRepository.GetDataByAlbumId(albumId).FirstOrDefault();
         }
 
         public void Update(Int32 albumId, string title, Int32 artistId)
@@ -56,15 +66,14 @@ namespace Chinook.Web.UI.Controllers
         //    return _dbRepository.GetRowCount();
         //}
 
-        //public IQueryable<Album> GetDataByAlbumId(Int32 albumId)
-        //{
-        //    return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
-        //}
+       
 
-        //public IQueryable<Album> GetDataByArtistId(Int32 artistId)
-        //{
-        //    return _dbRepository.GetDataByArtistId(artistId).AsQueryable();
-        //}
+         [Route("api/artist/{artistId}/albums")]
+         [HttpGet]
+       public IQueryable<Album> GetDataByArtistId(Int32 artistId)
+       {
+           return _dbRepository.GetDataByArtistId(artistId).AsQueryable();
+       }
 
         //public IQueryable<Album> GetDataByArtistIdPagableSubSet(string sortExpression, Int32 startRowIndex,
         //    Int32 maximumRows, Int32 artistId)
