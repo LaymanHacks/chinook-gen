@@ -25,6 +25,7 @@ namespace Chinook.Web.UI.Controllers
             _dbRepository = new DbAlbumRepository(sqlDbCommanProvider);
         }
 
+        // GET api/Album
         public IQueryable<Album> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
@@ -45,37 +46,37 @@ namespace Chinook.Web.UI.Controllers
             _dbRepository.Delete(albumId);
         }
 
-        public IQueryable<Album> GetPagableSubSet(string sortExpression, Int32 startRowIndex, Int32 maximumRows)
-        {
-            return _dbRepository.GetPagableSubSet(sortExpression, startRowIndex, maximumRows).AsQueryable();
-        }
+        //public IQueryable<Album> GetPagableSubSet(string sortExpression, Int32 startRowIndex, Int32 maximumRows)
+        //{
+        //    return _dbRepository.GetPagableSubSet(sortExpression, startRowIndex, maximumRows).AsQueryable();
+        //}
 
-        public Int32 GetRowCount()
-        {
-            return _dbRepository.GetRowCount();
-        }
+        //public Int32 GetRowCount()
+        //{
+        //    return _dbRepository.GetRowCount();
+        //}
 
-        public IQueryable<Album> GetDataByAlbumId(Int32 albumId)
-        {
-            return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
-        }
+        //public IQueryable<Album> GetDataByAlbumId(Int32 albumId)
+        //{
+        //    return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
+        //}
 
-        public IQueryable<Album> GetDataByArtistId(Int32 artistId)
-        {
-            return _dbRepository.GetDataByArtistId(artistId).AsQueryable();
-        }
+        //public IQueryable<Album> GetDataByArtistId(Int32 artistId)
+        //{
+        //    return _dbRepository.GetDataByArtistId(artistId).AsQueryable();
+        //}
 
-        public IQueryable<Album> GetDataByArtistIdPagableSubSet(string sortExpression, Int32 startRowIndex,
-            Int32 maximumRows, Int32 artistId)
-        {
-            return
-                _dbRepository.GetDataByArtistIdPagableSubSet(sortExpression, startRowIndex, maximumRows, artistId)
-                    .AsQueryable();
-        }
+        //public IQueryable<Album> GetDataByArtistIdPagableSubSet(string sortExpression, Int32 startRowIndex,
+        //    Int32 maximumRows, Int32 artistId)
+        //{
+        //    return
+        //        _dbRepository.GetDataByArtistIdPagableSubSet(sortExpression, startRowIndex, maximumRows, artistId)
+        //            .AsQueryable();
+        //}
 
-        public Int32 GetDataByArtistIdRowCount(Int32 artistId)
-        {
-            return _dbRepository.GetDataByArtistIdRowCount(artistId);
-        }
+        //public Int32 GetDataByArtistIdRowCount(Int32 artistId)
+        //{
+        //    return _dbRepository.GetDataByArtistIdRowCount(artistId);
+        //}
     }
 }
