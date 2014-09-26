@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Chinook.UI.Areas.HelpPage.ModelDescriptions
+namespace Chinook.Web.UI.Areas.HelpPage.ModelDescriptions
 {
     internal static class ModelNameHelper
     {

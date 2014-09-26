@@ -1,6 +1,6 @@
 using System;
 
-namespace Chinook.UI.Areas.HelpPage
+namespace Chinook.Web.UI.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.

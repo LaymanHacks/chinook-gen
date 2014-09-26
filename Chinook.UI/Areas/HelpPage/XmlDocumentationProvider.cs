@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using Chinook.UI.Areas.HelpPage.ModelDescriptions;
+using Chinook.Web.UI.Areas.HelpPage.ModelDescriptions;
 
-namespace Chinook.UI.Areas.HelpPage
+namespace Chinook.Web.UI.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

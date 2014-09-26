@@ -1,6 +1,6 @@
 using System;
 
-namespace Chinook.UI.Areas.HelpPage.ModelDescriptions
+namespace Chinook.Web.UI.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

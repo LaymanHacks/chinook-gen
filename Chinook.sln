@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{6DA5AFE3-234F-4655-B624-0030569D4795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.UI", "Chinook.UI\Chinook.UI.csproj", "{F8B529B0-37D4-466A-A6B7-5BF778F2C037}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Web.UI", "Chinook.UI\Chinook.Web.UI.csproj", "{F8B529B0-37D4-466A-A6B7-5BF778F2C037}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Tests", "Chinook.Tests\Chinook.Tests.csproj", "{28D47B3E-0B37-4C1B-97FE-2DB380E2BC86}"
 EndProject

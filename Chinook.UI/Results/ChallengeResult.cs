@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace Chinook.UI.Results
+namespace Chinook.Web.UI.Results
 {
     public class ChallengeResult : IHttpActionResult
     {

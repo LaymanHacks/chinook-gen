@@ -102,9 +102,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chinook.UI\Chinook.UI.csproj">
+    <ProjectReference Include="..\Chinook.UI\Chinook.Web.UI.csproj">
       <Project>{F8B529B0-37D4-466A-A6B7-5BF778F2C037}</Project>
-      <Name>Chinook.UI</Name>
+      <Name>Chinook.Web.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

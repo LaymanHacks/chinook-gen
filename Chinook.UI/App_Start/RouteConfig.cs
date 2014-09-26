@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Chinook.UI
+namespace Chinook.Web.UI
 {
     public class RouteConfig
     {

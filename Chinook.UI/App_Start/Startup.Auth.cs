@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Chinook.UI.Providers;
-using Chinook.UI.Models;
+using Chinook.Web.UI.Providers;
+using Chinook.Web.UI.Models;
 
-namespace Chinook.UI
+namespace Chinook.Web.UI
 {
     public partial class Startup
     {

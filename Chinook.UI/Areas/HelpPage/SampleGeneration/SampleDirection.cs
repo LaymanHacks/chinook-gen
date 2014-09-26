@@ -1,4 +1,4 @@
-namespace Chinook.UI.Areas.HelpPage
+namespace Chinook.Web.UI.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response
