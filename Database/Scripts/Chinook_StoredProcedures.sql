@@ -121,7 +121,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Al
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -134,18 +134,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [AlbumId], [Title], [ArtistId] FROM (
 		   SELECT [AlbumId], [Title], [ArtistId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Album) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -158,12 +157,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [AlbumId], [Title], [ArtistId] FROM (
 		   SELECT [AlbumId], [Title], [ArtistId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Album) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -253,7 +251,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Al
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ArtistId int
@@ -267,18 +265,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [AlbumId], [Title], [ArtistId] FROM (
 		   SELECT [AlbumId], [Title], [ArtistId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Album WHERE ArtistId = @INArtistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INArtistId int'', @ArtistId'
+EXEC sp_executesql @sql, N''@INArtistId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INArtistId = @ArtistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ArtistId int
@@ -292,12 +289,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [AlbumId], [Title], [ArtistId] FROM (
 		   SELECT [AlbumId], [Title], [ArtistId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Album WHERE ArtistId = @INArtistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INArtistId int'', @ArtistId'
+EXEC sp_executesql @sql, N''@INArtistId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INArtistId = @ArtistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -447,7 +443,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ar
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Artist_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -460,18 +456,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [ArtistId], [Name] FROM (
 		   SELECT [ArtistId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Artist) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Artist_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -484,12 +479,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [ArtistId], [Name] FROM (
 		   SELECT [ArtistId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Artist) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -705,7 +699,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cu
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -718,18 +712,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId] FROM (
 		   SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Customer) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -742,12 +735,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId] FROM (
 		   SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Customer) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -837,7 +829,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cu
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @SupportRepId int
@@ -851,18 +843,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId] FROM (
 		   SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Customer WHERE SupportRepId = @INSupportRepId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INSupportRepId int'', @SupportRepId'
+EXEC sp_executesql @sql, N''@INSupportRepId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INSupportRepId = @SupportRepId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @SupportRepId int
@@ -876,12 +867,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId] FROM (
 		   SELECT [CustomerId], [FirstName], [LastName], [Company], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], [SupportRepId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Customer WHERE SupportRepId = @INSupportRepId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INSupportRepId int'', @SupportRepId'
+EXEC sp_executesql @sql, N''@INSupportRepId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INSupportRepId = @SupportRepId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1083,7 +1073,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Em
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1096,18 +1086,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email] FROM (
 		   SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Employee) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1120,12 +1109,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email] FROM (
 		   SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Employee) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1215,7 +1203,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Em
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ReportsTo int
@@ -1229,18 +1217,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email] FROM (
 		   SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Employee WHERE ReportsTo = @INReportsTo) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INReportsTo int'', @ReportsTo'
+EXEC sp_executesql @sql, N''@INReportsTo int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INReportsTo = @ReportsTo,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @ReportsTo int
@@ -1254,12 +1241,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email] FROM (
 		   SELECT [EmployeeId], [LastName], [FirstName], [Title], [ReportsTo], [BirthDate], [HireDate], [Address], [City], [State], [Country], [PostalCode], [Phone], [Fax], [Email], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Employee WHERE ReportsTo = @INReportsTo) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INReportsTo int'', @ReportsTo'
+EXEC sp_executesql @sql, N''@INReportsTo int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INReportsTo = @ReportsTo,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1409,7 +1395,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ge
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Genre_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1422,18 +1408,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [GenreId], [Name] FROM (
 		   SELECT [GenreId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Genre) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Genre_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1446,12 +1431,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [GenreId], [Name] FROM (
 		   SELECT [GenreId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Genre) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1651,7 +1635,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1664,18 +1648,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total] FROM (
 		   SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Invoice) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -1688,12 +1671,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total] FROM (
 		   SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Invoice) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1783,7 +1765,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @CustomerId int
@@ -1797,18 +1779,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total] FROM (
 		   SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Invoice WHERE CustomerId = @INCustomerId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INCustomerId int'', @CustomerId'
+EXEC sp_executesql @sql, N''@INCustomerId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INCustomerId = @CustomerId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @CustomerId int
@@ -1822,12 +1803,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total] FROM (
 		   SELECT [InvoiceId], [CustomerId], [InvoiceDate], [BillingAddress], [BillingCity], [BillingState], [BillingCountry], [BillingPostalCode], [Total], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Invoice WHERE CustomerId = @INCustomerId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INCustomerId int'', @CustomerId'
+EXEC sp_executesql @sql, N''@INCustomerId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INCustomerId = @CustomerId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -1989,7 +1969,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2002,18 +1982,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2026,12 +2005,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2121,7 +2099,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @InvoiceId int
@@ -2135,18 +2113,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine WHERE InvoiceId = @INInvoiceId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INInvoiceId int'', @InvoiceId'
+EXEC sp_executesql @sql, N''@INInvoiceId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INInvoiceId = @InvoiceId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @InvoiceId int
@@ -2160,12 +2137,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine WHERE InvoiceId = @INInvoiceId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INInvoiceId int'', @InvoiceId'
+EXEC sp_executesql @sql, N''@INInvoiceId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INInvoiceId = @InvoiceId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2233,7 +2209,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[In
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -2247,18 +2223,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine WHERE TrackId = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId = @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -2272,12 +2247,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity] FROM (
 		   SELECT [InvoiceLineId], [InvoiceId], [TrackId], [UnitPrice], [Quantity], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM InvoiceLine WHERE TrackId = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId = @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2427,7 +2401,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Me
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[MediaType_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2440,18 +2414,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [MediaTypeId], [Name] FROM (
 		   SELECT [MediaTypeId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM MediaType) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[MediaType_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2464,12 +2437,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [MediaTypeId], [Name] FROM (
 		   SELECT [MediaTypeId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM MediaType) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2641,7 +2613,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2654,18 +2626,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [Name] FROM (
 		   SELECT [PlaylistId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Playlist) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2678,12 +2649,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [Name] FROM (
 		   SELECT [PlaylistId], [Name],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Playlist) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2782,7 +2752,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
 (
 @TrackId int, 
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2799,19 +2769,18 @@ SET @sql = ''SELECT
 		   SELECT 
 Playlist.[PlaylistId], 
 Playlist.[Name], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression) AS ResultSetRowNumber
 		   FROM [Playlist] INNER JOIN PlaylistTrack ON Playlist.[PlaylistId] = PlaylistTrack.[PlaylistId]          WHERE PlaylistTrack.[TrackId] = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression varchar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId= @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
 (
 @TrackId int, 
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -2828,12 +2797,11 @@ SET @sql = ''SELECT
 		   SELECT 
 Playlist.[PlaylistId], 
 Playlist.[Name], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression) AS ResultSetRowNumber
 		   FROM [Playlist] INNER JOIN PlaylistTrack ON Playlist.[PlaylistId] = PlaylistTrack.[PlaylistId]          WHERE PlaylistTrack.[TrackId] = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression varchar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId= @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -2987,7 +2955,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3000,18 +2968,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3024,12 +2991,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3121,7 +3087,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @PlaylistId int
@@ -3135,18 +3101,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack WHERE PlaylistId = @INPlaylistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
+EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INPlaylistId = @PlaylistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @PlaylistId int
@@ -3160,12 +3125,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack WHERE PlaylistId = @INPlaylistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
+EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INPlaylistId = @PlaylistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3233,7 +3197,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pl
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -3247,18 +3211,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack WHERE TrackId = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId = @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @TrackId int
@@ -3272,12 +3235,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [PlaylistId], [TrackId] FROM (
 		   SELECT [PlaylistId], [TrackId], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM PlaylistTrack WHERE TrackId = @INTrackId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INTrackId int'', @TrackId'
+EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INTrackId = @TrackId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3455,7 +3417,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3468,18 +3430,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3492,12 +3453,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice],
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex  +  @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql '
+EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3610,7 +3570,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
 (
 @PlaylistId int, 
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3641,19 +3601,18 @@ Track.[Composer],
 Track.[Milliseconds], 
 Track.[Bytes], 
 Track.[UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression) AS ResultSetRowNumber
 		   FROM [Track] INNER JOIN PlaylistTrack ON Track.[TrackId] = PlaylistTrack.[TrackId]          WHERE PlaylistTrack.[PlaylistId] = @INPlaylistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
+EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression varchar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INPlaylistId= @PlaylistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
 (
 @PlaylistId int, 
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int
   )
@@ -3684,12 +3643,11 @@ Track.[Composer],
 Track.[Milliseconds], 
 Track.[Bytes], 
 Track.[UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression) AS ResultSetRowNumber
 		   FROM [Track] INNER JOIN PlaylistTrack ON Track.[TrackId] = PlaylistTrack.[TrackId]          WHERE PlaylistTrack.[PlaylistId] = @INPlaylistId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND (@inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INPlaylistId int'', @PlaylistId'
+EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression varchar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INPlaylistId= @PlaylistId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3759,7 +3717,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @AlbumId int
@@ -3773,18 +3731,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE AlbumId = @INAlbumId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INAlbumId int'', @AlbumId'
+EXEC sp_executesql @sql, N''@INAlbumId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INAlbumId = @AlbumId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @AlbumId int
@@ -3798,12 +3755,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE AlbumId = @INAlbumId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INAlbumId int'', @AlbumId'
+EXEC sp_executesql @sql, N''@INAlbumId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INAlbumId = @AlbumId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3871,7 +3827,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @GenreId int
@@ -3885,18 +3841,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE GenreId = @INGenreId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INGenreId int'', @GenreId'
+EXEC sp_executesql @sql, N''@INGenreId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INGenreId = @GenreId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @GenreId int
@@ -3910,12 +3865,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE GenreId = @INGenreId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INGenreId int'', @GenreId'
+EXEC sp_executesql @sql, N''@INGenreId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INGenreId = @GenreId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
@@ -3983,7 +3937,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tr
 BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @MediaTypeId int
@@ -3997,18 +3951,17 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE MediaTypeId = @INMediaTypeId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INMediaTypeId int'', @MediaTypeId'
+EXEC sp_executesql @sql, N''@INMediaTypeId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INMediaTypeId = @MediaTypeId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
     END
   ELSE
   BEGIN
   EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
 (
-@sortExpression VarChar(125), 
+@sortExpression varchar(125), 
 @startRowIndex Int, 
 @MaximumRows Int, 
 @MediaTypeId int
@@ -4022,12 +3975,11 @@ SET @startRowIndex = @startRowIndex + 1
 DECLARE @sql nvarchar(4000)
 SET @sql = ''SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice] FROM (
 		   SELECT [TrackId], [Name], [AlbumId], [MediaTypeId], [GenreId], [Composer], [Milliseconds], [Bytes], [UnitPrice], 
-			  ROW_NUMBER() OVER (ORDER BY '' + @sortExpression + '') AS ResultSetRowNumber
+			  ROW_NUMBER() OVER (ORDER BY @inSortExpression ) AS ResultSetRowNumber
 		   FROM Track WHERE MediaTypeId = @INMediaTypeId) AS PagedResults
-		WHERE ResultSetRowNumber BETWEEN '' + CONVERT(nvarchar(10), @startRowIndex) + '' AND ('' + CONVERT(nvarchar(10), @startRowIndex) + '' + '' 
-			+ CONVERT(nvarchar(10), @maximumRows) + '') - 1''
+		WHERE ResultSetRowNumber BETWEEN @inStartRowIndex AND ( @inStartRowIndex + @inMaximumRows) - 1''
 -- Execute the SQL query
-EXEC sp_executesql @sql, N''@INMediaTypeId int'', @MediaTypeId'
+EXEC sp_executesql @sql, N''@INMediaTypeId int,@inSortExpression VarChar(125),@inStartRowIndex Int,@inMaximumRows Int'', @INMediaTypeId = @MediaTypeId,@inSortExpression = @sortExpression,@inStartRowIndex =@startRowIndex, @inMaximumRows = @MaximumRows;'
   END
 GO
 
