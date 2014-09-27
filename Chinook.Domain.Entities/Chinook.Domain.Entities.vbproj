@@ -1,9 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:msd="urn:schemas-microsoft-com:xml-msdatasource" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{dae1ae1b-cae3-4f49-ad82-8ba709842906}</ProjectGuid>
+    <ProjectGuid>{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace />
     <AssemblyName>Chinook.Domain.Entities</AssemblyName>
@@ -37,8 +38,13 @@
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,17 +52,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Album.vb" />
-<Compile Include="Artist.vb" />
-<Compile Include="Customer.vb" />
-<Compile Include="Employee.vb" />
-<Compile Include="Genre.vb" />
-<Compile Include="Invoice.vb" />
-<Compile Include="InvoiceLine.vb" />
-<Compile Include="MediaType.vb" />
-<Compile Include="Playlist.vb" />
-<Compile Include="PlaylistTrack.vb" />
-<Compile Include="Track.vb" />
-
-    </ItemGroup>
+    <Compile Include="Artist.vb" />
+    <Compile Include="Customer.vb" />
+    <Compile Include="Employee.vb" />
+    <Compile Include="Genre.vb" />
+    <Compile Include="Invoice.vb" />
+    <Compile Include="InvoiceLine.vb" />
+    <Compile Include="MediaType.vb" />
+    <Compile Include="Playlist.vb" />
+    <Compile Include="PlaylistTrack.vb" />
+    <Compile Include="Track.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

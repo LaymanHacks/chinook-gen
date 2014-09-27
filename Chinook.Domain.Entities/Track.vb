@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class Track
         Private _trackId As Int32
         Private _name As String
@@ -67,6 +67,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>TrackId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property TrackId() As Int32
             Get
                 Return Me._trackId
@@ -82,6 +83,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Name as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Name() As String
             Get
                 Return Me._name
@@ -97,6 +99,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>AlbumId as  Nullable(Of Int32)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property AlbumId() As Nullable(Of Int32)
             Get
                 Return Me._albumId
@@ -112,6 +115,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>MediaTypeId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property MediaTypeId() As Int32
             Get
                 Return Me._mediaTypeId
@@ -127,6 +131,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>GenreId as  Nullable(Of Int32)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property GenreId() As Nullable(Of Int32)
             Get
                 Return Me._genreId
@@ -142,6 +147,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Composer as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Composer() As String
             Get
                 Return Me._composer
@@ -157,6 +163,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Milliseconds as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Milliseconds() As Int32
             Get
                 Return Me._milliseconds
@@ -172,6 +179,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Bytes as  Nullable(Of Int32)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Bytes() As Nullable(Of Int32)
             Get
                 Return Me._bytes
@@ -187,6 +195,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>UnitPrice as Decimal</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property UnitPrice() As Decimal
             Get
                 Return Me._unitPrice
@@ -197,6 +206,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property InvoiceLines() As InvoiceLineList
             Get
                 Return _InvoiceLines
@@ -207,6 +217,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Playlists() As PlaylistList
             Get
                 Return _Playlists
@@ -217,6 +228,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Album() As Album
             Get
                 Return _Album
@@ -227,6 +239,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Genre() As Genre
             Get
                 Return _Genre
@@ -237,6 +250,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property MediaType() As MediaType
             Get
                 Return _MediaType

@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class PlaylistTrack
         Private _playlistId As Int32
         Private _trackId As Int32
@@ -50,6 +50,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>PlaylistId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property PlaylistId() As Int32
             Get
                 Return Me._playlistId
@@ -65,6 +66,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>TrackId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property TrackId() As Int32
             Get
                 Return Me._trackId
@@ -75,6 +77,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Playlist() As Playlist
             Get
                 Return _Playlist
@@ -85,6 +88,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Track() As Track
             Get
                 Return _Track

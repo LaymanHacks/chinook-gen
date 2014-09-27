@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class Invoice
         Private _invoiceId As Int32
         Private _customerId As Int32
@@ -64,6 +64,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>InvoiceId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property InvoiceId() As Int32
             Get
                 Return Me._invoiceId
@@ -79,6 +80,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>CustomerId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property CustomerId() As Int32
             Get
                 Return Me._customerId
@@ -94,6 +96,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>InvoiceDate as DateTime</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property InvoiceDate() As DateTime
             Get
                 Return Me._invoiceDate
@@ -109,6 +112,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BillingAddress as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BillingAddress() As String
             Get
                 Return Me._billingAddress
@@ -124,6 +128,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BillingCity as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BillingCity() As String
             Get
                 Return Me._billingCity
@@ -139,6 +144,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BillingState as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BillingState() As String
             Get
                 Return Me._billingState
@@ -154,6 +160,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BillingCountry as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BillingCountry() As String
             Get
                 Return Me._billingCountry
@@ -169,6 +176,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BillingPostalCode as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BillingPostalCode() As String
             Get
                 Return Me._billingPostalCode
@@ -184,6 +192,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Total as Decimal</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Total() As Decimal
             Get
                 Return Me._total
@@ -194,6 +203,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property InvoiceLines() As InvoiceLineList
             Get
                 Return _InvoiceLines
@@ -204,6 +214,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Customer() As Customer
             Get
                 Return _Customer

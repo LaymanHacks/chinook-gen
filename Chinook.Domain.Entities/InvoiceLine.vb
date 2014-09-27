@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class InvoiceLine
         Private _invoiceLineId As Int32
         Private _invoiceId As Int32
@@ -56,6 +56,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>InvoiceLineId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property InvoiceLineId() As Int32
             Get
                 Return Me._invoiceLineId
@@ -71,6 +72,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>InvoiceId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property InvoiceId() As Int32
             Get
                 Return Me._invoiceId
@@ -86,6 +88,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>TrackId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property TrackId() As Int32
             Get
                 Return Me._trackId
@@ -101,6 +104,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>UnitPrice as Decimal</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property UnitPrice() As Decimal
             Get
                 Return Me._unitPrice
@@ -116,6 +120,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Quantity as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Quantity() As Int32
             Get
                 Return Me._quantity
@@ -126,6 +131,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Invoice() As Invoice
             Get
                 Return _Invoice
@@ -136,6 +142,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Track() As Track
             Get
                 Return _Track

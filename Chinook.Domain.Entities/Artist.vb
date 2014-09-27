@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class Artist
         Private _artistId As Int32
         Private _name As String
@@ -49,6 +49,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>ArtistId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property ArtistId() As Int32
             Get
                 Return Me._artistId
@@ -64,6 +65,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Name as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Name() As String
             Get
                 Return Me._name
@@ -74,6 +76,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property Albums() As AlbumList
             Get
                 Return _Albums

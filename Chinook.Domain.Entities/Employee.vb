@@ -9,7 +9,7 @@
 '------------------------------------------------------------------------------
 Imports System
 Imports System.Collections.ObjectModel
-Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
 
 Namespace Chinook.Domain.Entities
     <Serializable()> _
@@ -25,7 +25,7 @@ Namespace Chinook.Domain.Entities
         End Function
     End Class
 
-    <Serializable()> _
+    <DataContract()> _
     Partial Public Class Employee
         Private _employeeId As Int32
         Private _lastName As String
@@ -77,6 +77,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>EmployeeId as Int32</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property EmployeeId() As Int32
             Get
                 Return Me._employeeId
@@ -92,6 +93,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>LastName as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property LastName() As String
             Get
                 Return Me._lastName
@@ -107,6 +109,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>FirstName as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property FirstName() As String
             Get
                 Return Me._firstName
@@ -122,6 +125,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Title as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Title() As String
             Get
                 Return Me._title
@@ -137,6 +141,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>ReportsTo as  Nullable(Of Int32)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property ReportsTo() As Nullable(Of Int32)
             Get
                 Return Me._reportsTo
@@ -152,6 +157,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>BirthDate as  Nullable(Of DateTime)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property BirthDate() As Nullable(Of DateTime)
             Get
                 Return Me._birthDate
@@ -167,6 +173,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>HireDate as  Nullable(Of DateTime)</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property HireDate() As Nullable(Of DateTime)
             Get
                 Return Me._hireDate
@@ -182,6 +189,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Address as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Address() As String
             Get
                 Return Me._address
@@ -197,6 +205,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>City as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property City() As String
             Get
                 Return Me._city
@@ -212,6 +221,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>State as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property State() As String
             Get
                 Return Me._state
@@ -227,6 +237,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Country as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Country() As String
             Get
                 Return Me._country
@@ -242,6 +253,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>PostalCode as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property PostalCode() As String
             Get
                 Return Me._postalCode
@@ -257,6 +269,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Phone as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Phone() As String
             Get
                 Return Me._phone
@@ -272,6 +285,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Fax as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Fax() As String
             Get
                 Return Me._fax
@@ -287,6 +301,7 @@ Namespace Chinook.Domain.Entities
         ''' </summary>
         ''' <returns>Email as String</returns>
         ''' <remarks></remarks>
+        <DataMember()> _
         Public Property Email() As String
             Get
                 Return Me._email
@@ -297,6 +312,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property CustomersSupportRepId() As CustomerList
             Get
                 Return _CustomersSupportRepId
@@ -307,6 +323,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property EmployeesReportsTo() As EmployeeList
             Get
                 Return _EmployeesReportsTo
@@ -317,6 +334,7 @@ Namespace Chinook.Domain.Entities
         End Property
 
 
+        <DataMember()> _
         Public Overridable Property ReportsToEmployee() As Employee
             Get
                 Return _ReportsToEmployee
