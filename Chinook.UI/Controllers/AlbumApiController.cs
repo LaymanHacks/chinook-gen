@@ -71,16 +71,19 @@ namespace Chinook.Web.UI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
+        [HttpPut]
         public void Update(Int32 albumId, string title, Int32 artistId)
         {
             _dbRepository.Update(albumId, title, artistId);
         }
 
+        [HttpPost]
         public Int32 Insert(Int32 albumId, string title, Int32 artistId)
         {
             return _dbRepository.Insert(albumId, title, artistId);
         }
 
+        [HttpDelete]
         public void Delete(Int32 albumId)
         {
             _dbRepository.Delete(albumId);
