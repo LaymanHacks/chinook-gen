@@ -321,6 +321,10 @@
       <Project>{dae1ae1b-cae3-4f49-ad82-8ba709842906}</Project>
       <Name>Chinook.Domain.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chinook.Web\Chinook.Web.csproj">
+      <Project>{ecf69a55-449e-47d1-b28c-fc9b2694febc}</Project>
+      <Name>Chinook.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

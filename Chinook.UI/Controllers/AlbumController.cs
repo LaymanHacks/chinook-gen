@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Routing;
 using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
@@ -36,30 +35,19 @@ namespace Chinook.Web.UI.Controllers
         }
 
         [Route("api/albums", Name = "AlbumsPagableRoute")]
-        public HttpResponseMessage GetAlbumsPagable(string sortExpression = "ArtistId", Int32 page = 0, Int32 pageSize = 10)
+        public HttpResponseMessage GetAlbumsPagable(string sortExpression = "ArtistId", Int32 page = 1, Int32 pageSize = 10)
         {
-           var albums= _dbRepository.GetPagableSubSet(sortExpression, page * pageSize, pageSize);
-           var totalCount = _dbRepository.GetRowCount();
-           var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-           var urlHelper = new UrlHelper(Request);
-           var prevLink = page > 0 ? urlHelper.Link("AlbumsPagableRoute", new { page = page - 1, pageSize }) : "";
-           var nextLink = page < totalPages - 1 ? urlHelper.Link("AlbumsPagableRoute", new { page = page + 1, pageSize }) : "";
+            var albums = _dbRepository.GetPagableSubSet(sortExpression, (page - 1) * pageSize, pageSize);
+            var totalCount = _dbRepository.GetRowCount();
 
-           var result = new
-           {
-               TotalCount = totalCount,
-               TotalPages = totalPages,
-               PrevPageLink = prevLink,
-               NextPageLink = nextLink,
-               Results = albums
-           };
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsPagableRoute", page, pageSize, totalCount, albums);
 
-           return Request.CreateResponse(HttpStatusCode.OK, result);
-
+            return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
-        [Route("api/albums/{albumId:int:min(1)}")]
+     [Route("api/albums/{albumId:int:min(1)}")]
         [HttpGet]
         public Album GetDataByAlbumId(Int32 albumId)
         {
@@ -75,26 +63,16 @@ namespace Chinook.Web.UI.Controllers
 
         [Route("api/artist/{artistId}/albums", Name = "AlbumsByArtistIdPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetDataByArtistIdPagableSubSet(Int32 artistId,string sortExpression = "ArtistId", Int32 page = 0, Int32 pageSize = 10)
+        public HttpResponseMessage GetDataByArtistIdPagableSubSet(Int32 artistId, string sortExpression = "ArtistId", Int32 page = 1, Int32 pageSize = 10)
         {
-            var albums = _dbRepository.GetDataByArtistIdPagableSubSet(sortExpression, page * pageSize, pageSize, artistId);
-            var totalCount =  _dbRepository.GetDataByArtistIdRowCount(artistId);
-            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var urlHelper = new UrlHelper(Request);
-            var prevLink = page > 0 ? urlHelper.Link("AlbumsByArtistIdPagableRoute", new { page = page - 1, pageSize }) : "";
-            var nextLink = page < totalPages - 1 ? urlHelper.Link("AlbumsByArtistIdPagableRoute", new { page = page + 1, pageSize }) : "";
- 
-            var result = new
-            {
-                TotalCount = totalCount,
-                TotalPages = totalPages,
-                PrevPageLink = prevLink,
-                NextPageLink = nextLink,
-                Results = albums
-            };
+            var albums = _dbRepository.GetDataByArtistIdPagableSubSet(sortExpression, (page - 1) * pageSize, pageSize, artistId);
+            var totalCount = _dbRepository.GetDataByArtistIdRowCount(artistId);
 
-            return Request.CreateResponse(HttpStatusCode.OK, result);
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsByArtistIdPagableRoute", page, pageSize, totalCount, albums);
+
+            return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
         public void Update(Int32 albumId, string title, Int32 artistId)
@@ -113,4 +91,6 @@ namespace Chinook.Web.UI.Controllers
         }
 
     }
+
+
 }
