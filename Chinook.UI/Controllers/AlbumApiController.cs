@@ -9,11 +9,11 @@ using Chinook.Domain.Entities;
 
 namespace Chinook.Web.UI.Controllers
 {
-    public class AlbumController : ApiController
+    public class AlbumApiController : ApiController
     {
         private readonly IAlbumRepository _dbRepository;
 
-        public AlbumController(IDbAlbumCommandProvider sqlDbCommanProvider)
+        public AlbumApiController(IDbAlbumCommandProvider sqlDbCommanProvider)
         {
             _dbRepository = new DbAlbumRepository(sqlDbCommanProvider);
         }
