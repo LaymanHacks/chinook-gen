@@ -13,9 +13,9 @@ namespace Chinook.Web.UI.Controllers
     {
         private readonly IAlbumRepository _dbRepository;
 
-        public AlbumApiController(IDbAlbumCommandProvider sqlDbCommanProvider)
+        public AlbumApiController(IAlbumRepository albumRepository)
         {
-            _dbRepository = new DbAlbumRepository(sqlDbCommanProvider);
+            _dbRepository =  albumRepository;
         }
 
         [Route("api/albums/all")]
@@ -26,7 +26,7 @@ namespace Chinook.Web.UI.Controllers
         }
 
         [Route("api/albums", Name = "AlbumsPagableRoute")]
-        public HttpResponseMessage GetAlbumsPagable(string sortExpression = "ArtistId", Int32 page = 1,
+        public HttpResponseMessage GetAlbumsPagable(string sortExpression = "AlbumId", Int32 page = 1,
             Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
