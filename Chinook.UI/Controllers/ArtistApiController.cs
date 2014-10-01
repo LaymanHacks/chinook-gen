@@ -59,14 +59,7 @@ namespace Chinook.Web.UI.Controllers
             _dbRepository.Delete(artistId);
         }
 
-       
-
-        [HttpGet]
-        public Int32 GetRowCount()
-        {
-            return _dbRepository.GetRowCount();
-        }
-
+     
         [HttpGet]
         public IQueryable<Artist> GetDataByArtistId(Int32 artistId)
         {
