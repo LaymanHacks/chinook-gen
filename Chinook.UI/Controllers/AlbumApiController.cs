@@ -77,6 +77,14 @@ namespace Chinook.Web.UI.Controllers
             _dbRepository.Update(albumId, title, artistId);
         }
 
+         [HttpPut]
+   public void Update(Album album )
+         {
+          
+             Update(album.AlbumId, album.Title, album.ArtistId);
+       
+    }
+
         [HttpPost]
         public Int32 Insert(Int32 albumId, string title, Int32 artistId)
         {
