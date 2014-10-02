@@ -15,7 +15,7 @@ using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 
-namespace Chinook.Web.UI.Controllers
+namespace Chinook.Web.UI.Controllers.Api
 {
     public class TrackApiController : ApiController
     {
@@ -123,14 +123,14 @@ namespace Chinook.Web.UI.Controllers
             return _dbRepository.GetTracksByPlaylistIdRowCount(playlistId);
         }
 
-        [Route("api/album/{albumId}/albums", Name = "GetDataByAlbumIdRoute")]
+        [Route("api/album/{albumId}/tracks/all", Name = "GetDataByAlbumIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByAlbumId(Int32 albumId)
         {
             return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
         }
 
-
+        [Route("api/album/{albumId}/tracks", Name = "GetDataByAlbumIdRoutePagable")]
         [HttpGet]
         public IQueryable<Track> GetDataByAlbumIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 albumId)
         {
@@ -144,14 +144,14 @@ namespace Chinook.Web.UI.Controllers
             return _dbRepository.GetDataByAlbumIdRowCount(albumId);
         }
 
-        [Route("api/genre/{genreId}/albums", Name = "GetDataByGenreIdRoute")]
+        [Route("api/genre/{genreId}/tracks/all", Name = "GetDataByGenreIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByGenreId(Int32 genreId)
         {
             return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
         }
 
-
+         [Route("api/genre/{genreId}/tracks", Name = "GetDataByGenreIdRoutePagable")]
         [HttpGet]
         public IQueryable<Track> GetDataByGenreIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 genreId)
         {
@@ -165,14 +165,14 @@ namespace Chinook.Web.UI.Controllers
             return _dbRepository.GetDataByGenreIdRowCount(genreId);
         }
 
-        [Route("api/mediaType/{mediaTypeId}/albums", Name = "GetDataByMediaTypeIdRoute")]
+        [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetDataByMediaTypeIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByMediaTypeId(Int32 mediaTypeId)
         {
             return _dbRepository.GetDataByMediaTypeId(mediaTypeId).AsQueryable();
         }
 
-
+        [Route("api/mediaType/{mediaTypeId}/tracks", Name = "GetDataByMediaTypeIdRoutePagable")]
         [HttpGet]
         public IQueryable<Track> GetDataByMediaTypeIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 mediaTypeId)
         {
