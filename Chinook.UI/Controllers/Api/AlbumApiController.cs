@@ -3,11 +3,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 
-namespace Chinook.Web.UI.Controllers
+namespace Chinook.Web.UI.Controllers.Api
 {
     public class AlbumApiController : ApiController
     {
