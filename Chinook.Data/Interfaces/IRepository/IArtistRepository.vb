@@ -22,7 +22,7 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal artist As Artist) As Int32
         Sub Delete(ByVal artistId As Int32)
         Sub Delete(ByVal artist As Artist)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Artist)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Artist)
         Function GetRowCount() As Int32
         Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Artist)
     End Interface

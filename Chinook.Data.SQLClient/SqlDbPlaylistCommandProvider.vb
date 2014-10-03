@@ -113,17 +113,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Playlist
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Playlist
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbPlaylistCommandProvider.GetGetPagableSubSetDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbPlaylistCommandProvider.GetGetPageableDbCommand
 
 
-            Dim command As New SqlCommand("Playlist_GetPagableSubSet")
+            Dim command As New SqlCommand("Playlist_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -195,10 +195,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPlaylistsByTrackIdPagableSubSetDbCommand(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbPlaylistCommandProvider.GetGetPlaylistsByTrackIdPagableSubSetDbCommand
+        Public Function GetGetPlaylistsByTrackIdPageableDbCommand(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbPlaylistCommandProvider.GetGetPlaylistsByTrackIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Playlist_GetPlaylistsByTrackIdPagableSubSet")
+            Dim command As New SqlCommand("Playlist_GetPlaylistsByTrackIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))

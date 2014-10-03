@@ -141,15 +141,15 @@ Namespace Chinook.Data.Repository
         End Sub
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Album
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetPagableSubSet
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetPageable
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)
@@ -221,7 +221,7 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Album
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
@@ -229,8 +229,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="ArtistId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByArtistIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByArtistIdPagableSubSet
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, artistId)
+        Public Function GetDataByArtistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByArtistIdPageable
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, artistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)

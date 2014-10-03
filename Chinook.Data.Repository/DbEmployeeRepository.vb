@@ -165,15 +165,15 @@ Namespace Chinook.Data.Repository
         End Sub
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetPagableSubSet
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetPageable
+            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Employee)
@@ -245,7 +245,7 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
@@ -253,8 +253,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="ReportsTo"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByReportsToPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPagableSubSet
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, reportsTo)
+        Public Function GetDataByReportsToPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPageable
+            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand(sortExpression, startRowIndex, maximumRows, reportsTo)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Employee)

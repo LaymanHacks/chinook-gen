@@ -22,11 +22,11 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal invoice As Invoice) As Int32
         Sub Delete(ByVal invoiceId As Int32)
         Sub Delete(ByVal invoice As Invoice)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Invoice)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Invoice)
         Function GetRowCount() As Int32
         Function GetDataByInvoiceId(ByVal invoiceId As Int32) As ICollection(Of Invoice)
         Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Invoice)
-        Function GetDataByCustomerIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal customerId As Int32) As ICollection(Of Invoice)
+        Function GetDataByCustomerIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal customerId As Int32) As ICollection(Of Invoice)
         Function GetDataByCustomerIdRowCount(ByVal customerId As Int32) As Int32
     End Interface
 End Namespace

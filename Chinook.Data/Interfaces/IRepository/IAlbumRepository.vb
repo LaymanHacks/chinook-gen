@@ -22,11 +22,11 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal album As Album) As Int32
         Sub Delete(ByVal albumId As Int32)
         Sub Delete(ByVal album As Album)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Album)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Album)
         Function GetRowCount() As Int32
         Function GetDataByAlbumId(ByVal albumId As Int32) As ICollection(Of Album)
         Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Album)
-        Function GetDataByArtistIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As ICollection(Of Album)
+        Function GetDataByArtistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As ICollection(Of Album)
         Function GetDataByArtistIdRowCount(ByVal artistId As Int32) As Int32
     End Interface
 End Namespace

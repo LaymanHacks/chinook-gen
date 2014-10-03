@@ -25,9 +25,11 @@ namespace Chinook.Web.UI
 
             
             container.Register<IDbAlbumCommandProvider, SqlDbAlbumCommandProvider>();
-            container.Register<IDbArtistCommandProvider, SqlDbArtistCommandProvider>();
             container.Register<IAlbumRepository, DbAlbumRepository>();
+            container.Register<IDbArtistCommandProvider, SqlDbArtistCommandProvider>();
             container.Register<IArtistRepository, DbArtistRepository>();
+            container.Register<IDbTrackCommandProvider, SqlDbTrackCommandProvider>();
+            container.Register<ITrackRepository, DbTrackRepository>();
            
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));

@@ -18,14 +18,14 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal playlistId As Int32, ByVal trackId As Int32) As IDbCommand
         Function GetInsertDbCommand(ByVal playlistId As Int32, ByVal trackId As Int32) As IDbCommand
         Function GetDeleteDbCommand(ByVal playlistId As Int32, ByVal trackId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByPlaylistIdTrackIdDbCommand(ByVal playlistId As Int32, ByVal trackId As Int32) As IDbCommand
         Function GetGetDataByPlaylistIdDbCommand(ByVal playlistId As Int32) As IDbCommand
-        Function GetGetDataByPlaylistIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As IDbCommand
+        Function GetGetDataByPlaylistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As IDbCommand
         Function GetGetDataByPlaylistIdRowCountDbCommand(ByVal playlistId As Int32) As IDbCommand
         Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand
-        Function GetGetDataByTrackIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand
+        Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand
         Function GetGetDataByTrackIdRowCountDbCommand(ByVal trackId As Int32) As IDbCommand
 
     End Interface

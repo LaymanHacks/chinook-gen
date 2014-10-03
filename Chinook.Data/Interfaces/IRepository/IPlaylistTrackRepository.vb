@@ -22,14 +22,14 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal playlistTrack As PlaylistTrack) As ICollection(Of PlaylistTrack)
         Sub Delete(ByVal playlistId As Int32, ByVal trackId As Int32)
         Sub Delete(ByVal playlistTrack As PlaylistTrack)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of PlaylistTrack)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of PlaylistTrack)
         Function GetRowCount() As Int32
         Function GetDataByPlaylistIdTrackId(ByVal playlistId As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
         Function GetDataByPlaylistId(ByVal playlistId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByPlaylistIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack)
+        Function GetDataByPlaylistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack)
         Function GetDataByPlaylistIdRowCount(ByVal playlistId As Int32) As Int32
         Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByTrackIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
+        Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
         Function GetDataByTrackIdRowCount(ByVal trackId As Int32) As Int32
     End Interface
 End Namespace

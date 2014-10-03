@@ -145,15 +145,15 @@ Namespace Chinook.Data.Repository
         End Sub
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetPagableSubSet
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetPageable
+            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of InvoiceLine)
@@ -225,7 +225,7 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
@@ -233,8 +233,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="InvoiceId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByInvoiceIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceIdPagableSubSet
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, invoiceId)
+        Public Function GetDataByInvoiceIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceIdPageable
+            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, invoiceId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of InvoiceLine)
@@ -286,7 +286,7 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
@@ -294,8 +294,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="TrackId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByTrackIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackIdPagableSubSet
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, trackId)
+        Public Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackIdPageable
+            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of InvoiceLine)

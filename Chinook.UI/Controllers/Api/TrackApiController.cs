@@ -65,6 +65,7 @@ namespace Chinook.Web.UI.Controllers.Api
                 if (track.GenreId != null)
                     if (track.Bytes != null)
                         return Insert(track.TrackId, track.Name, (int) track.AlbumId, track.MediaTypeId, (int) track.GenreId, track.Composer, track.Milliseconds, (int) track.Bytes, track.UnitPrice);
+            return -1;
         }
 
 
@@ -83,9 +84,9 @@ namespace Chinook.Web.UI.Controllers.Api
 
 
         [HttpGet]
-        public IQueryable<Track> GetPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows)
+        public IQueryable<Track> GetPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows)
         {
-            return _dbRepository.GetPagableSubSet(sortExpression, startRowIndex, maximumRows).AsQueryable();
+            return _dbRepository.GetPageable(sortExpression, startRowIndex, maximumRows).AsQueryable();
         }
 
 
@@ -111,9 +112,9 @@ namespace Chinook.Web.UI.Controllers.Api
 
 
         [HttpGet]
-        public IQueryable<Track> GetTracksByPlaylistIdPagableSubSet(Int32 playlistId, String sortExpression, Int32 startRowIndex, Int32 maximumRows)
+        public IQueryable<Track> GetTracksByPlaylistIdPageable(Int32 playlistId, String sortExpression, Int32 startRowIndex, Int32 maximumRows)
         {
-            return _dbRepository.GetTracksByPlaylistIdPagableSubSet(playlistId, sortExpression, startRowIndex, maximumRows).AsQueryable();
+            return _dbRepository.GetTracksByPlaylistIdPageable(playlistId, sortExpression, startRowIndex, maximumRows).AsQueryable();
         }
 
 
@@ -132,9 +133,9 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/album/{albumId}/tracks", Name = "GetDataByAlbumIdRoutePagable")]
         [HttpGet]
-        public IQueryable<Track> GetDataByAlbumIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 albumId)
+        public IQueryable<Track> GetDataByAlbumIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 albumId)
         {
-            return _dbRepository.GetDataByAlbumIdPagableSubSet(sortExpression, startRowIndex, maximumRows, albumId).AsQueryable();
+            return _dbRepository.GetDataByAlbumIdPageable(sortExpression, startRowIndex, maximumRows, albumId).AsQueryable();
         }
 
 
@@ -153,9 +154,9 @@ namespace Chinook.Web.UI.Controllers.Api
 
          [Route("api/genre/{genreId}/tracks", Name = "GetDataByGenreIdRoutePagable")]
         [HttpGet]
-        public IQueryable<Track> GetDataByGenreIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 genreId)
+        public IQueryable<Track> GetDataByGenreIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 genreId)
         {
-            return _dbRepository.GetDataByGenreIdPagableSubSet(sortExpression, startRowIndex, maximumRows, genreId).AsQueryable();
+            return _dbRepository.GetDataByGenreIdPageable(sortExpression, startRowIndex, maximumRows, genreId).AsQueryable();
         }
 
 
@@ -174,9 +175,9 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/mediaType/{mediaTypeId}/tracks", Name = "GetDataByMediaTypeIdRoutePagable")]
         [HttpGet]
-        public IQueryable<Track> GetDataByMediaTypeIdPagableSubSet(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 mediaTypeId)
+        public IQueryable<Track> GetDataByMediaTypeIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 mediaTypeId)
         {
-            return _dbRepository.GetDataByMediaTypeIdPagableSubSet(sortExpression, startRowIndex, maximumRows, mediaTypeId).AsQueryable();
+            return _dbRepository.GetDataByMediaTypeIdPageable(sortExpression, startRowIndex, maximumRows, mediaTypeId).AsQueryable();
         }
 
 

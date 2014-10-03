@@ -141,17 +141,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Track
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetPagableSubSetDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetPageableDbCommand
 
 
-            Dim command As New SqlCommand("Track_GetPagableSubSet")
+            Dim command As New SqlCommand("Track_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -223,10 +223,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetTracksByPlaylistIdPagableSubSetDbCommand(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdPagableSubSetDbCommand
+        Public Function GetGetTracksByPlaylistIdPageableDbCommand(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Track_GetTracksByPlaylistIdPagableSubSet")
+            Dim command As New SqlCommand("Track_GetTracksByPlaylistIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.Int, playlistId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
@@ -275,7 +275,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Track
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -283,10 +283,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="albumId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByAlbumIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdPagableSubSetDbCommand
+        Public Function GetGetDataByAlbumIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Track_GetDataByAlbumIdPagableSubSet")
+            Dim command As New SqlCommand("Track_GetDataByAlbumIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -335,7 +335,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Track
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -343,10 +343,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="genreId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByGenreIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdPagableSubSetDbCommand
+        Public Function GetGetDataByGenreIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Track_GetDataByGenreIdPagableSubSet")
+            Dim command As New SqlCommand("Track_GetDataByGenreIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -395,7 +395,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Track
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -403,10 +403,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="mediaTypeId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByMediaTypeIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdPagableSubSetDbCommand
+        Public Function GetGetDataByMediaTypeIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Track_GetDataByMediaTypeIdPagableSubSet")
+            Dim command As New SqlCommand("Track_GetDataByMediaTypeIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))

@@ -22,11 +22,11 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal employee As Employee) As Int32
         Sub Delete(ByVal employeeId As Int32)
         Sub Delete(ByVal employee As Employee)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Employee)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Employee)
         Function GetRowCount() As Int32
         Function GetDataByEmployeeId(ByVal employeeId As Int32) As ICollection(Of Employee)
         Function GetDataByReportsTo(ByVal reportsTo As Int32) As ICollection(Of Employee)
-        Function GetDataByReportsToPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee)
+        Function GetDataByReportsToPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee)
         Function GetDataByReportsToRowCount(ByVal reportsTo As Int32) As Int32
     End Interface
 End Namespace

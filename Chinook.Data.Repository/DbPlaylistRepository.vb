@@ -138,15 +138,15 @@ Namespace Chinook.Data.Repository
         End Sub
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Playlist
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Playlist
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist) Implements IPlaylistRepository.GetPagableSubSet
-            Dim command As IDbCommand = _dbPlaylistCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist) Implements IPlaylistRepository.GetPageable
+            Dim command As IDbCommand = _dbPlaylistCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Playlist)
@@ -226,8 +226,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPlaylistsByTrackIdPagableSubSet(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist) Implements IPlaylistRepository.GetPlaylistsByTrackIdPagableSubSet
-            Dim command As IDbCommand = _dbPlaylistCommandProvider.GetGetPlaylistsByTrackIdPagableSubSetDbCommand(trackId, sortExpression, startRowIndex, maximumRows)
+        Public Function GetPlaylistsByTrackIdPageable(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist) Implements IPlaylistRepository.GetPlaylistsByTrackIdPageable
+            Dim command As IDbCommand = _dbPlaylistCommandProvider.GetGetPlaylistsByTrackIdPageableDbCommand(trackId, sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Playlist)

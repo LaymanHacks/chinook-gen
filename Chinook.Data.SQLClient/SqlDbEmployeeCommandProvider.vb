@@ -165,17 +165,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetPagableSubSetDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetPageableDbCommand
 
 
-            Dim command As New SqlCommand("Employee_GetPagableSubSet")
+            Dim command As New SqlCommand("Employee_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -239,7 +239,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -247,10 +247,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="reportsTo" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByReportsToPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPagableSubSetDbCommand
+        Public Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand
 
 
-            Dim command As New SqlCommand("Employee_GetDataByReportsToPagableSubSet")
+            Dim command As New SqlCommand("Employee_GetDataByReportsToPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))

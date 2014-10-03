@@ -161,15 +161,15 @@ Namespace Chinook.Data.Repository
         End Sub
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
         ''' <param name="MaximumRows"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetPagableSubSet
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetPageable
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)
@@ -241,7 +241,7 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
@@ -249,8 +249,8 @@ Namespace Chinook.Data.Repository
         ''' <param name="SupportRepId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataBySupportRepIdPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPagableSubSet
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPagableSubSetDbCommand(sortExpression, startRowIndex, maximumRows, supportRepId)
+        Public Function GetDataBySupportRepIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPageable
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, supportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)

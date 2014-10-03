@@ -22,7 +22,7 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal mediaType As MediaType) As Int32
         Sub Delete(ByVal mediaTypeId As Int32)
         Sub Delete(ByVal mediaType As MediaType)
-        Function GetPagableSubSet(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of MediaType)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of MediaType)
         Function GetRowCount() As Int32
         Function GetDataByMediaTypeId(ByVal mediaTypeId As Int32) As ICollection(Of MediaType)
     End Interface

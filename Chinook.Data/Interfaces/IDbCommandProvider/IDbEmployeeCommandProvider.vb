@@ -18,11 +18,11 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand
         Function GetInsertDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand
         Function GetDeleteDbCommand(ByVal employeeId As Int32) As IDbCommand
-        Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByEmployeeIdDbCommand(ByVal employeeId As Int32) As IDbCommand
         Function GetGetDataByReportsToDbCommand(ByVal reportsTo As Int32) As IDbCommand
-        Function GetGetDataByReportsToPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As IDbCommand
+        Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As IDbCommand
         Function GetGetDataByReportsToRowCountDbCommand(ByVal reportsTo As Int32) As IDbCommand
 
     End Interface

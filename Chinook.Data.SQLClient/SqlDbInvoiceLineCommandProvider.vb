@@ -125,17 +125,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetPagableSubSetDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetPageableDbCommand
 
 
-            Dim command As New SqlCommand("InvoiceLine_GetPagableSubSet")
+            Dim command As New SqlCommand("InvoiceLine_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -199,7 +199,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -207,10 +207,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="invoiceId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPagableSubSetDbCommand
+        Public Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceIdPagableSubSet")
+            Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -259,7 +259,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -267,10 +267,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPagableSubSetDbCommand
+        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("InvoiceLine_GetDataByTrackIdPagableSubSet")
+            Dim command As New SqlCommand("InvoiceLine_GetDataByTrackIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))

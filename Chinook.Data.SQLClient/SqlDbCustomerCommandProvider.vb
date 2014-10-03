@@ -157,17 +157,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
         ''' <param name="maximumRows" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetPagableSubSetDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetPageableDbCommand
 
 
-            Dim command As New SqlCommand("Customer_GetPagableSubSet")
+            Dim command As New SqlCommand("Customer_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
@@ -231,7 +231,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPagableSubSet returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
@@ -239,10 +239,10 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <param name="supportRepId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataBySupportRepIdPagableSubSetDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdPagableSubSetDbCommand
+        Public Function GetGetDataBySupportRepIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand
 
 
-            Dim command As New SqlCommand("Customer_GetDataBySupportRepIdPagableSubSet")
+            Dim command As New SqlCommand("Customer_GetDataBySupportRepIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))

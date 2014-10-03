@@ -1,4 +1,5 @@
-﻿using Chinook.Web.UI.Controllers;
+﻿using System.Web.Mvc;
+using Chinook.Web.UI.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Chinook.Web.UI.Tests.Controllers

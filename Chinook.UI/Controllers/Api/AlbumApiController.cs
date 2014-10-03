@@ -30,7 +30,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetPagableSubSet(sortExpression, (page - 1)*pageSize, pageSize);
+            var albums = _dbRepository.GetPageable(sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetRowCount();
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsPagableRoute", page, pageSize,
@@ -55,12 +55,12 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/artist/{artistId}/albums", Name = "AlbumsByArtistIdPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetDataByArtistIdPagableSubSet(Int32 artistId, string sortExpression = "ArtistId",
+        public HttpResponseMessage GetDataByArtistIdPageable(Int32 artistId, string sortExpression = "ArtistId",
             Int32 page = 1, Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetDataByArtistIdPagableSubSet(sortExpression, (page - 1)*pageSize, pageSize,
+            var albums = _dbRepository.GetDataByArtistIdPageable(sortExpression, (page - 1)*pageSize, pageSize,
                 artistId);
             var totalCount = _dbRepository.GetDataByArtistIdRowCount(artistId);
 

@@ -117,9 +117,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Album_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Album_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -142,7 +142,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -247,9 +247,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Album_GetDataByArtistIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Album_GetDataByArtistIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Album_GetDataByArtistIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -273,7 +273,7 @@ EXEC sp_executesql @sql, N''@INArtistId int,@inSortExpression VarChar(125),@inSt
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetDataByArtistIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Album_GetDataByArtistIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -439,9 +439,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Artist_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Artist_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Artist_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Artist_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -464,7 +464,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Artist_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Artist_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -695,9 +695,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -720,7 +720,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -825,9 +825,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer_GetDataBySupportRepIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer_GetDataBySupportRepIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -851,7 +851,7 @@ EXEC sp_executesql @sql, N''@INSupportRepId int,@inSortExpression VarChar(125),@
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Customer_GetDataBySupportRepIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1069,9 +1069,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1094,7 +1094,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1199,9 +1199,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee_GetDataByReportsToPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Employee_GetDataByReportsToPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Employee_GetDataByReportsToPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1225,7 +1225,7 @@ EXEC sp_executesql @sql, N''@INReportsTo int,@inSortExpression VarChar(125),@inS
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetDataByReportsToPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Employee_GetDataByReportsToPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1391,9 +1391,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Genre_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Genre_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Genre_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Genre_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1416,7 +1416,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Genre_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Genre_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1631,9 +1631,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1656,7 +1656,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1761,9 +1761,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice_GetDataByCustomerIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice_GetDataByCustomerIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1787,7 +1787,7 @@ EXEC sp_executesql @sql, N''@INCustomerId int,@inSortExpression VarChar(125),@in
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Invoice_GetDataByCustomerIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1965,9 +1965,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -1990,7 +1990,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2095,9 +2095,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetDataByInvoiceIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2121,7 +2121,7 @@ EXEC sp_executesql @sql, N''@INInvoiceId int,@inSortExpression VarChar(125),@inS
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByInvoiceIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2205,9 +2205,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceLine_GetDataByTrackIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2231,7 +2231,7 @@ EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inSta
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[InvoiceLine_GetDataByTrackIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2397,9 +2397,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MediaType_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MediaType_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[MediaType_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[MediaType_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2422,7 +2422,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[MediaType_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[MediaType_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2609,9 +2609,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Playlist_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Playlist_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2634,7 +2634,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2747,9 +2747,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Playlist_GetPlaylistsByTrackIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPageable]
 (
 @TrackId int, 
 @sortExpression varchar(125), 
@@ -2777,7 +2777,7 @@ EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression varchar(125),@inSta
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Playlist_GetPlaylistsByTrackIdPageable]
 (
 @TrackId int, 
 @sortExpression varchar(125), 
@@ -2951,9 +2951,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -2976,7 +2976,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3083,9 +3083,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetDataByPlaylistIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3109,7 +3109,7 @@ EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression VarChar(125),@in
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByPlaylistIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3193,9 +3193,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PlaylistTrack_GetDataByTrackIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3219,7 +3219,7 @@ EXEC sp_executesql @sql, N''@INTrackId int,@inSortExpression VarChar(125),@inSta
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[PlaylistTrack_GetDataByTrackIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3413,9 +3413,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3438,7 +3438,7 @@ EXEC sp_executesql @sql, N''@inSortExpression VarChar(125),@inStartRowIndex Int,
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3565,9 +3565,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetTracksByPlaylistIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetTracksByPlaylistIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPageable]
 (
 @PlaylistId int, 
 @sortExpression varchar(125), 
@@ -3609,7 +3609,7 @@ EXEC sp_executesql @sql, N''@INPlaylistId int,@inSortExpression varchar(125),@in
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetTracksByPlaylistIdPageable]
 (
 @PlaylistId int, 
 @sortExpression varchar(125), 
@@ -3713,9 +3713,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByAlbumIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByAlbumIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByAlbumIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3739,7 +3739,7 @@ EXEC sp_executesql @sql, N''@INAlbumId int,@inSortExpression VarChar(125),@inSta
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByAlbumIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByAlbumIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3823,9 +3823,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByGenreIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByGenreIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByGenreIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3849,7 +3849,7 @@ EXEC sp_executesql @sql, N''@INGenreId int,@inSortExpression VarChar(125),@inSta
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByGenreIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByGenreIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3933,9 +3933,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByMediaTypeIdPagableSubSet]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Track_GetDataByMediaTypeIdPageable]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
@@ -3959,7 +3959,7 @@ EXEC sp_executesql @sql, N''@INMediaTypeId int,@inSortExpression VarChar(125),@i
     END
   ELSE
   BEGIN
-  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPagableSubSet]
+  EXEC dbo.sp_executesql @statement = N'ALTER PROCEDURE [dbo].[Track_GetDataByMediaTypeIdPageable]
 (
 @sortExpression varchar(125), 
 @startRowIndex Int, 
