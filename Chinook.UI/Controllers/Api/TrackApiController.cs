@@ -96,14 +96,14 @@ namespace Chinook.Web.UI.Controllers.Api
             return _dbRepository.GetRowCount();
         }
 
-
+         [Route("api/track/{trackId}/tracks/all", Name = "GetDataByTrackIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByTrackId(Int32 trackId)
         {
             return _dbRepository.GetDataByTrackId(trackId).AsQueryable();
         }
 
-
+         [Route("api/playlist/{playlistId}/tracks/all", Name = "GetTracksByPlaylistIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetTracksByPlaylistId(Int32 playlistId)
         {

@@ -83,7 +83,7 @@ namespace Chinook.Web.UI.Controllers.Api
             return _dbRepository.GetRowCount();
         }
 
-        [Route("api/genre/{genreId}/genres/all", Name = "GetDataByGenreIdRoute")]
+        [Route("api/genre/{genreId}/genres/all", Name = "GetGenreDataByGenreIdRoute")]
         [HttpGet]
         public IQueryable<Genre> GetDataByGenreId(Int32 genreId)
         {
