@@ -10,6 +10,8 @@
 
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
@@ -26,10 +28,35 @@ namespace Chinook.Web.UI.Controllers.Api
             _dbRepository = new DbGenreRepository(dbCommandProvider);
         }
 
+        [Route("api/genres/all")]
         [HttpGet]
         public IQueryable<Genre> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
+        }
+
+        [Route("api/genres", Name = "genresPagableRoute")]
+        [HttpGet]
+        public HttpResponseMessage GetPageable(string sortExpression = "GenreId", Int32 page = 1,
+            Int32 pageSize = 10)
+        {
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            var genres = _dbRepository.GetPageable(sortExpression, (page - 1) * pageSize, pageSize);
+            var totalCount = _dbRepository.GetRowCount();
+
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "genresPagableRoute", page, pageSize,
+                totalCount, genres);
+
+            return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
+        }
+
+       
+        [Route("api/genres/{genreId:int:min(1)}")]
+        [HttpGet]
+        public IQueryable<Genre> GetDataByGenreId(Int32 genreId)
+        {
+            return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
         }
 
         [HttpPut]
@@ -70,25 +97,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             Delete(genre.GenreId);
         }
-
-        [HttpGet]
-        public IQueryable<Genre> GetPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows)
-        {
-            return _dbRepository.GetPageable(sortExpression, startRowIndex, maximumRows).AsQueryable();
-        }
-
-        [HttpGet]
-        public Int32 GetRowCount()
-        {
-            return _dbRepository.GetRowCount();
-        }
-
-        [Route("api/genre/{genreId}/genres/all", Name = "GetGenreDataByGenreIdRoute")]
-        [HttpGet]
-        public IQueryable<Genre> GetDataByGenreId(Int32 genreId)
-        {
-            return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
-        }
+        
 
 
     }

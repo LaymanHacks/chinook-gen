@@ -33,6 +33,111 @@ namespace Chinook.Web.UI.Controllers.Api
             return _dbRepository.GetData().AsQueryable();
         }
 
+        [HttpGet]
+        public IQueryable<Track> GetPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows)
+        {
+            return _dbRepository.GetPageable(sortExpression, startRowIndex, maximumRows).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public Int32 GetRowCount()
+        {
+            return _dbRepository.GetRowCount();
+        }
+
+        [Route("api/track/{trackId}/tracks/all", Name = "GetDataByTrackIdRoute")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByTrackId(Int32 trackId)
+        {
+            return _dbRepository.GetDataByTrackId(trackId).AsQueryable();
+        }
+
+        [Route("api/playlist/{playlistId}/tracks/all", Name = "GetTracksByPlaylistIdRoute")]
+        [HttpGet]
+        public IQueryable<Track> GetTracksByPlaylistId(Int32 playlistId)
+        {
+            return _dbRepository.GetTracksByPlaylistId(playlistId).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public IQueryable<Track> GetTracksByPlaylistIdPageable(Int32 playlistId, String sortExpression, Int32 startRowIndex, Int32 maximumRows)
+        {
+            return _dbRepository.GetTracksByPlaylistIdPageable(playlistId, sortExpression, startRowIndex, maximumRows).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public Int32 GetTracksByPlaylistIdRowCount(Int32 playlistId)
+        {
+            return _dbRepository.GetTracksByPlaylistIdRowCount(playlistId);
+        }
+
+        [Route("api/album/{albumId}/tracks/all", Name = "GetDataByAlbumIdRoute")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByAlbumId(Int32 albumId)
+        {
+            return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
+        }
+
+        [Route("api/album/{albumId}/tracks", Name = "GetDataByAlbumIdRoutePagable")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByAlbumIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 albumId)
+        {
+            return _dbRepository.GetDataByAlbumIdPageable(sortExpression, startRowIndex, maximumRows, albumId).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public Int32 GetDataByAlbumIdRowCount(Int32 albumId)
+        {
+            return _dbRepository.GetDataByAlbumIdRowCount(albumId);
+        }
+
+        [Route("api/genre/{genreId}/tracks/all", Name = "GetDataByGenreIdRoute")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByGenreId(Int32 genreId)
+        {
+            return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
+        }
+
+        [Route("api/genre/{genreId}/tracks", Name = "GetDataByGenreIdRoutePagable")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByGenreIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 genreId)
+        {
+            return _dbRepository.GetDataByGenreIdPageable(sortExpression, startRowIndex, maximumRows, genreId).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public Int32 GetDataByGenreIdRowCount(Int32 genreId)
+        {
+            return _dbRepository.GetDataByGenreIdRowCount(genreId);
+        }
+
+        [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetDataByMediaTypeIdRoute")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByMediaTypeId(Int32 mediaTypeId)
+        {
+            return _dbRepository.GetDataByMediaTypeId(mediaTypeId).AsQueryable();
+        }
+
+        [Route("api/mediaType/{mediaTypeId}/tracks", Name = "GetDataByMediaTypeIdRoutePagable")]
+        [HttpGet]
+        public IQueryable<Track> GetDataByMediaTypeIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 mediaTypeId)
+        {
+            return _dbRepository.GetDataByMediaTypeIdPageable(sortExpression, startRowIndex, maximumRows, mediaTypeId).AsQueryable();
+        }
+
+
+        [HttpGet]
+        public Int32 GetDataByMediaTypeIdRowCount(Int32 mediaTypeId)
+        {
+            return _dbRepository.GetDataByMediaTypeIdRowCount(mediaTypeId);
+        }
+
+
 
         [HttpPut]
         public void Update(Int32 trackId, String name, int albumId, Int32 mediaTypeId, int genreId, String composer, Int32 milliseconds, int bytes, Decimal unitPrice)
@@ -83,110 +188,7 @@ namespace Chinook.Web.UI.Controllers.Api
         }
 
 
-        [HttpGet]
-        public IQueryable<Track> GetPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows)
-        {
-            return _dbRepository.GetPageable(sortExpression, startRowIndex, maximumRows).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public Int32 GetRowCount()
-        {
-            return _dbRepository.GetRowCount();
-        }
-
-         [Route("api/track/{trackId}/tracks/all", Name = "GetDataByTrackIdRoute")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByTrackId(Int32 trackId)
-        {
-            return _dbRepository.GetDataByTrackId(trackId).AsQueryable();
-        }
-
-         [Route("api/playlist/{playlistId}/tracks/all", Name = "GetTracksByPlaylistIdRoute")]
-        [HttpGet]
-        public IQueryable<Track> GetTracksByPlaylistId(Int32 playlistId)
-        {
-            return _dbRepository.GetTracksByPlaylistId(playlistId).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public IQueryable<Track> GetTracksByPlaylistIdPageable(Int32 playlistId, String sortExpression, Int32 startRowIndex, Int32 maximumRows)
-        {
-            return _dbRepository.GetTracksByPlaylistIdPageable(playlistId, sortExpression, startRowIndex, maximumRows).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public Int32 GetTracksByPlaylistIdRowCount(Int32 playlistId)
-        {
-            return _dbRepository.GetTracksByPlaylistIdRowCount(playlistId);
-        }
-
-        [Route("api/album/{albumId}/tracks/all", Name = "GetDataByAlbumIdRoute")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByAlbumId(Int32 albumId)
-        {
-            return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
-        }
-
-        [Route("api/album/{albumId}/tracks", Name = "GetDataByAlbumIdRoutePagable")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByAlbumIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 albumId)
-        {
-            return _dbRepository.GetDataByAlbumIdPageable(sortExpression, startRowIndex, maximumRows, albumId).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public Int32 GetDataByAlbumIdRowCount(Int32 albumId)
-        {
-            return _dbRepository.GetDataByAlbumIdRowCount(albumId);
-        }
-
-        [Route("api/genre/{genreId}/tracks/all", Name = "GetDataByGenreIdRoute")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByGenreId(Int32 genreId)
-        {
-            return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
-        }
-
-         [Route("api/genre/{genreId}/tracks", Name = "GetDataByGenreIdRoutePagable")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByGenreIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 genreId)
-        {
-            return _dbRepository.GetDataByGenreIdPageable(sortExpression, startRowIndex, maximumRows, genreId).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public Int32 GetDataByGenreIdRowCount(Int32 genreId)
-        {
-            return _dbRepository.GetDataByGenreIdRowCount(genreId);
-        }
-
-        [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetDataByMediaTypeIdRoute")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByMediaTypeId(Int32 mediaTypeId)
-        {
-            return _dbRepository.GetDataByMediaTypeId(mediaTypeId).AsQueryable();
-        }
-
-        [Route("api/mediaType/{mediaTypeId}/tracks", Name = "GetDataByMediaTypeIdRoutePagable")]
-        [HttpGet]
-        public IQueryable<Track> GetDataByMediaTypeIdPageable(String sortExpression, Int32 startRowIndex, Int32 maximumRows, Int32 mediaTypeId)
-        {
-            return _dbRepository.GetDataByMediaTypeIdPageable(sortExpression, startRowIndex, maximumRows, mediaTypeId).AsQueryable();
-        }
-
-
-        [HttpGet]
-        public Int32 GetDataByMediaTypeIdRowCount(Int32 mediaTypeId)
-        {
-            return _dbRepository.GetDataByMediaTypeIdRowCount(mediaTypeId);
-        }
-
+       
 
     }
 }
