@@ -22,14 +22,14 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal invoiceLine As InvoiceLine) As Int32
         Sub Delete(ByVal invoiceLineId As Int32)
         Sub Delete(ByVal invoiceLine As InvoiceLine)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of InvoiceLine)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of InvoiceLine)
         Function GetRowCount() As Int32
         Function GetDataByInvoiceLineId(ByVal invoiceLineId As Int32) As ICollection(Of InvoiceLine)
         Function GetDataByInvoiceId(ByVal invoiceId As Int32) As ICollection(Of InvoiceLine)
-        Function GetDataByInvoiceIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As ICollection(Of InvoiceLine)
+        Function GetDataByInvoiceIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal invoiceId As Int32) As ICollection(Of InvoiceLine)
         Function GetDataByInvoiceIdRowCount(ByVal invoiceId As Int32) As Int32
         Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of InvoiceLine)
-        Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of InvoiceLine)
+        Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As ICollection(Of InvoiceLine)
         Function GetDataByTrackIdRowCount(ByVal trackId As Int32) As Int32
     End Interface
 End Namespace

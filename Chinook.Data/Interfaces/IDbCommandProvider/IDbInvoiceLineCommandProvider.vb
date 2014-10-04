@@ -18,14 +18,14 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand
         Function GetInsertDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand
         Function GetDeleteDbCommand(ByVal invoiceLineId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByInvoiceLineIdDbCommand(ByVal invoiceLineId As Int32) As IDbCommand
         Function GetGetDataByInvoiceIdDbCommand(ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal invoiceId As Int32) As IDbCommand
         Function GetGetDataByInvoiceIdRowCountDbCommand(ByVal invoiceId As Int32) As IDbCommand
         Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand
-        Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand
+        Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As IDbCommand
         Function GetGetDataByTrackIdRowCountDbCommand(ByVal trackId As Int32) As IDbCommand
 
     End Interface

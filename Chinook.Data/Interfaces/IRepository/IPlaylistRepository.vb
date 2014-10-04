@@ -22,11 +22,11 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal playlist As Playlist) As Int32
         Sub Delete(ByVal playlistId As Int32)
         Sub Delete(ByVal playlist As Playlist)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Playlist)
         Function GetRowCount() As Int32
         Function GetDataByPlaylistId(ByVal playlistId As Int32) As ICollection(Of Playlist)
         Function GetPlaylistsByTrackId(ByVal trackId As Int32) As ICollection(Of Playlist)
-        Function GetPlaylistsByTrackIdPageable(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Playlist)
+        Function GetPlaylistsByTrackIdPageable(ByVal trackId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Playlist)
         Function GetPlaylistsByTrackIdRowCount(ByVal trackId As Int32) As Int32
     End Interface
 End Namespace

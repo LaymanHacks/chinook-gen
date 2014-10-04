@@ -119,17 +119,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetPageableDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetPageableDbCommand
 
 
             Dim command As New SqlCommand("PlaylistTrack_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -195,18 +195,18 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <param name="playlistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByPlaylistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPageableDbCommand
+        Public Function GetGetDataByPlaylistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal playlistId As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPageableDbCommand
 
 
             Dim command As New SqlCommand("PlaylistTrack_GetDataByPlaylistIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.Int, playlistId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
@@ -255,18 +255,18 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetDataByTrackIdPageableDbCommand
+        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbPlaylistTrackCommandProvider.GetGetDataByTrackIdPageableDbCommand
 
 
             Dim command As New SqlCommand("PlaylistTrack_GetDataByTrackIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)

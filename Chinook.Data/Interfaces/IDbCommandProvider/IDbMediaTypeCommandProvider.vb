@@ -18,7 +18,7 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal mediaTypeId As Int32, ByVal name As String) As IDbCommand
         Function GetInsertDbCommand(ByVal mediaTypeId As Int32, ByVal name As String) As IDbCommand
         Function GetDeleteDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByMediaTypeIdDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
 

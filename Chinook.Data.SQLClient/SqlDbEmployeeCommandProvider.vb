@@ -169,17 +169,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetPageableDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetPageableDbCommand
 
 
             Dim command As New SqlCommand("Employee_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -243,18 +243,18 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <param name="reportsTo" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand
+        Public Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand
 
 
             Dim command As New SqlCommand("Employee_GetDataByReportsToPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)

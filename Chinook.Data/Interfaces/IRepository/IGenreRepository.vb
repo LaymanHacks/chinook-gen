@@ -22,7 +22,7 @@ Namespace Chinook.Data.Repository
         Function Insert(ByVal genre As Genre) As Int32
         Sub Delete(ByVal genreId As Int32)
         Sub Delete(ByVal genre As Genre)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Genre)
+        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Genre)
         Function GetRowCount() As Int32
         Function GetDataByGenreId(ByVal genreId As Int32) As ICollection(Of Genre)
     End Interface

@@ -169,11 +169,11 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetPageable
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetPageable
+            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Employee)
@@ -249,12 +249,12 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>
+        ''' <param name="pageSize"></param>
         ''' <param name="ReportsTo"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByReportsToPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPageable
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand(sortExpression, startRowIndex, maximumRows, reportsTo)
+        Public Function GetDataByReportsToPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPageable
+            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand(sortExpression, startRowIndex, pageSize, reportsTo)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Employee)

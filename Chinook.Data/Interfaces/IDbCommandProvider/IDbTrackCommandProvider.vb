@@ -18,20 +18,20 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal) As IDbCommand
         Function GetInsertDbCommand(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal) As IDbCommand
         Function GetDeleteDbCommand(ByVal trackId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand
         Function GetGetTracksByPlaylistIdDbCommand(ByVal playlistId As Int32) As IDbCommand
-        Function GetGetTracksByPlaylistIdPageableDbCommand(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetTracksByPlaylistIdPageableDbCommand(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
         Function GetGetTracksByPlaylistIdRowCountDbCommand(ByVal playlistId As Int32) As IDbCommand
         Function GetGetDataByAlbumIdDbCommand(ByVal albumId As Int32) As IDbCommand
-        Function GetGetDataByAlbumIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal albumId As Int32) As IDbCommand
+        Function GetGetDataByAlbumIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal albumId As Int32) As IDbCommand
         Function GetGetDataByAlbumIdRowCountDbCommand(ByVal albumId As Int32) As IDbCommand
         Function GetGetDataByGenreIdDbCommand(ByVal genreId As Int32) As IDbCommand
-        Function GetGetDataByGenreIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal genreId As Int32) As IDbCommand
+        Function GetGetDataByGenreIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal genreId As Int32) As IDbCommand
         Function GetGetDataByGenreIdRowCountDbCommand(ByVal genreId As Int32) As IDbCommand
         Function GetGetDataByMediaTypeIdDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
-        Function GetGetDataByMediaTypeIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal mediaTypeId As Int32) As IDbCommand
+        Function GetGetDataByMediaTypeIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal mediaTypeId As Int32) As IDbCommand
         Function GetGetDataByMediaTypeIdRowCountDbCommand(ByVal mediaTypeId As Int32) As IDbCommand
 
     End Interface

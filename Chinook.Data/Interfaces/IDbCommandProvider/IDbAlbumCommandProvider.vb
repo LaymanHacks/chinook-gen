@@ -18,11 +18,11 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetUpdateDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand
         Function GetInsertDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand
         Function GetDeleteDbCommand(ByVal albumId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand
+        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
         Function GetGetDataByAlbumIdDbCommand(ByVal albumId As Int32) As IDbCommand
         Function GetGetDataByArtistIdDbCommand(ByVal artistId As Int32) As IDbCommand
-        Function GetGetDataByArtistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataByArtistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal artistId As Int32) As IDbCommand
         Function GetGetDataByArtistIdRowCountDbCommand(ByVal artistId As Int32) As IDbCommand
 
     End Interface

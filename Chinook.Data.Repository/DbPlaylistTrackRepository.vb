@@ -148,11 +148,11 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetPageable
-            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetPageable
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of PlaylistTrack)
@@ -229,12 +229,12 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>
+        ''' <param name="pageSize"></param>
         ''' <param name="PlaylistId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByPlaylistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdPageable
-            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, playlistId)
+        Public Function GetDataByPlaylistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByPlaylistIdPageable
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByPlaylistIdPageableDbCommand(sortExpression, startRowIndex, pageSize, playlistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of PlaylistTrack)
@@ -290,12 +290,12 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>
+        ''' <param name="pageSize"></param>
         ''' <param name="TrackId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackIdPageable
-            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdPageableDbCommand(sortExpression, startRowIndex, maximumRows, trackId)
+        Public Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack) Implements IPlaylistTrackRepository.GetDataByTrackIdPageable
+            Dim command As IDbCommand = _dbPlaylistTrackCommandProvider.GetGetDataByTrackIdPageableDbCommand(sortExpression, startRowIndex, pageSize, trackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of PlaylistTrack)

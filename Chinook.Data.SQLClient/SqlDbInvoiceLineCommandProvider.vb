@@ -129,17 +129,17 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetPageableDbCommand
+        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetPageableDbCommand
 
 
             Dim command As New SqlCommand("InvoiceLine_GetPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -203,18 +203,18 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <param name="invoiceId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand
+        Public Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand
 
 
             Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
@@ -263,18 +263,18 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' </summary>
         ''' <param name="sortExpression" />
         ''' <param name="startRowIndex" />
-        ''' <param name="maximumRows" />
+        ''' <param name="pageSize" />
         ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand
+        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand
 
 
             Dim command As New SqlCommand("InvoiceLine_GetDataByTrackIdPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MaximumRows", SqlDbType.Int, maximumRows))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)

@@ -143,11 +143,11 @@ Namespace Chinook.Data.Repository
         ''' </summary>
         ''' <param name="sortExpression"></param>
         ''' <param name="startRowIndex"></param>
-        ''' <param name="MaximumRows"></param>''' <returns></returns>
+        ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal maximumRows As Int32) As ICollection(Of Artist) Implements IArtistRepository.GetPageable
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, maximumRows)
+        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Artist) Implements IArtistRepository.GetPageable
+            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Artist)
