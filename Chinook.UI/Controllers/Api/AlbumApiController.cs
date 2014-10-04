@@ -55,7 +55,7 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/artist/{artistId}/albums", Name = "AlbumsByArtistIdPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetDataByArtistIdPageable(Int32 artistId, string sortExpression = "ArtistId",
+        public HttpResponseMessage GetDataByArtistIdPageable(Int32 artistId, string sortExpression = "AlbumId",
             Int32 page = 1, Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
