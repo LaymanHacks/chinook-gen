@@ -26,6 +26,10 @@ namespace Chinook.Web.UI
             container.Register<IDbCustomerCommandProvider, SqlDbCustomerCommandProvider>();
             container.Register<ICustomerRepository, DbCustomerRepository>();
 
+            container.Register<IDbInvoiceLineCommandProvider, SqlDbInvoiceLineCommandProvider>();
+            container.Register<IInvoiceLineRepository, DbInvoiceLineRepository>();
+
+            
             return container;
         }
     }
