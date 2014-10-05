@@ -26,12 +26,12 @@ namespace Chinook.Web.UI.Controllers.APi
 
         [Route("api/artists", Name = "ArtistsPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetPageable(string sortExpression = "ArtistId", Int32 page = 1,
+        public HttpResponseMessage GetDataPageable(string sortExpression = "ArtistId", Int32 page = 1,
             Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetPageable(sortExpression, (page - 1) * pageSize, pageSize);
+            var albums = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "ArtistsPagableRoute", page, pageSize,

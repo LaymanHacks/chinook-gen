@@ -13,292 +13,293 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
+  
+Public Class SqlDbInvoiceLineCommandProvider
+      Implements IDbInvoiceLineCommandProvider
+    
+      ReadOnly _dbConnHolder As DbConnectionHolder
 
-    Public Class SqlDbInvoiceLineCommandProvider
-        Implements IDbInvoiceLineCommandProvider
+      Public Sub New()
+          _dbConnHolder = New DbConnectionHolder(DbConnectionName)
+      End Sub
 
-        ReadOnly _dbConnHolder As DbConnectionHolder
+      Public ReadOnly Property DbConnectionName() As String Implements IDbInvoiceLineCommandProvider.DbConnectionName
+          Get
+              Return "ChinookConnection"
+          End Get
+      End Property
 
-        Public Sub New()
-            _dbConnHolder = New DbConnectionHolder(DbConnectionName)
-        End Sub
-
-        Public ReadOnly Property DbConnectionName() As String Implements IDbInvoiceLineCommandProvider.DbConnectionName
-            Get
-                Return "ChinookConnection"
-            End Get
-        End Property
-
-        Public ReadOnly Property InvoiceLineDbConnectionHolder() As DbConnectionHolder Implements IDbInvoiceLineCommandProvider.InvoiceLineDbConnectionHolder
-            Get
-                Return _dbConnHolder
-            End Get
-        End Property
-
-
+      Public ReadOnly Property InvoiceLineDbConnectionHolder() As DbConnectionHolder Implements IDbInvoiceLineCommandProvider.InvoiceLineDbConnectionHolder
+          Get
+              Return _dbConnHolder
+          End Get
+      End Property
+      
+    
         ''' <summary>
         ''' Selects one or more records from the InvoiceLine table 
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("InvoiceLine_Select")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Updates one or more records from the InvoiceLine table 
         ''' </summary>
-        ''' <param name="invoiceLineId" />
-        ''' <param name="invoiceId" />
-        ''' <param name="trackId" />
-        ''' <param name="unitPrice" />
-        ''' <param name="quantity" />
+      ''' <param name="invoiceLineId" />
+      ''' <param name="invoiceId" />
+      ''' <param name="trackId" />
+      ''' <param name="unitPrice" />
+      ''' <param name="quantity" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetUpdateDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetUpdateDbCommand
-
-
+        Public Function GetUpdateDbCommand( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetUpdateDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.Int, invoiceLineId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Quantity", SqlDbType.Int, quantity))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.int, invoiceLineId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.int, invoiceId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Quantity", SqlDbType.int, quantity))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Inserts a record into the InvoiceLine table on the database.
         ''' </summary>
-        ''' <param name="invoiceLineId" />
-        ''' <param name="invoiceId" />
-        ''' <param name="trackId" />
-        ''' <param name="unitPrice" />
-        ''' <param name="quantity" />
+      ''' <param name="invoiceLineId" />
+      ''' <param name="invoiceId" />
+      ''' <param name="trackId" />
+      ''' <param name="unitPrice" />
+      ''' <param name="quantity" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetInsertDbCommand(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetInsertDbCommand
-
-
+        Public Function GetInsertDbCommand( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetInsertDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.Int, invoiceLineId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Quantity", SqlDbType.Int, quantity))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.int, invoiceLineId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.int, invoiceId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Quantity", SqlDbType.int, quantity))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Deletes one or more records from the InvoiceLine table 
         ''' </summary>
-        ''' <param name="invoiceLineId" />
+      ''' <param name="invoiceLineId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetDeleteDbCommand(ByVal invoiceLineId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetDeleteDbCommand
-
-
+        Public Function GetDeleteDbCommand( ByVal invoiceLineId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetDeleteDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.Int, invoiceLineId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.int, invoiceLineId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("InvoiceLine_GetPageable")
+        Public Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataPageableDbCommand
+            
+    
+            Dim command As New SqlCommand("InvoiceLine_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for InvoiceLine
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetRowCountDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByInvoiceLineId returns a IDataReader for InvoiceLine
         ''' </summary>
-        ''' <param name="invoiceLineId" />
+      ''' <param name="invoiceLineId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceLineIdDbCommand(ByVal invoiceLineId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceLineIdDbCommand
-
-
+        Public Function GetGetDataByInvoiceLineIdDbCommand( ByVal invoiceLineId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceLineIdDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceLineId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.Int, invoiceLineId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceLineId", SqlDbType.int, invoiceLineId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByInvoiceId returns a IDataReader for InvoiceLine
         ''' </summary>
-        ''' <param name="invoiceId" />
+      ''' <param name="invoiceId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceIdDbCommand(ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdDbCommand
-
-
+        Public Function GetGetDataByInvoiceIdDbCommand( ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.int, invoiceId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetDataByInvoiceIdPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="invoiceId" />
+      ''' <param name="invoiceId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand
-
-
+        Public Function GetGetDataByInvoiceIdPageableDbCommand( ByVal invoiceId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.int, invoiceId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for InvoiceLine
         ''' </summary>
-        ''' <param name="invoiceId" />
+      ''' <param name="invoiceId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByInvoiceIdRowCountDbCommand(ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdRowCountDbCommand
-
-
+        Public Function GetGetDataByInvoiceIdRowCountDbCommand( ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByInvoiceIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByInvoiceIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.int, invoiceId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByTrackId returns a IDataReader for InvoiceLine
         ''' </summary>
-        ''' <param name="trackId" />
+      ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdDbCommand
-
-
+        Public Function GetGetDataByTrackIdDbCommand( ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByTrackId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
+        ''' Function GetDataByTrackIdPageable returns a IDataReader populated with a subset of data from InvoiceLine
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="trackId" />
+      ''' <param name="trackId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand
-
-
+        Public Function GetGetDataByTrackIdPageableDbCommand( ByVal trackId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByTrackIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for InvoiceLine
         ''' </summary>
-        ''' <param name="trackId" />
+      ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdRowCountDbCommand(ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdRowCountDbCommand
-
-
+        Public Function GetGetDataByTrackIdRowCountDbCommand( ByVal trackId As Int32) As IDbCommand Implements IDbInvoiceLineCommandProvider.GetGetDataByTrackIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("InvoiceLine_GetDataByTrackIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
-    End Class
-End Namespace
+      End Function
+         
+            
+  End Class
+ End Namespace
+  

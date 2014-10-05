@@ -12,18 +12,19 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-
-Namespace Chinook.Data.Repository
+  
+ Namespace Chinook.Data.Repository     
     Public Interface IGenreRepository
-        Function GetData() As ICollection(Of Genre)
-        Sub Update(ByVal genreId As Int32, ByVal name As String)
-        Sub Update(ByVal genre As Genre)
-        Function Insert(ByVal genreId As Int32, ByVal name As String) As Int32
-        Function Insert(ByVal genre As Genre) As Int32
-        Sub Delete(ByVal genreId As Int32)
-        Sub Delete(ByVal genre As Genre)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Genre)
-        Function GetRowCount() As Int32
-        Function GetDataByGenreId(ByVal genreId As Int32) As ICollection(Of Genre)
-    End Interface
-End Namespace
+        Function GetData()  as ICollection(Of Genre)
+        Sub Update( ByVal genreId As Int32,  ByVal name As String) 
+        Sub Update(ByVal genre as Genre) 
+        Function Insert( ByVal genreId As Int32,  ByVal name As String)  as Int32
+        Function Insert(ByVal genre as Genre)  as Int32
+        Sub Delete( ByVal genreId As Int32) 
+        Sub Delete(ByVal genre as Genre) 
+        Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Genre)
+        Function GetRowCount()  as Int32
+        Function GetDataByGenreId( ByVal genreId As Int32)  as ICollection(Of Genre)
+    End Interface 
+End NameSpace
+  

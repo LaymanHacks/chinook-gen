@@ -13,428 +13,469 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
+  
+Public Class SqlDbTrackCommandProvider
+      Implements IDbTrackCommandProvider
+    
+      ReadOnly _dbConnHolder As DbConnectionHolder
 
-    Public Class SqlDbTrackCommandProvider
-        Implements IDbTrackCommandProvider
+      Public Sub New()
+          _dbConnHolder = New DbConnectionHolder(DbConnectionName)
+      End Sub
 
-        ReadOnly _dbConnHolder As DbConnectionHolder
+      Public ReadOnly Property DbConnectionName() As String Implements IDbTrackCommandProvider.DbConnectionName
+          Get
+              Return "ChinookConnection"
+          End Get
+      End Property
 
-        Public Sub New()
-            _dbConnHolder = New DbConnectionHolder(DbConnectionName)
-        End Sub
-
-        Public ReadOnly Property DbConnectionName() As String Implements IDbTrackCommandProvider.DbConnectionName
-            Get
-                Return "ChinookConnection"
-            End Get
-        End Property
-
-        Public ReadOnly Property TrackDbConnectionHolder() As DbConnectionHolder Implements IDbTrackCommandProvider.TrackDbConnectionHolder
-            Get
-                Return _dbConnHolder
-            End Get
-        End Property
-
-
+      Public ReadOnly Property TrackDbConnectionHolder() As DbConnectionHolder Implements IDbTrackCommandProvider.TrackDbConnectionHolder
+          Get
+              Return _dbConnHolder
+          End Get
+      End Property
+      
+    
         ''' <summary>
         ''' Selects one or more records from the Track table 
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbTrackCommandProvider.GetGetDataDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Track_Select")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Updates one or more records from the Track table 
         ''' </summary>
-        ''' <param name="trackId" />
-        ''' <param name="name" />
-        ''' <param name="albumId" />
-        ''' <param name="mediaTypeId" />
-        ''' <param name="genreId" />
-        ''' <param name="composer" />
-        ''' <param name="milliseconds" />
-        ''' <param name="bytes" />
-        ''' <param name="unitPrice" />
+      ''' <param name="trackId" />
+      ''' <param name="name" />
+      ''' <param name="albumId" />
+      ''' <param name="mediaTypeId" />
+      ''' <param name="genreId" />
+      ''' <param name="composer" />
+      ''' <param name="milliseconds" />
+      ''' <param name="bytes" />
+      ''' <param name="unitPrice" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetUpdateDbCommand(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal) As IDbCommand Implements IDbTrackCommandProvider.GetUpdateDbCommand
-
-
+        Public Function GetUpdateDbCommand( ByVal trackId As Int32,  ByVal name As String,  ByVal albumId As  Nullable(Of Int32) ,  ByVal mediaTypeId As Int32,  ByVal genreId As  Nullable(Of Int32) ,  ByVal composer As String,  ByVal milliseconds As Int32,  ByVal bytes As  Nullable(Of Int32) ,  ByVal unitPrice As Decimal) As IDbCommand Implements IDbTrackCommandProvider.GetUpdateDbCommand
+            
+    
             Dim command As New SqlCommand("Track_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.NVarChar, name))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.Int, mediaTypeId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.Int, genreId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.NVarChar, composer))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Milliseconds", SqlDbType.Int, milliseconds))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.Int, bytes))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, name))
+      
+            If (AlbumId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.int, mediaTypeId))
+      
+            If (GenreId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, genreId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
+            If (Not composer  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.nvarchar, composer))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Milliseconds", SqlDbType.int, milliseconds))
+      
+            If (Bytes.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.int, bytes))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.int, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Inserts a record into the Track table on the database.
         ''' </summary>
-        ''' <param name="trackId" />
-        ''' <param name="name" />
-        ''' <param name="albumId" />
-        ''' <param name="mediaTypeId" />
-        ''' <param name="genreId" />
-        ''' <param name="composer" />
-        ''' <param name="milliseconds" />
-        ''' <param name="bytes" />
-        ''' <param name="unitPrice" />
+      ''' <param name="trackId" />
+      ''' <param name="name" />
+      ''' <param name="albumId" />
+      ''' <param name="mediaTypeId" />
+      ''' <param name="genreId" />
+      ''' <param name="composer" />
+      ''' <param name="milliseconds" />
+      ''' <param name="bytes" />
+      ''' <param name="unitPrice" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetInsertDbCommand(ByVal trackId As Int32, ByVal name As String, ByVal albumId As Int32, ByVal mediaTypeId As Int32, ByVal genreId As Int32, ByVal composer As String, ByVal milliseconds As Int32, ByVal bytes As Int32, ByVal unitPrice As Decimal) As IDbCommand Implements IDbTrackCommandProvider.GetInsertDbCommand
-
-
+        Public Function GetInsertDbCommand( ByVal trackId As Int32,  ByVal name As String,  ByVal albumId As  Nullable(Of Int32) ,  ByVal mediaTypeId As Int32,  ByVal genreId As  Nullable(Of Int32) ,  ByVal composer As String,  ByVal milliseconds As Int32,  ByVal bytes As  Nullable(Of Int32) ,  ByVal unitPrice As Decimal) As IDbCommand Implements IDbTrackCommandProvider.GetInsertDbCommand
+            
+    
             Dim command As New SqlCommand("Track_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.NVarChar, name))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.Int, mediaTypeId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.Int, genreId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.NVarChar, composer))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Milliseconds", SqlDbType.Int, milliseconds))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.Int, bytes))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, name))
+      
+            If (AlbumId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.int, mediaTypeId))
+      
+            If (GenreId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, genreId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
+            If (Not composer  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.nvarchar, composer))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Composer", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Milliseconds", SqlDbType.int, milliseconds))
+      
+            If (Bytes.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.int, bytes))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Bytes", SqlDbType.int, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@UnitPrice", SqlDbType.Decimal, unitPrice))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Deletes one or more records from the Track table 
         ''' </summary>
-        ''' <param name="trackId" />
+      ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetDeleteDbCommand(ByVal trackId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetDeleteDbCommand
-
-
+        Public Function GetDeleteDbCommand( ByVal trackId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetDeleteDbCommand
+            
+    
             Dim command As New SqlCommand("Track_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("Track_GetPageable")
+        Public Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataPageableDbCommand
+            
+    
+            Dim command As New SqlCommand("Track_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Track
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbTrackCommandProvider.GetGetRowCountDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Track_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByTrackId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="trackId" />
+      ''' <param name="trackId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByTrackIdDbCommand(ByVal trackId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByTrackIdDbCommand
-
-
+        Public Function GetGetDataByTrackIdDbCommand( ByVal trackId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByTrackIdDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByTrackId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.Int, trackId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@TrackId", SqlDbType.int, trackId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetTracksByPlaylistId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="playlistId" />
+      ''' <param name="playlistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetTracksByPlaylistIdDbCommand(ByVal playlistId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdDbCommand
-
-
+        Public Function GetGetTracksByPlaylistIdDbCommand( ByVal playlistId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetTracksByPlaylistId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.Int, playlistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.int, playlistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetTracksByPlaylistId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="playlistId" />
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="playlistId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetTracksByPlaylistIdPageableDbCommand(ByVal playlistId As Int32, ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdPageableDbCommand
-
-
+        Public Function GetGetTracksByPlaylistIdPageableDbCommand( ByVal playlistId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetTracksByPlaylistIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.Int, playlistId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.int, playlistId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetTracksByPlaylistIdRowCount returns the row count for Track
         ''' </summary>
-        ''' <param name="playlistId" />
+      ''' <param name="playlistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetTracksByPlaylistIdRowCountDbCommand(ByVal playlistId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdRowCountDbCommand
-
-
+        Public Function GetGetTracksByPlaylistIdRowCountDbCommand( ByVal playlistId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetTracksByPlaylistIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetTracksByPlaylistIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.Int, playlistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PlaylistId", SqlDbType.int, playlistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByAlbumId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="albumId" />
+      ''' <param name="albumId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByAlbumIdDbCommand(ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdDbCommand
-
-
+        Public Function GetGetDataByAlbumIdDbCommand( ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByAlbumId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
+        ''' Function GetDataByAlbumIdPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="albumId" />
+      ''' <param name="albumId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByAlbumIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdPageableDbCommand
-
-
+        Public Function GetGetDataByAlbumIdPageableDbCommand( ByVal albumId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByAlbumIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Track
         ''' </summary>
-        ''' <param name="albumId" />
+      ''' <param name="albumId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByAlbumIdRowCountDbCommand(ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdRowCountDbCommand
-
-
+        Public Function GetGetDataByAlbumIdRowCountDbCommand( ByVal albumId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByAlbumIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByAlbumIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByGenreId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="genreId" />
+      ''' <param name="genreId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByGenreIdDbCommand(ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdDbCommand
-
-
+        Public Function GetGetDataByGenreIdDbCommand( ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByGenreId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.Int, genreId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, genreId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
+        ''' Function GetDataByGenreIdPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="genreId" />
+      ''' <param name="genreId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByGenreIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdPageableDbCommand
-
-
+        Public Function GetGetDataByGenreIdPageableDbCommand( ByVal genreId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByGenreIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.Int, genreId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, genreId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Track
         ''' </summary>
-        ''' <param name="genreId" />
+      ''' <param name="genreId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByGenreIdRowCountDbCommand(ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdRowCountDbCommand
-
-
+        Public Function GetGetDataByGenreIdRowCountDbCommand( ByVal genreId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByGenreIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByGenreIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.Int, genreId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@GenreId", SqlDbType.int, genreId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByMediaTypeId returns a IDataReader for Track
         ''' </summary>
-        ''' <param name="mediaTypeId" />
+      ''' <param name="mediaTypeId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByMediaTypeIdDbCommand(ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdDbCommand
-
-
+        Public Function GetGetDataByMediaTypeIdDbCommand( ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByMediaTypeId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.Int, mediaTypeId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.int, mediaTypeId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Track
+        ''' Function GetDataByMediaTypeIdPageable returns a IDataReader populated with a subset of data from Track
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="mediaTypeId" />
+      ''' <param name="mediaTypeId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByMediaTypeIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdPageableDbCommand
-
-
+        Public Function GetGetDataByMediaTypeIdPageableDbCommand( ByVal mediaTypeId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByMediaTypeIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.Int, mediaTypeId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.int, mediaTypeId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Track
         ''' </summary>
-        ''' <param name="mediaTypeId" />
+      ''' <param name="mediaTypeId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByMediaTypeIdRowCountDbCommand(ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdRowCountDbCommand
-
-
+        Public Function GetGetDataByMediaTypeIdRowCountDbCommand( ByVal mediaTypeId As Int32) As IDbCommand Implements IDbTrackCommandProvider.GetGetDataByMediaTypeIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Track_GetDataByMediaTypeIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.Int, mediaTypeId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@MediaTypeId", SqlDbType.int, mediaTypeId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
-    End Class
-End Namespace
+      End Function
+         
+            
+  End Class
+ End Namespace
+  

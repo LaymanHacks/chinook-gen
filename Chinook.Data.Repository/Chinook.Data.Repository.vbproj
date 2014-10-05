@@ -64,8 +64,8 @@
       <Project>{3520c424-4705-4dc8-9c61-b941efcedf6c}</Project>
       <Name>Chinook.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chinook.Domain.Entities\Chinook.Domain.Entities.vbproj">
-      <Project>{dae1ae1b-cae3-4f49-ad82-8ba709842906}</Project>
+    <ProjectReference Include="C:\Users\markl_000\Desktop\New folder\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
+      <Project>{3c920e82-f662-470b-ace4-cf5b7234eeb8}</Project>
       <Name>Chinook.Domain.Entities</Name>
     </ProjectReference>
   </ItemGroup>

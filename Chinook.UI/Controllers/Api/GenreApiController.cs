@@ -37,12 +37,12 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/genres", Name = "genresPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetPageable(string sortExpression = "GenreId", Int32 page = 1,
+        public HttpResponseMessage GetDataPageable(string sortExpression = "GenreId", Int32 page = 1,
             Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var genres = _dbRepository.GetPageable(sortExpression, (page - 1) * pageSize, pageSize);
+            var genres = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "genresPagableRoute", page, pageSize,

@@ -44,7 +44,7 @@ Namespace Chinook.Data.Repository
             Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetNullableInt32("SupportRepId"))
                 entList.Add(tempEntity)
             Loop
             reader.Close()
@@ -70,11 +70,11 @@ Namespace Chinook.Data.Repository
         ''' <param name="SupportRepId"></param>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Sub Update(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) Implements ICustomerRepository.Update
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetUpdateDbCommand(customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId)
+        Public Sub Update(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Nullable(Of Int32)) Implements ICustomerRepository.Update
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetUpdateDbCommand(CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+            Command.ExecuteNonQuery()
             _dbConnHolder.Close()
         End Sub
 
@@ -85,8 +85,8 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
         Public Sub Update(ByVal customer As Customer) Implements ICustomerRepository.Update
-            With customer
-                Update(.CustomerId, .FirstName, .LastName, .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email, CInt(.SupportRepId))
+            With Customer
+                Update(CInt(.CustomerId), CStr(.FirstName), CStr(.LastName), .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, CStr(.Email), .SupportRepId)
             End With
 
         End Sub
@@ -109,11 +109,11 @@ Namespace Chinook.Data.Repository
         ''' <param name="SupportRepId"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Function Insert(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As Int32 Implements ICustomerRepository.Insert
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetInsertDbCommand(customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId)
+        Public Function Insert(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Nullable(Of Int32)) As Int32 Implements ICustomerRepository.Insert
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetInsertDbCommand(CustomerId, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 
@@ -127,8 +127,8 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
         Public Function Insert(ByVal customer As Customer) As Int32 Implements ICustomerRepository.Insert
-            With customer
-                Return Insert(.CustomerId, .FirstName, .LastName, .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email, CInt(.SupportRepId))
+            With Customer
+                Return Insert(CInt(.CustomerId), CStr(.FirstName), CStr(.LastName), .Company, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, CStr(.Email), .SupportRepId)
             End With
 
         End Function
@@ -140,10 +140,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
         Public Sub Delete(ByVal customerId As Int32) Implements ICustomerRepository.Delete
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetDeleteDbCommand(customerId)
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetDeleteDbCommand(CustomerId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+            Command.ExecuteNonQuery()
             _dbConnHolder.Close()
         End Sub
 
@@ -154,28 +154,28 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
         Public Sub Delete(ByVal customer As Customer) Implements ICustomerRepository.Delete
-            With customer
-                Delete(.CustomerId)
+            With Customer
+                Delete(CInt(.CustomerId))
             End With
 
         End Sub
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
         ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
+        ''' <param name="page"></param>
         ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetPageable
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+        Public Function GetDataPageable(ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataPageable
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetNullableInt32("SupportRepId"))
                 entList.Add(tempEntity)
             Loop
             reader.Close()
@@ -192,7 +192,7 @@ Namespace Chinook.Data.Repository
             Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 
@@ -205,13 +205,13 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataByCustomerId
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand(customerId)
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand(CustomerId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetNullableInt32("SupportRepId"))
                 entList.Add(tempEntity)
             Loop
             reader.Close()
@@ -226,13 +226,13 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataBySupportRepId(ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepId
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand(supportRepId)
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand(SupportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetNullableInt32("SupportRepId"))
                 entList.Add(tempEntity)
             Loop
             reader.Close()
@@ -241,22 +241,22 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetDataBySupportRepIdPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
+        ''' <param name="SupportRepId"></param>
         ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>
-        ''' <param name="SupportRepId"></param>''' <returns></returns>
+        ''' <param name="page"></param>
+        ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataBySupportRepIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal supportRepId As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPageable
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand(sortExpression, startRowIndex, pageSize, supportRepId)
+        Public Function GetDataBySupportRepIdPageable(ByVal supportRepId As Int32, ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As ICollection(Of Customer) Implements ICustomerRepository.GetDataBySupportRepIdPageable
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand(SupportRepId, sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Customer)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetInt32("SupportRepId"))
+                Dim tempEntity As New Customer(reader.GetInt32("CustomerId"), reader.GetString("FirstName"), reader.GetString("LastName"), reader.GetString("Company"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"), reader.GetNullableInt32("SupportRepId"))
                 entList.Add(tempEntity)
             Loop
             reader.Close()
@@ -271,10 +271,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataBySupportRepIdRowCount(ByVal supportRepId As Int32) As Int32 Implements ICustomerRepository.GetDataBySupportRepIdRowCount
-            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand(supportRepId)
+            Dim command As IDbCommand = _dbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand(SupportRepId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 

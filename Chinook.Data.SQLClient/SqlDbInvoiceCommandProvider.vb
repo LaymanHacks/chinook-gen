@@ -44,8 +44,6 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataDbCommand
-
-
             Dim command As New SqlCommand("Invoice_Select")
             command.CommandType = CommandType.StoredProcedure
 
@@ -69,18 +67,41 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetUpdateDbCommand(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As IDbCommand Implements IDbInvoiceCommandProvider.GetUpdateDbCommand
-
-
             Dim command As New SqlCommand("Invoice_Update")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceDate", SqlDbType.DateTime, invoiceDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, billingAddress))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, billingCity))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, billingState))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, billingCountry))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, billingPostalCode))
+
+            If (Not billingAddress Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, billingAddress))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingCity Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, billingCity))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingState Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, billingState))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingCountry Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, billingCountry))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingPostalCode Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, billingPostalCode))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Total", SqlDbType.Decimal, total))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
@@ -103,18 +124,41 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetInsertDbCommand(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As IDbCommand Implements IDbInvoiceCommandProvider.GetInsertDbCommand
-
-
             Dim command As New SqlCommand("Invoice_Insert")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceDate", SqlDbType.DateTime, invoiceDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, billingAddress))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, billingCity))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, billingState))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, billingCountry))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, billingPostalCode))
+
+            If (Not billingAddress Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, billingAddress))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingAddress", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingCity Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, billingCity))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCity", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingState Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, billingState))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingState", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingCountry Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, billingCountry))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingCountry", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
+
+            If (Not billingPostalCode Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, billingPostalCode))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BillingPostalCode", SqlDbType.NVarChar, Global.System.DBNull.Value))
+            End If
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Total", SqlDbType.Decimal, total))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
@@ -129,34 +173,28 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetDeleteDbCommand(ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetDeleteDbCommand
-
-
             Dim command As New SqlCommand("Invoice_Delete")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
 
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Invoice
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Invoice
         ''' </summary>
         ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
+        ''' <param name="page" />
         ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("Invoice_GetPageable")
+        Public Function GetGetDataPageableDbCommand(ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataPageableDbCommand
+            Dim command As New SqlCommand("Invoice_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
@@ -168,11 +206,8 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbInvoiceCommandProvider.GetGetRowCountDbCommand
-
-
             Dim command As New SqlCommand("Invoice_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
@@ -185,12 +220,9 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataByInvoiceIdDbCommand(ByVal invoiceId As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataByInvoiceIdDbCommand
-
-
             Dim command As New SqlCommand("Invoice_GetDataByInvoiceId")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@InvoiceId", SqlDbType.Int, invoiceId))
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
@@ -203,36 +235,30 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataByCustomerIdDbCommand(ByVal customerId As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataByCustomerIdDbCommand
-
-
             Dim command As New SqlCommand("Invoice_GetDataByCustomerId")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
 
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Invoice
+        ''' Function GetDataByCustomerIdPageable returns a IDataReader populated with a subset of data from Invoice
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
         ''' <param name="customerId" />
+        ''' <param name="sortExpression" />
+        ''' <param name="page" />
+        ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByCustomerIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal customerId As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataByCustomerIdPageableDbCommand
-
-
+        Public Function GetGetDataByCustomerIdPageableDbCommand(ByVal customerId As Int32, ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataByCustomerIdPageableDbCommand
             Dim command As New SqlCommand("Invoice_GetDataByCustomerIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
@@ -245,16 +271,11 @@ Namespace Chinook.Data.SqlDbCommandProvider
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataByCustomerIdRowCountDbCommand(ByVal customerId As Int32) As IDbCommand Implements IDbInvoiceCommandProvider.GetGetDataByCustomerIdRowCountDbCommand
-
-
             Dim command As New SqlCommand("Invoice_GetDataByCustomerIdRowCount")
             command.CommandType = CommandType.StoredProcedure
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
         End Function
-
-
     End Class
 End Namespace

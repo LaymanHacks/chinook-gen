@@ -12,21 +12,22 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-
-Namespace Chinook.Data.Repository
+  
+ Namespace Chinook.Data.Repository     
     Public Interface IAlbumRepository
-        Function GetData() As ICollection(Of Album)
-        Sub Update(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32)
-        Sub Update(ByVal album As Album)
-        Function Insert(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As Int32
-        Function Insert(ByVal album As Album) As Int32
-        Sub Delete(ByVal albumId As Int32)
-        Sub Delete(ByVal album As Album)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Album)
-        Function GetRowCount() As Int32
-        Function GetDataByAlbumId(ByVal albumId As Int32) As ICollection(Of Album)
-        Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Album)
-        Function GetDataByArtistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal artistId As Int32) As ICollection(Of Album)
-        Function GetDataByArtistIdRowCount(ByVal artistId As Int32) As Int32
-    End Interface
-End Namespace
+        Function GetData()  as ICollection(Of Album)
+        Sub Update( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32) 
+        Sub Update(ByVal album as Album) 
+        Function Insert( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32)  as Int32
+        Function Insert(ByVal album as Album)  as Int32
+        Sub Delete( ByVal albumId As Int32) 
+        Sub Delete(ByVal album as Album) 
+        Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Album)
+        Function GetRowCount()  as Int32
+        Function GetDataByAlbumId( ByVal albumId As Int32)  as ICollection(Of Album)
+        Function GetDataByArtistId( ByVal artistId As Int32)  as ICollection(Of Album)
+        Function GetDataByArtistIdPageable( ByVal artistId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Album)
+        Function GetDataByArtistIdRowCount( ByVal artistId As Int32)  as Int32
+    End Interface 
+End NameSpace
+  

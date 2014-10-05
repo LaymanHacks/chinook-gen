@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-
-Namespace Chinook.Data.Repository
-
-    <Global.System.ComponentModel.DataObjectAttribute(True)> _
+  
+Namespace Chinook.Data.Repository    
+    
+    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
     Public Class DbInvoiceLineRepository
         Implements IInvoiceLineRepository
         Implements IDisposable
@@ -28,304 +28,304 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbInvoiceLineCommandProvider As IDbInvoiceLineCommandProvider)
             _dbInvoiceLineCommandProvider = dbInvoiceLineCommandProvider
-            _dbConnHolder = _dbInvoiceLineCommandProvider.InvoiceLineDbConnectionHolder
+            _dbConnHolder =_dbInvoiceLineCommandProvider.InvoiceLineDbConnectionHolder
         End Sub
 
-
-        ''' <summary>
-        ''' Selects one or more records from the InvoiceLine table 
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
-        Public Function GetData() As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetData
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataDbCommand()
+      
+    ''' <summary>
+    ''' Selects one or more records from the InvoiceLine table 
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
+    Public Function GetData()  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetData
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Updates one or more records from the InvoiceLine table 
-        ''' </summary>
-        ''' <param name="InvoiceLineId"></param>
-        ''' <param name="InvoiceId"></param>
-        ''' <param name="TrackId"></param>
-        ''' <param name="UnitPrice"></param>
-        ''' <param name="Quantity"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Sub Update(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) Implements IInvoiceLineRepository.Update
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetUpdateDbCommand(invoiceLineId, invoiceId, trackId, unitPrice, quantity)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Updates one or more records from the InvoiceLine table 
+    ''' </summary>
+   ''' <param name="InvoiceLineId"></param>
+   ''' <param name="InvoiceId"></param>
+   ''' <param name="TrackId"></param>
+   ''' <param name="UnitPrice"></param>
+   ''' <param name="Quantity"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
+    Public Sub Update( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32)  Implements IInvoiceLineRepository.Update
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetUpdateDbCommand(InvoiceLineId, InvoiceId, TrackId, UnitPrice, Quantity)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Updates one or more records from the InvoiceLine table 
+    ''' </summary>
+    ''' <param name="InvoiceLine"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
+    Public Sub Update(ByVal invoiceLine as InvoiceLine)  Implements IInvoiceLineRepository.Update
+             With InvoiceLine
+Update( CInt(.InvoiceLineId),  CInt(.InvoiceId),  CInt(.TrackId),  CDec(.UnitPrice),  CInt(.Quantity))
+       End With
 
-        ''' <summary>
-        ''' Updates one or more records from the InvoiceLine table 
-        ''' </summary>
-        ''' <param name="InvoiceLine"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
-        Public Sub Update(ByVal invoiceLine As InvoiceLine) Implements IInvoiceLineRepository.Update
-            With invoiceLine
-                Update(.InvoiceLineId, .InvoiceId, .TrackId, .UnitPrice, .Quantity)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Inserts an entity of InvoiceLine into the database.
-        ''' </summary>
-        ''' <param name="InvoiceLineId"></param>
-        ''' <param name="InvoiceId"></param>
-        ''' <param name="TrackId"></param>
-        ''' <param name="UnitPrice"></param>
-        ''' <param name="Quantity"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Function Insert(ByVal invoiceLineId As Int32, ByVal invoiceId As Int32, ByVal trackId As Int32, ByVal unitPrice As Decimal, ByVal quantity As Int32) As Int32 Implements IInvoiceLineRepository.Insert
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetInsertDbCommand(invoiceLineId, invoiceId, trackId, unitPrice, quantity)
+    End Sub
+  
+    ''' <summary>
+    ''' Inserts an entity of InvoiceLine into the database.
+    ''' </summary>
+   ''' <param name="InvoiceLineId"></param>
+   ''' <param name="InvoiceId"></param>
+   ''' <param name="TrackId"></param>
+   ''' <param name="UnitPrice"></param>
+   ''' <param name="Quantity"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
+    Public Function Insert( ByVal invoiceLineId As Int32,  ByVal invoiceId As Int32,  ByVal trackId As Int32,  ByVal unitPrice As Decimal,  ByVal quantity As Int32)  as Int32 Implements IInvoiceLineRepository.Insert
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetInsertDbCommand(InvoiceLineId, InvoiceId, TrackId, UnitPrice, Quantity)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
+    End Function
+  
+    ''' <summary>
+    ''' Inserts an entity of InvoiceLine into the database.
+    ''' </summary>
+    ''' <param name="InvoiceLine"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
+    Public Function Insert(ByVal invoiceLine as InvoiceLine)  as Int32 Implements IInvoiceLineRepository.Insert
+             With InvoiceLine
+ Return Insert( CInt(.InvoiceLineId),  CInt(.InvoiceId),  CInt(.TrackId),  CDec(.UnitPrice),  CInt(.Quantity))
+       End With
 
-        ''' <summary>
-        ''' Inserts an entity of InvoiceLine into the database.
-        ''' </summary>
-        ''' <param name="InvoiceLine"></param>
-        ''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
-        Public Function Insert(ByVal invoiceLine As InvoiceLine) As Int32 Implements IInvoiceLineRepository.Insert
-            With invoiceLine
-                Return Insert(.InvoiceLineId, .InvoiceId, .TrackId, .UnitPrice, .Quantity)
-            End With
-
-        End Function
-
-        ''' <summary>
-        ''' Deletes one or more records from the InvoiceLine table 
-        ''' </summary>
-        ''' <param name="InvoiceLineId"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
-        Public Sub Delete(ByVal invoiceLineId As Int32) Implements IInvoiceLineRepository.Delete
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetDeleteDbCommand(invoiceLineId)
+    End Function
+  
+    ''' <summary>
+    ''' Deletes one or more records from the InvoiceLine table 
+    ''' </summary>
+   ''' <param name="InvoiceLineId"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
+    Public Sub Delete( ByVal invoiceLineId As Int32)  Implements IInvoiceLineRepository.Delete
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetDeleteDbCommand(InvoiceLineId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Deletes one or more records from the InvoiceLine table 
+    ''' </summary>
+    ''' <param name="InvoiceLine"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
+    Public Sub Delete(ByVal invoiceLine as InvoiceLine)  Implements IInvoiceLineRepository.Delete
+             With InvoiceLine
+Delete( CInt(.InvoiceLineId))
+       End With
 
-        ''' <summary>
-        ''' Deletes one or more records from the InvoiceLine table 
-        ''' </summary>
-        ''' <param name="InvoiceLine"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
-        Public Sub Delete(ByVal invoiceLine As InvoiceLine) Implements IInvoiceLineRepository.Delete
-            With invoiceLine
-                Delete(.InvoiceLineId)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetPageable
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+    End Sub
+  
+    ''' <summary>
+    ''' Function GetDataPageable returns a IDataReader populated with a subset of data from InvoiceLine
+    ''' </summary>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataPageable
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for InvoiceLine
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetRowCount() As Int32 Implements IInvoiceLineRepository.GetRowCount
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetRowCountDbCommand()
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for InvoiceLine
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetRowCount()  as Int32 Implements IInvoiceLineRepository.GetRowCount
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByInvoiceLineId returns a IDataReader for InvoiceLine
-        ''' </summary>
-        ''' <param name="InvoiceLineId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByInvoiceLineId(ByVal invoiceLineId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceLineId
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceLineIdDbCommand(invoiceLineId)
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByInvoiceLineId returns a IDataReader for InvoiceLine
+    ''' </summary>
+   ''' <param name="InvoiceLineId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByInvoiceLineId( ByVal invoiceLineId As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceLineId
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceLineIdDbCommand(InvoiceLineId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByInvoiceId returns a IDataReader for InvoiceLine
-        ''' </summary>
-        ''' <param name="InvoiceId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByInvoiceId(ByVal invoiceId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceId
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdDbCommand(invoiceId)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByInvoiceId returns a IDataReader for InvoiceLine
+    ''' </summary>
+   ''' <param name="InvoiceId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByInvoiceId( ByVal invoiceId As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceId
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdDbCommand(InvoiceId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>
-        ''' <param name="InvoiceId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByInvoiceIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal invoiceId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceIdPageable
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand(sortExpression, startRowIndex, pageSize, invoiceId)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByInvoiceIdPageable returns a IDataReader populated with a subset of data from InvoiceLine
+    ''' </summary>
+   ''' <param name="InvoiceId"></param>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByInvoiceIdPageable( ByVal invoiceId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByInvoiceIdPageable
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdPageableDbCommand(InvoiceId, sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for InvoiceLine
-        ''' </summary>
-        ''' <param name="InvoiceId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByInvoiceIdRowCount(ByVal invoiceId As Int32) As Int32 Implements IInvoiceLineRepository.GetDataByInvoiceIdRowCount
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdRowCountDbCommand(invoiceId)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for InvoiceLine
+    ''' </summary>
+   ''' <param name="InvoiceId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByInvoiceIdRowCount( ByVal invoiceId As Int32)  as Int32 Implements IInvoiceLineRepository.GetDataByInvoiceIdRowCount
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByInvoiceIdRowCountDbCommand(InvoiceId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByTrackId returns a IDataReader for InvoiceLine
-        ''' </summary>
-        ''' <param name="TrackId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackId
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdDbCommand(trackId)
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByTrackId returns a IDataReader for InvoiceLine
+    ''' </summary>
+   ''' <param name="TrackId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByTrackId( ByVal trackId As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackId
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdDbCommand(TrackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from InvoiceLine
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>
-        ''' <param name="TrackId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackIdPageable
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand(sortExpression, startRowIndex, pageSize, trackId)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByTrackIdPageable returns a IDataReader populated with a subset of data from InvoiceLine
+    ''' </summary>
+   ''' <param name="TrackId"></param>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByTrackIdPageable( ByVal trackId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of InvoiceLine) Implements IInvoiceLineRepository.GetDataByTrackIdPageable
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdPageableDbCommand(TrackId, sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of InvoiceLine)
+              Dim entList as new Collection(Of InvoiceLine)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New InvoiceLine(reader.GetInt32("InvoiceLineId"), reader.GetInt32("InvoiceId"), reader.GetInt32("TrackId"), reader.GetDecimal("UnitPrice"), reader.GetInt32("Quantity"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New InvoiceLine( reader.GetInt32("InvoiceLineId"),  reader.GetInt32("InvoiceId"),  reader.GetInt32("TrackId"),  reader.GetDecimal("UnitPrice") ,  reader.GetInt32("Quantity"))
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for InvoiceLine
-        ''' </summary>
-        ''' <param name="TrackId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByTrackIdRowCount(ByVal trackId As Int32) As Int32 Implements IInvoiceLineRepository.GetDataByTrackIdRowCount
-            Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdRowCountDbCommand(trackId)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for InvoiceLine
+    ''' </summary>
+   ''' <param name="TrackId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByTrackIdRowCount( ByVal trackId As Int32)  as Int32 Implements IInvoiceLineRepository.GetDataByTrackIdRowCount
+        Dim command As IDbCommand = _dbInvoiceLineCommandProvider.GetGetDataByTrackIdRowCountDbCommand(TrackId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-
+    End Function
+   
+  
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -347,6 +347,6 @@ Namespace Chinook.Data.Repository
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
-
-    End Class
-End Namespace
+ 
+  End Class 
+End NameSpace

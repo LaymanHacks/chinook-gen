@@ -12,21 +12,22 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-
-Namespace Chinook.Data.Repository
+  
+ Namespace Chinook.Data.Repository     
     Public Interface IInvoiceRepository
-        Function GetData() As ICollection(Of Invoice)
-        Sub Update(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal)
-        Sub Update(ByVal invoice As Invoice)
-        Function Insert(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As Int32
-        Function Insert(ByVal invoice As Invoice) As Int32
-        Sub Delete(ByVal invoiceId As Int32)
-        Sub Delete(ByVal invoice As Invoice)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Invoice)
-        Function GetRowCount() As Int32
-        Function GetDataByInvoiceId(ByVal invoiceId As Int32) As ICollection(Of Invoice)
-        Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Invoice)
-        Function GetDataByCustomerIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal customerId As Int32) As ICollection(Of Invoice)
-        Function GetDataByCustomerIdRowCount(ByVal customerId As Int32) As Int32
-    End Interface
-End Namespace
+        Function GetData()  as ICollection(Of Invoice)
+        Sub Update( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal) 
+        Sub Update(ByVal invoice as Invoice) 
+        Function Insert( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal)  as Int32
+        Function Insert(ByVal invoice as Invoice)  as Int32
+        Sub Delete( ByVal invoiceId As Int32) 
+        Sub Delete(ByVal invoice as Invoice) 
+        Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Invoice)
+        Function GetRowCount()  as Int32
+        Function GetDataByInvoiceId( ByVal invoiceId As Int32)  as ICollection(Of Invoice)
+        Function GetDataByCustomerId( ByVal customerId As Int32)  as ICollection(Of Invoice)
+        Function GetDataByCustomerIdPageable( ByVal customerId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Invoice)
+        Function GetDataByCustomerIdRowCount( ByVal customerId As Int32)  as Int32
+    End Interface 
+End NameSpace
+  

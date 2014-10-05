@@ -77,12 +77,12 @@ namespace Chinook.Web.UI.Controllers.Api
         }
 
         [HttpGet]
-        public HttpResponseMessage GetPageableSubSet(String sortExpression, Int32 page, Int32 pageSize)
+        public HttpResponseMessage GetDataPageableSubSet(String sortExpression, Int32 page, Int32 pageSize)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results = _dbRepository.GetPageable( sortExpression, (page - 1) * pageSize, pageSize);
+            var results = _dbRepository.GetDataPageable( sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
-            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetPageableSubSetRoute", page,
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetDataPageableSubSetRoute", page,
                 pageSize, totalCount, results);
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
@@ -106,7 +106,7 @@ namespace Chinook.Web.UI.Controllers.Api
         public HttpResponseMessage GetDataBySupportRepIdPageableSubSet(Int32 supportRepId, string sortExpression = "CustomerId", Int32 page = 1, Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results = _dbRepository.GetDataBySupportRepIdPageable(sortExpression, (page - 1) * pageSize, pageSize, supportRepId);
+            var results = _dbRepository.GetDataBySupportRepIdPageable(supportRepId,sortExpression, page , pageSize );
             var totalCount = _dbRepository.GetDataBySupportRepIdRowCount(supportRepId);
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetDataBySupportRepIdPageableRoute", page,
                 pageSize, totalCount, results);

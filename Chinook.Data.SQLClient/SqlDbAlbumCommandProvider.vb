@@ -13,224 +13,225 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
+  
+Public Class SqlDbAlbumCommandProvider
+      Implements IDbAlbumCommandProvider
+    
+      ReadOnly _dbConnHolder As DbConnectionHolder
 
-    Public Class SqlDbAlbumCommandProvider
-        Implements IDbAlbumCommandProvider
+      Public Sub New()
+          _dbConnHolder = New DbConnectionHolder(DbConnectionName)
+      End Sub
 
-        ReadOnly _dbConnHolder As DbConnectionHolder
+      Public ReadOnly Property DbConnectionName() As String Implements IDbAlbumCommandProvider.DbConnectionName
+          Get
+              Return "ChinookConnection"
+          End Get
+      End Property
 
-        Public Sub New()
-            _dbConnHolder = New DbConnectionHolder(DbConnectionName)
-        End Sub
-
-        Public ReadOnly Property DbConnectionName() As String Implements IDbAlbumCommandProvider.DbConnectionName
-            Get
-                Return "ChinookConnection"
-            End Get
-        End Property
-
-        Public ReadOnly Property AlbumDbConnectionHolder() As DbConnectionHolder Implements IDbAlbumCommandProvider.AlbumDbConnectionHolder
-            Get
-                Return _dbConnHolder
-            End Get
-        End Property
-
-
+      Public ReadOnly Property AlbumDbConnectionHolder() As DbConnectionHolder Implements IDbAlbumCommandProvider.AlbumDbConnectionHolder
+          Get
+              Return _dbConnHolder
+          End Get
+      End Property
+      
+    
         ''' <summary>
         ''' Selects one or more records from the Album table 
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Album_Select")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Updates one or more records from the Album table 
         ''' </summary>
-        ''' <param name="albumId" />
-        ''' <param name="title" />
-        ''' <param name="artistId" />
+      ''' <param name="albumId" />
+      ''' <param name="title" />
+      ''' <param name="artistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetUpdateDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetUpdateDbCommand
-
-
+        Public Function GetUpdateDbCommand( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetUpdateDbCommand
+            
+    
             Dim command As New SqlCommand("Album_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.NVarChar, title))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, title))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Inserts a record into the Album table on the database.
         ''' </summary>
-        ''' <param name="albumId" />
-        ''' <param name="title" />
-        ''' <param name="artistId" />
+      ''' <param name="albumId" />
+      ''' <param name="title" />
+      ''' <param name="artistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetInsertDbCommand(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetInsertDbCommand
-
-
+        Public Function GetInsertDbCommand( ByVal albumId As Int32,  ByVal title As String,  ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetInsertDbCommand
+            
+    
             Dim command As New SqlCommand("Album_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.NVarChar, title))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, title))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Deletes one or more records from the Album table 
         ''' </summary>
-        ''' <param name="albumId" />
+      ''' <param name="albumId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetDeleteDbCommand(ByVal albumId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetDeleteDbCommand
-
-
+        Public Function GetDeleteDbCommand( ByVal albumId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetDeleteDbCommand
+            
+    
             Dim command As New SqlCommand("Album_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("Album_GetPageable")
+        Public Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataPageableDbCommand
+            
+    
+            Dim command As New SqlCommand("Album_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Album
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbAlbumCommandProvider.GetGetRowCountDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Album_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByAlbumId returns a IDataReader for Album
         ''' </summary>
-        ''' <param name="albumId" />
+      ''' <param name="albumId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByAlbumIdDbCommand(ByVal albumId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByAlbumIdDbCommand
-
-
+        Public Function GetGetDataByAlbumIdDbCommand( ByVal albumId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByAlbumIdDbCommand
+            
+    
             Dim command As New SqlCommand("Album_GetDataByAlbumId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.Int, albumId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@AlbumId", SqlDbType.int, albumId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByArtistId returns a IDataReader for Album
         ''' </summary>
-        ''' <param name="artistId" />
+      ''' <param name="artistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByArtistIdDbCommand(ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdDbCommand
-
-
+        Public Function GetGetDataByArtistIdDbCommand( ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdDbCommand
+            
+    
             Dim command As New SqlCommand("Album_GetDataByArtistId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
+        ''' Function GetDataByArtistIdPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="artistId" />
+      ''' <param name="artistId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByArtistIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdPageableDbCommand
-
-
+        Public Function GetGetDataByArtistIdPageableDbCommand( ByVal artistId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Album_GetDataByArtistIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Album
         ''' </summary>
-        ''' <param name="artistId" />
+      ''' <param name="artistId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByArtistIdRowCountDbCommand(ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdRowCountDbCommand
-
-
+        Public Function GetGetDataByArtistIdRowCountDbCommand( ByVal artistId As Int32) As IDbCommand Implements IDbAlbumCommandProvider.GetGetDataByArtistIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Album_GetDataByArtistIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
-    End Class
-End Namespace
+      End Function
+         
+            
+  End Class
+ End Namespace
+  

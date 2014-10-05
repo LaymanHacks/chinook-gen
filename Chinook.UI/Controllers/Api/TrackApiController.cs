@@ -37,12 +37,12 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/tracks", Name = "tracksPagableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetPageable(string sortExpression = "TrackId", Int32 page = 1,
+        public HttpResponseMessage GetDataPageable(string sortExpression = "TrackId", Int32 page = 1,
             Int32 pageSize = 10)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetPageable(sortExpression, (page - 1) * pageSize, pageSize);
+            var albums = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "tracksPagableRoute", page, pageSize,
@@ -95,7 +95,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByAlbumIdPageable(sortExpression, (page - 1)*pageSize, pageSize,albumId);
+            var tracks = _dbRepository.GetDataByAlbumIdPageable(albumId,sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByAlbumIdRowCount(albumId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByAlbumIdRoutePagable", page,
@@ -118,7 +118,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByGenreIdPageable(sortExpression, (page - 1)*pageSize, pageSize,genreId);
+            var tracks = _dbRepository.GetDataByGenreIdPageable(genreId,sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByGenreIdRowCount(genreId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByGenreIdRoutePagable", page,
@@ -141,7 +141,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByMediaTypeIdPageable(sortExpression, (page - 1)*pageSize, pageSize,mediaTypeId);
+            var tracks = _dbRepository.GetDataByMediaTypeIdPageable(mediaTypeId,sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByMediaTypeIdRowCount(mediaTypeId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByMediaTypeIdRoutePagable", page,

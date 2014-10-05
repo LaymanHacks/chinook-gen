@@ -17,10 +17,10 @@ Namespace Chinook.Data.DbCommandProvider
         Function GetGetDataDbCommand() As IDbCommand
         Function GetUpdateDbCommand(ByVal artistId As Int32, ByVal name As String) As IDbCommand
         Function GetInsertDbCommand(ByVal artistId As Int32, ByVal name As String) As IDbCommand
-        Function GetDeleteDbCommand(ByVal artistId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
+        Function GetDeleteDbCommand( ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByArtistIdDbCommand(ByVal artistId As Int32) As IDbCommand
+        Function GetGetDataByArtistIdDbCommand( ByVal artistId As Int32) As IDbCommand
 
     End Interface
 End Namespace

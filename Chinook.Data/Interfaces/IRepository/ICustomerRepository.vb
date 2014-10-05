@@ -12,21 +12,22 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-
-Namespace Chinook.Data.Repository
+  
+ Namespace Chinook.Data.Repository     
     Public Interface ICustomerRepository
-        Function GetData() As ICollection(Of Customer)
-        Sub Update(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32)
-        Sub Update(ByVal customer As Customer)
-        Function Insert(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As Int32
-        Function Insert(ByVal customer As Customer) As Int32
-        Sub Delete(ByVal customerId As Int32)
-        Sub Delete(ByVal customer As Customer)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Customer)
-        Function GetRowCount() As Int32
-        Function GetDataByCustomerId(ByVal customerId As Int32) As ICollection(Of Customer)
-        Function GetDataBySupportRepId(ByVal supportRepId As Int32) As ICollection(Of Customer)
-        Function GetDataBySupportRepIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal supportRepId As Int32) As ICollection(Of Customer)
-        Function GetDataBySupportRepIdRowCount(ByVal supportRepId As Int32) As Int32
-    End Interface
-End Namespace
+        Function GetData()  as ICollection(Of Customer)
+        Sub Update( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As  Nullable(Of Int32) ) 
+        Sub Update(ByVal customer as Customer) 
+        Function Insert( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As  Nullable(Of Int32) )  as Int32
+        Function Insert(ByVal customer as Customer)  as Int32
+        Sub Delete( ByVal customerId As Int32) 
+        Sub Delete(ByVal customer as Customer) 
+        Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Customer)
+        Function GetRowCount()  as Int32
+        Function GetDataByCustomerId( ByVal customerId As Int32)  as ICollection(Of Customer)
+        Function GetDataBySupportRepId( ByVal supportRepId As Int32)  as ICollection(Of Customer)
+        Function GetDataBySupportRepIdPageable( ByVal supportRepId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Customer)
+        Function GetDataBySupportRepIdRowCount( ByVal supportRepId As Int32)  as Int32
+    End Interface 
+End NameSpace
+  

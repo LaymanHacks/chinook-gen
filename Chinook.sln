@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Domain.Entities", "Chinook.Domain.Entities\Chinook.Domain.Entities.vbproj", "{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}"
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Data", "Chinook.Data\Chinook.Data.vbproj", "{3520C424-4705-4DC8-9C61-B941EFCEDF6C}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Chinook.Data.Repository", "Chinook.Data.Repository\Chinook.Data.Repository.vbproj", "{AB78F502-63E0-4147-A241-54547229CDC8}"
@@ -41,16 +39,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Web", "Chinook.Web\Chinook.Web.csproj", "{ECF69A55-449E-47D1-B28C-FC9B2694FEBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook.Domain.Entities", "C:\Users\markl_000\Desktop\New folder\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj", "{3C920E82-F662-470B-ACE4-CF5B7234EEB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,12 +71,15 @@ Global
 		{ECF69A55-449E-47D1-B28C-FC9B2694FEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECF69A55-449E-47D1-B28C-FC9B2694FEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECF69A55-449E-47D1-B28C-FC9B2694FEBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C920E82-F662-470B-ACE4-CF5B7234EEB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C920E82-F662-470B-ACE4-CF5B7234EEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C920E82-F662-470B-ACE4-CF5B7234EEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C920E82-F662-470B-ACE4-CF5B7234EEB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DAE1AE1B-CAE3-4F49-AD82-8BA709842906} = {9FE02255-740E-4F14-A122-D148DA1DC447}
 		{3520C424-4705-4DC8-9C61-B941EFCEDF6C} = {9FE02255-740E-4F14-A122-D148DA1DC447}
 		{AB78F502-63E0-4147-A241-54547229CDC8} = {404170E3-BDDB-4175-AC64-B907CE0B96ED}
 		{6B3BB921-FDAA-48CC-908F-7D6C948E65F6} = {FA9337C6-5307-477D-B914-730B50910E92}
@@ -93,5 +92,6 @@ Global
 		{9FE02255-740E-4F14-A122-D148DA1DC447} = {F55E4D19-9806-4654-A72F-283B45909C5F}
 		{404170E3-BDDB-4175-AC64-B907CE0B96ED} = {F55E4D19-9806-4654-A72F-283B45909C5F}
 		{ECF69A55-449E-47D1-B28C-FC9B2694FEBC} = {9FE02255-740E-4F14-A122-D148DA1DC447}
+		{3C920E82-F662-470B-ACE4-CF5B7234EEB8} = {9FE02255-740E-4F14-A122-D148DA1DC447}
 	EndGlobalSection
 EndGlobal

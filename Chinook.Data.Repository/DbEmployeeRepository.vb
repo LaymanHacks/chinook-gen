@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-
-Namespace Chinook.Data.Repository
-
-    <Global.System.ComponentModel.DataObjectAttribute(True)> _
+  
+Namespace Chinook.Data.Repository    
+    
+    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
     Public Class DbEmployeeRepository
         Implements IEmployeeRepository
         Implements IDisposable
@@ -28,263 +28,263 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbEmployeeCommandProvider As IDbEmployeeCommandProvider)
             _dbEmployeeCommandProvider = dbEmployeeCommandProvider
-            _dbConnHolder = _dbEmployeeCommandProvider.EmployeeDbConnectionHolder
+            _dbConnHolder =_dbEmployeeCommandProvider.EmployeeDbConnectionHolder
         End Sub
 
-
-        ''' <summary>
-        ''' Selects one or more records from the Employee table 
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
-        Public Function GetData() As ICollection(Of Employee) Implements IEmployeeRepository.GetData
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataDbCommand()
+      
+    ''' <summary>
+    ''' Selects one or more records from the Employee table 
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
+    Public Function GetData()  as ICollection(Of Employee) Implements IEmployeeRepository.GetData
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Employee)
+              Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), reader.GetInt32("ReportsTo"), reader.GetDateTime("BirthDate"), reader.GetDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Updates one or more records from the Employee table 
-        ''' </summary>
-        ''' <param name="EmployeeId"></param>
-        ''' <param name="LastName"></param>
-        ''' <param name="FirstName"></param>
-        ''' <param name="Title"></param>
-        ''' <param name="ReportsTo"></param>
-        ''' <param name="BirthDate"></param>
-        ''' <param name="HireDate"></param>
-        ''' <param name="Address"></param>
-        ''' <param name="City"></param>
-        ''' <param name="State"></param>
-        ''' <param name="Country"></param>
-        ''' <param name="PostalCode"></param>
-        ''' <param name="Phone"></param>
-        ''' <param name="Fax"></param>
-        ''' <param name="Email"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Sub Update(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) Implements IEmployeeRepository.Update
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetUpdateDbCommand(employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state, country, postalCode, phone, fax, email)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Updates one or more records from the Employee table 
+    ''' </summary>
+   ''' <param name="EmployeeId"></param>
+   ''' <param name="LastName"></param>
+   ''' <param name="FirstName"></param>
+   ''' <param name="Title"></param>
+   ''' <param name="ReportsTo"></param>
+   ''' <param name="BirthDate"></param>
+   ''' <param name="HireDate"></param>
+   ''' <param name="Address"></param>
+   ''' <param name="City"></param>
+   ''' <param name="State"></param>
+   ''' <param name="Country"></param>
+   ''' <param name="PostalCode"></param>
+   ''' <param name="Phone"></param>
+   ''' <param name="Fax"></param>
+   ''' <param name="Email"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
+    Public Sub Update( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String)  Implements IEmployeeRepository.Update
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetUpdateDbCommand(EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Updates one or more records from the Employee table 
+    ''' </summary>
+    ''' <param name="Employee"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
+    Public Sub Update(ByVal employee as Employee)  Implements IEmployeeRepository.Update
+             With Employee
+Update( CInt(.EmployeeId),  CStr(.LastName),  CStr(.FirstName), .Title, .ReportsTo, .BirthDate, .HireDate, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email)
+       End With
 
-        ''' <summary>
-        ''' Updates one or more records from the Employee table 
-        ''' </summary>
-        ''' <param name="Employee"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
-        Public Sub Update(ByVal employee As Employee) Implements IEmployeeRepository.Update
-            With employee
-                Update(.EmployeeId, .LastName, .FirstName, .Title, CInt(.ReportsTo), CDate(.BirthDate), CDate(.HireDate), .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Inserts an entity of Employee into the database.
-        ''' </summary>
-        ''' <param name="EmployeeId"></param>
-        ''' <param name="LastName"></param>
-        ''' <param name="FirstName"></param>
-        ''' <param name="Title"></param>
-        ''' <param name="ReportsTo"></param>
-        ''' <param name="BirthDate"></param>
-        ''' <param name="HireDate"></param>
-        ''' <param name="Address"></param>
-        ''' <param name="City"></param>
-        ''' <param name="State"></param>
-        ''' <param name="Country"></param>
-        ''' <param name="PostalCode"></param>
-        ''' <param name="Phone"></param>
-        ''' <param name="Fax"></param>
-        ''' <param name="Email"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Function Insert(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As Int32 Implements IEmployeeRepository.Insert
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetInsertDbCommand(employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state, country, postalCode, phone, fax, email)
+    End Sub
+  
+    ''' <summary>
+    ''' Inserts an entity of Employee into the database.
+    ''' </summary>
+   ''' <param name="EmployeeId"></param>
+   ''' <param name="LastName"></param>
+   ''' <param name="FirstName"></param>
+   ''' <param name="Title"></param>
+   ''' <param name="ReportsTo"></param>
+   ''' <param name="BirthDate"></param>
+   ''' <param name="HireDate"></param>
+   ''' <param name="Address"></param>
+   ''' <param name="City"></param>
+   ''' <param name="State"></param>
+   ''' <param name="Country"></param>
+   ''' <param name="PostalCode"></param>
+   ''' <param name="Phone"></param>
+   ''' <param name="Fax"></param>
+   ''' <param name="Email"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
+    Public Function Insert( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String)  as Int32 Implements IEmployeeRepository.Insert
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetInsertDbCommand(EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
+    End Function
+  
+    ''' <summary>
+    ''' Inserts an entity of Employee into the database.
+    ''' </summary>
+    ''' <param name="Employee"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
+    Public Function Insert(ByVal employee as Employee)  as Int32 Implements IEmployeeRepository.Insert
+             With Employee
+ Return Insert( CInt(.EmployeeId),  CStr(.LastName),  CStr(.FirstName), .Title, .ReportsTo, .BirthDate, .HireDate, .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email)
+       End With
 
-        ''' <summary>
-        ''' Inserts an entity of Employee into the database.
-        ''' </summary>
-        ''' <param name="Employee"></param>
-        ''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
-        Public Function Insert(ByVal employee As Employee) As Int32 Implements IEmployeeRepository.Insert
-            With employee
-                Return Insert(.EmployeeId, .LastName, .FirstName, .Title, CInt(.ReportsTo), CDate(.BirthDate), CDate(.HireDate), .Address, .City, .State, .Country, .PostalCode, .Phone, .Fax, .Email)
-            End With
-
-        End Function
-
-        ''' <summary>
-        ''' Deletes one or more records from the Employee table 
-        ''' </summary>
-        ''' <param name="EmployeeId"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
-        Public Sub Delete(ByVal employeeId As Int32) Implements IEmployeeRepository.Delete
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetDeleteDbCommand(employeeId)
+    End Function
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Employee table 
+    ''' </summary>
+   ''' <param name="EmployeeId"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
+    Public Sub Delete( ByVal employeeId As Int32)  Implements IEmployeeRepository.Delete
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetDeleteDbCommand(EmployeeId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Employee table 
+    ''' </summary>
+    ''' <param name="Employee"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
+    Public Sub Delete(ByVal employee as Employee)  Implements IEmployeeRepository.Delete
+             With Employee
+Delete( CInt(.EmployeeId))
+       End With
 
-        ''' <summary>
-        ''' Deletes one or more records from the Employee table 
-        ''' </summary>
-        ''' <param name="Employee"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
-        Public Sub Delete(ByVal employee As Employee) Implements IEmployeeRepository.Delete
-            With employee
-                Delete(.EmployeeId)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetPageable
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+    End Sub
+  
+    ''' <summary>
+    ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Employee
+    ''' </summary>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Employee) Implements IEmployeeRepository.GetDataPageable
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Employee)
+              Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), reader.GetInt32("ReportsTo"), reader.GetDateTime("BirthDate"), reader.GetDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for Employee
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetRowCount() As Int32 Implements IEmployeeRepository.GetRowCount
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetRowCountDbCommand()
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for Employee
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetRowCount()  as Int32 Implements IEmployeeRepository.GetRowCount
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByEmployeeId returns a IDataReader for Employee
-        ''' </summary>
-        ''' <param name="EmployeeId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByEmployeeId(ByVal employeeId As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByEmployeeId
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByEmployeeIdDbCommand(employeeId)
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByEmployeeId returns a IDataReader for Employee
+    ''' </summary>
+   ''' <param name="EmployeeId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByEmployeeId( ByVal employeeId As Int32)  as ICollection(Of Employee) Implements IEmployeeRepository.GetDataByEmployeeId
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByEmployeeIdDbCommand(EmployeeId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Employee)
+              Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), reader.GetInt32("ReportsTo"), reader.GetDateTime("BirthDate"), reader.GetDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByReportsTo returns a IDataReader for Employee
-        ''' </summary>
-        ''' <param name="ReportsTo"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByReportsTo(ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsTo
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToDbCommand(reportsTo)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByReportsTo returns a IDataReader for Employee
+    ''' </summary>
+   ''' <param name="ReportsTo"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByReportsTo( ByVal reportsTo As Int32)  as ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsTo
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToDbCommand(ReportsTo)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Employee)
+              Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), reader.GetInt32("ReportsTo"), reader.GetDateTime("BirthDate"), reader.GetDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>
-        ''' <param name="ReportsTo"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByReportsToPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal reportsTo As Int32) As ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPageable
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand(sortExpression, startRowIndex, pageSize, reportsTo)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByReportsToPageable returns a IDataReader populated with a subset of data from Employee
+    ''' </summary>
+   ''' <param name="ReportsTo"></param>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByReportsToPageable( ByVal reportsTo As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Employee) Implements IEmployeeRepository.GetDataByReportsToPageable
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand(ReportsTo, sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Employee)
+              Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), reader.GetInt32("ReportsTo"), reader.GetDateTime("BirthDate"), reader.GetDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for Employee
-        ''' </summary>
-        ''' <param name="ReportsTo"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByReportsToRowCount(ByVal reportsTo As Int32) As Int32 Implements IEmployeeRepository.GetDataByReportsToRowCount
-            Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToRowCountDbCommand(reportsTo)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for Employee
+    ''' </summary>
+   ''' <param name="ReportsTo"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByReportsToRowCount( ByVal reportsTo As Int32)  as Int32 Implements IEmployeeRepository.GetDataByReportsToRowCount
+        Dim command As IDbCommand = _dbEmployeeCommandProvider.GetGetDataByReportsToRowCountDbCommand(ReportsTo)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-
+    End Function
+   
+  
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -306,6 +306,6 @@ Namespace Chinook.Data.Repository
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
-
-    End Class
-End Namespace
+ 
+  End Class 
+End NameSpace

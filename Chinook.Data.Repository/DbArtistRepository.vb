@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-
-Namespace Chinook.Data.Repository
-
-    <Global.System.ComponentModel.DataObjectAttribute(True)> _
+  
+Namespace Chinook.Data.Repository    
+    
+    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
     Public Class DbArtistRepository
         Implements IArtistRepository
         Implements IDisposable
@@ -28,176 +28,176 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbArtistCommandProvider As IDbArtistCommandProvider)
             _dbArtistCommandProvider = dbArtistCommandProvider
-            _dbConnHolder = _dbArtistCommandProvider.ArtistDbConnectionHolder
+            _dbConnHolder =_dbArtistCommandProvider.ArtistDbConnectionHolder
         End Sub
 
-
-        ''' <summary>
-        ''' Selects one or more records from the Artist table 
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
-        Public Function GetData() As ICollection(Of Artist) Implements IArtistRepository.GetData
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetDataDbCommand()
+      
+    ''' <summary>
+    ''' Selects one or more records from the Artist table 
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
+    Public Function GetData()  as ICollection(Of Artist) Implements IArtistRepository.GetData
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Artist)
+              Dim entList as new Collection(Of Artist)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Artist(reader.GetInt32("ArtistId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Artist( reader.GetInt32("ArtistId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Updates one or more records from the Artist table 
-        ''' </summary>
-        ''' <param name="ArtistId"></param>
-        ''' <param name="Name"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Sub Update(ByVal artistId As Int32, ByVal name As String) Implements IArtistRepository.Update
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetUpdateDbCommand(artistId, name)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Updates one or more records from the Artist table 
+    ''' </summary>
+   ''' <param name="ArtistId"></param>
+   ''' <param name="Name"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
+    Public Sub Update( ByVal artistId As Int32,  ByVal name As String)  Implements IArtistRepository.Update
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetUpdateDbCommand(ArtistId, Name)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Updates one or more records from the Artist table 
+    ''' </summary>
+    ''' <param name="Artist"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
+    Public Sub Update(ByVal artist as Artist)  Implements IArtistRepository.Update
+             With Artist
+Update( CInt(.ArtistId), .Name)
+       End With
 
-        ''' <summary>
-        ''' Updates one or more records from the Artist table 
-        ''' </summary>
-        ''' <param name="Artist"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
-        Public Sub Update(ByVal artist As Artist) Implements IArtistRepository.Update
-            With artist
-                Update(.ArtistId, .Name)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Inserts an entity of Artist into the database.
-        ''' </summary>
-        ''' <param name="ArtistId"></param>
-        ''' <param name="Name"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Function Insert(ByVal artistId As Int32, ByVal name As String) As Int32 Implements IArtistRepository.Insert
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetInsertDbCommand(artistId, name)
+    End Sub
+  
+    ''' <summary>
+    ''' Inserts an entity of Artist into the database.
+    ''' </summary>
+   ''' <param name="ArtistId"></param>
+   ''' <param name="Name"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
+    Public Function Insert( ByVal artistId As Int32,  ByVal name As String)  as Int32 Implements IArtistRepository.Insert
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetInsertDbCommand(ArtistId, Name)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
+    End Function
+  
+    ''' <summary>
+    ''' Inserts an entity of Artist into the database.
+    ''' </summary>
+    ''' <param name="Artist"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
+    Public Function Insert(ByVal artist as Artist)  as Int32 Implements IArtistRepository.Insert
+             With Artist
+ Return Insert( CInt(.ArtistId), .Name)
+       End With
 
-        ''' <summary>
-        ''' Inserts an entity of Artist into the database.
-        ''' </summary>
-        ''' <param name="Artist"></param>
-        ''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
-        Public Function Insert(ByVal artist As Artist) As Int32 Implements IArtistRepository.Insert
-            With artist
-                Return Insert(.ArtistId, .Name)
-            End With
-
-        End Function
-
-        ''' <summary>
-        ''' Deletes one or more records from the Artist table 
-        ''' </summary>
-        ''' <param name="ArtistId"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
-        Public Sub Delete(ByVal artistId As Int32) Implements IArtistRepository.Delete
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetDeleteDbCommand(artistId)
+    End Function
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Artist table 
+    ''' </summary>
+   ''' <param name="ArtistId"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
+    Public Sub Delete( ByVal artistId As Int32)  Implements IArtistRepository.Delete
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetDeleteDbCommand(ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Artist table 
+    ''' </summary>
+    ''' <param name="Artist"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
+    Public Sub Delete(ByVal artist as Artist)  Implements IArtistRepository.Delete
+             With Artist
+Delete( CInt(.ArtistId))
+       End With
 
-        ''' <summary>
-        ''' Deletes one or more records from the Artist table 
-        ''' </summary>
-        ''' <param name="Artist"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
-        Public Sub Delete(ByVal artist As Artist) Implements IArtistRepository.Delete
-            With artist
-                Delete(.ArtistId)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Artist
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Artist) Implements IArtistRepository.GetPageable
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+    End Sub
+  
+    ''' <summary>
+    ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Artist
+    ''' </summary>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Artist) Implements IArtistRepository.GetDataPageable
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Artist)
+              Dim entList as new Collection(Of Artist)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Artist(reader.GetInt32("ArtistId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Artist( reader.GetInt32("ArtistId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for Artist
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetRowCount() As Int32 Implements IArtistRepository.GetRowCount
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetRowCountDbCommand()
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for Artist
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetRowCount()  as Int32 Implements IArtistRepository.GetRowCount
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByArtistId returns a IDataReader for Artist
-        ''' </summary>
-        ''' <param name="ArtistId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Artist) Implements IArtistRepository.GetDataByArtistId
-            Dim command As IDbCommand = _dbArtistCommandProvider.GetGetDataByArtistIdDbCommand(artistId)
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByArtistId returns a IDataReader for Artist
+    ''' </summary>
+   ''' <param name="ArtistId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByArtistId( ByVal artistId As Int32)  as ICollection(Of Artist) Implements IArtistRepository.GetDataByArtistId
+        Dim command As IDbCommand = _dbArtistCommandProvider.GetGetDataByArtistIdDbCommand(ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Artist)
+              Dim entList as new Collection(Of Artist)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Artist(reader.GetInt32("ArtistId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Artist( reader.GetInt32("ArtistId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-
+    
+    End Function
+   
+  
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -219,6 +219,6 @@ Namespace Chinook.Data.Repository
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
-
-    End Class
-End Namespace
+ 
+  End Class 
+End NameSpace

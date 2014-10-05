@@ -4,9 +4,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DAE1AE1B-CAE3-4F49-AD82-8BA709842906}</ProjectGuid>
+    <ProjectGuid>{3C920E82-F662-470B-ACE4-CF5B7234EEB8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace />
+    <RootNamespace>Chinook.Domain.Entities</RootNamespace>
     <AssemblyName>Chinook.Domain.Entities</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
@@ -26,7 +26,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ClassLibrary1.xml</DocumentationFile>
+    <DocumentationFile>Chinook.Domain.Entities.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -38,36 +38,25 @@
     <OptionStrict>On</OptionStrict>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.vb" />
-    <Compile Include="Artist.vb" />
-    <Compile Include="Customer.vb" />
-    <Compile Include="Employee.vb" />
-    <Compile Include="Genre.vb" />
-    <Compile Include="Invoice.vb" />
-    <Compile Include="InvoiceLine.vb" />
-    <Compile Include="MediaType.vb" />
-    <Compile Include="Playlist.vb" />
-    <Compile Include="PlaylistTrack.vb" />
-    <Compile Include="Track.vb" />
+    <Compile Include="Album.cs" />
+    <Compile Include="Artist.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceLine.cs" />
+    <Compile Include="MediaType.cs" />
+    <Compile Include="Playlist.cs" />
+    <Compile Include="PlaylistTrack.cs" />
+    <Compile Include="Track.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

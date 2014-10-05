@@ -61,10 +61,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
         Public Sub Update(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) Implements IAlbumRepository.Update
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetUpdateDbCommand(albumId, title, artistId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetUpdateDbCommand(AlbumId, Title, ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+            Command.ExecuteNonQuery()
             _dbConnHolder.Close()
         End Sub
 
@@ -75,8 +75,8 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
         Public Sub Update(ByVal album As Album) Implements IAlbumRepository.Update
-            With album
-                Update(.AlbumId, .Title, .ArtistId)
+            With Album
+                Update(CInt(.AlbumId), CStr(.Title), CInt(.ArtistId))
             End With
 
         End Sub
@@ -90,10 +90,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
         Public Function Insert(ByVal albumId As Int32, ByVal title As String, ByVal artistId As Int32) As Int32 Implements IAlbumRepository.Insert
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetInsertDbCommand(albumId, title, artistId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetInsertDbCommand(AlbumId, Title, ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 
@@ -107,8 +107,8 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
         Public Function Insert(ByVal album As Album) As Int32 Implements IAlbumRepository.Insert
-            With album
-                Return Insert(.AlbumId, .Title, .ArtistId)
+            With Album
+                Return Insert(CInt(.AlbumId), CStr(.Title), CInt(.ArtistId))
             End With
 
         End Function
@@ -120,10 +120,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
         Public Sub Delete(ByVal albumId As Int32) Implements IAlbumRepository.Delete
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetDeleteDbCommand(albumId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetDeleteDbCommand(AlbumId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+            Command.ExecuteNonQuery()
             _dbConnHolder.Close()
         End Sub
 
@@ -134,22 +134,22 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
         Public Sub Delete(ByVal album As Album) Implements IAlbumRepository.Delete
-            With album
-                Delete(.AlbumId)
+            With Album
+                Delete(CInt(.AlbumId))
             End With
 
         End Sub
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
         ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
+        ''' <param name="page"></param>
         ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetPageable
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+        Public Function GetDataPageable(ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataPageable
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)
@@ -172,7 +172,7 @@ Namespace Chinook.Data.Repository
             Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 
@@ -185,7 +185,7 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataByAlbumId(ByVal albumId As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByAlbumId
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByAlbumIdDbCommand(albumId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByAlbumIdDbCommand(AlbumId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)
@@ -206,7 +206,7 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataByArtistId(ByVal artistId As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByArtistId
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdDbCommand(artistId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdDbCommand(ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)
@@ -221,16 +221,16 @@ Namespace Chinook.Data.Repository
         End Function
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Album
+        ''' Function GetDataByArtistIdPageable returns a IDataReader populated with a subset of data from Album
         ''' </summary>
+        ''' <param name="ArtistId"></param>
         ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>
-        ''' <param name="ArtistId"></param>''' <returns></returns>
+        ''' <param name="page"></param>
+        ''' <param name="pageSize"></param>''' <returns></returns>
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByArtistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal artistId As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByArtistIdPageable
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdPageableDbCommand(sortExpression, startRowIndex, pageSize, artistId)
+        Public Function GetDataByArtistIdPageable(ByVal artistId As Int32, ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As ICollection(Of Album) Implements IAlbumRepository.GetDataByArtistIdPageable
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdPageableDbCommand(ArtistId, sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
             Dim entList As New Collection(Of Album)
@@ -251,10 +251,10 @@ Namespace Chinook.Data.Repository
         ''' <remarks></remarks> 
         <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
         Public Function GetDataByArtistIdRowCount(ByVal artistId As Int32) As Int32 Implements IAlbumRepository.GetDataByArtistIdRowCount
-            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdRowCountDbCommand(artistId)
+            Dim command As IDbCommand = _dbAlbumCommandProvider.GetGetDataByArtistIdRowCountDbCommand(ArtistId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+            Dim returnValue As Int32 = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
             Return returnValue
 

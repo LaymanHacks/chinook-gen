@@ -30,7 +30,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetPageable(sortExpression, (page - 1)*pageSize, pageSize);
+            var albums = _dbRepository.GetDataPageable(sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetRowCount();
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsPagableRoute", page, pageSize,
@@ -60,8 +60,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var albums = _dbRepository.GetDataByArtistIdPageable(sortExpression, (page - 1)*pageSize, pageSize,
-                artistId);
+            var albums = _dbRepository.GetDataByArtistIdPageable(artistId,sortExpression, (page - 1)*pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByArtistIdRowCount(artistId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsByArtistIdPagableRoute", page,

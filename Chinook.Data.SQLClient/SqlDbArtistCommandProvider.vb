@@ -13,10 +13,10 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
-
-    Public Class SqlDbArtistCommandProvider
+  
+Public Class SqlDbArtistCommandProvider
         Implements IDbArtistCommandProvider
 
         ReadOnly _dbConnHolder As DbConnectionHolder
@@ -66,8 +66,13 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
             Dim command As New SqlCommand("Artist_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.NVarChar, name))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+
+            If (Not name Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, name))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, Global.System.DBNull.Value))
+            End If
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -86,8 +91,13 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
             Dim command As New SqlCommand("Artist_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.NVarChar, name))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
+
+            If (Not name Is Nothing) Then
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, name))
+            Else
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Name", SqlDbType.nvarchar, Global.System.DBNull.Value))
+            End If
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -105,7 +115,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
             Dim command As New SqlCommand("Artist_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -113,20 +123,20 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Artist
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Artist
         ''' </summary>
         ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
+        ''' <param name="page" />
         ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbArtistCommandProvider.GetGetPageableDbCommand
+        Public Function GetGetDataPageableDbCommand(ByVal sortExpression As String, ByVal page As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbArtistCommandProvider.GetGetDataPageableDbCommand
 
 
-            Dim command As New SqlCommand("Artist_GetPageable")
+            Dim command As New SqlCommand("Artist_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
             command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
@@ -161,7 +171,7 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
             Dim command As New SqlCommand("Artist_GetDataByArtistId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.Int, artistId))
+            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ArtistId", SqlDbType.int, artistId))
 
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
@@ -169,4 +179,5 @@ Namespace Chinook.Data.SqlDbCommandProvider
 
 
     End Class
-End Namespace
+ End Namespace
+  

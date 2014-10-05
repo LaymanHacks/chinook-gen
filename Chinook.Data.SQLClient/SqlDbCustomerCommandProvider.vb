@@ -13,264 +13,355 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
+  
+Public Class SqlDbCustomerCommandProvider
+      Implements IDbCustomerCommandProvider
+    
+      ReadOnly _dbConnHolder As DbConnectionHolder
 
-    Public Class SqlDbCustomerCommandProvider
-        Implements IDbCustomerCommandProvider
+      Public Sub New()
+          _dbConnHolder = New DbConnectionHolder(DbConnectionName)
+      End Sub
 
-        ReadOnly _dbConnHolder As DbConnectionHolder
+      Public ReadOnly Property DbConnectionName() As String Implements IDbCustomerCommandProvider.DbConnectionName
+          Get
+              Return "ChinookConnection"
+          End Get
+      End Property
 
-        Public Sub New()
-            _dbConnHolder = New DbConnectionHolder(DbConnectionName)
-        End Sub
-
-        Public ReadOnly Property DbConnectionName() As String Implements IDbCustomerCommandProvider.DbConnectionName
-            Get
-                Return "ChinookConnection"
-            End Get
-        End Property
-
-        Public ReadOnly Property CustomerDbConnectionHolder() As DbConnectionHolder Implements IDbCustomerCommandProvider.CustomerDbConnectionHolder
-            Get
-                Return _dbConnHolder
-            End Get
-        End Property
-
-
+      Public ReadOnly Property CustomerDbConnectionHolder() As DbConnectionHolder Implements IDbCustomerCommandProvider.CustomerDbConnectionHolder
+          Get
+              Return _dbConnHolder
+          End Get
+      End Property
+      
+    
         ''' <summary>
         ''' Selects one or more records from the Customer table 
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Customer_Select")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Updates one or more records from the Customer table 
         ''' </summary>
-        ''' <param name="customerId" />
-        ''' <param name="firstName" />
-        ''' <param name="lastName" />
-        ''' <param name="company" />
-        ''' <param name="address" />
-        ''' <param name="city" />
-        ''' <param name="state" />
-        ''' <param name="country" />
-        ''' <param name="postalCode" />
-        ''' <param name="phone" />
-        ''' <param name="fax" />
-        ''' <param name="email" />
-        ''' <param name="supportRepId" />
+      ''' <param name="customerId" />
+      ''' <param name="firstName" />
+      ''' <param name="lastName" />
+      ''' <param name="company" />
+      ''' <param name="address" />
+      ''' <param name="city" />
+      ''' <param name="state" />
+      ''' <param name="country" />
+      ''' <param name="postalCode" />
+      ''' <param name="phone" />
+      ''' <param name="fax" />
+      ''' <param name="email" />
+      ''' <param name="supportRepId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetUpdateDbCommand(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetUpdateDbCommand
-
-
+        Public Function GetUpdateDbCommand( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As  Nullable(Of Int32) ) As IDbCommand Implements IDbCustomerCommandProvider.GetUpdateDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.NVarChar, firstName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.NVarChar, lastName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.NVarChar, company))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.NVarChar, address))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.NVarChar, city))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.NVarChar, state))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.NVarChar, country))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.NVarChar, postalCode))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.NVarChar, phone))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.NVarChar, fax))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.NVarChar, email))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.Int, supportRepId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.int, customerId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.nvarchar, firstName))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.nvarchar, lastName))
+      
+            If (Not company  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.nvarchar, company))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not address  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, address))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not city  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, city))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not state  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, state))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not country  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, country))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not postalCode  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, postalCode))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not phone  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, phone))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not fax  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, fax))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, email))
+      
+            If (SupportRepId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, supportRepId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Inserts a record into the Customer table on the database.
         ''' </summary>
-        ''' <param name="customerId" />
-        ''' <param name="firstName" />
-        ''' <param name="lastName" />
-        ''' <param name="company" />
-        ''' <param name="address" />
-        ''' <param name="city" />
-        ''' <param name="state" />
-        ''' <param name="country" />
-        ''' <param name="postalCode" />
-        ''' <param name="phone" />
-        ''' <param name="fax" />
-        ''' <param name="email" />
-        ''' <param name="supportRepId" />
+      ''' <param name="customerId" />
+      ''' <param name="firstName" />
+      ''' <param name="lastName" />
+      ''' <param name="company" />
+      ''' <param name="address" />
+      ''' <param name="city" />
+      ''' <param name="state" />
+      ''' <param name="country" />
+      ''' <param name="postalCode" />
+      ''' <param name="phone" />
+      ''' <param name="fax" />
+      ''' <param name="email" />
+      ''' <param name="supportRepId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetInsertDbCommand(ByVal customerId As Int32, ByVal firstName As String, ByVal lastName As String, ByVal company As String, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String, ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetInsertDbCommand
-
-
+        Public Function GetInsertDbCommand( ByVal customerId As Int32,  ByVal firstName As String,  ByVal lastName As String,  ByVal company As String,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String,  ByVal supportRepId As  Nullable(Of Int32) ) As IDbCommand Implements IDbCustomerCommandProvider.GetInsertDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.NVarChar, firstName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.NVarChar, lastName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.NVarChar, company))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.NVarChar, address))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.NVarChar, city))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.NVarChar, state))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.NVarChar, country))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.NVarChar, postalCode))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.NVarChar, phone))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.NVarChar, fax))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.NVarChar, email))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.Int, supportRepId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.int, customerId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.nvarchar, firstName))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.nvarchar, lastName))
+      
+            If (Not company  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.nvarchar, company))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Company", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not address  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, address))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not city  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, city))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not state  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, state))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not country  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, country))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not postalCode  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, postalCode))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not phone  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, phone))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not fax  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, fax))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+                  command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, email))
+      
+            If (SupportRepId.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, supportRepId))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Deletes one or more records from the Customer table 
         ''' </summary>
-        ''' <param name="customerId" />
+      ''' <param name="customerId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetDeleteDbCommand(ByVal customerId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetDeleteDbCommand
-
-
+        Public Function GetDeleteDbCommand( ByVal customerId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetDeleteDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.int, customerId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("Customer_GetPageable")
+        Public Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataPageableDbCommand
+            
+    
+            Dim command As New SqlCommand("Customer_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Customer
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbCustomerCommandProvider.GetGetRowCountDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Customer_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByCustomerId returns a IDataReader for Customer
         ''' </summary>
-        ''' <param name="customerId" />
+      ''' <param name="customerId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByCustomerIdDbCommand(ByVal customerId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand
-
-
+        Public Function GetGetDataByCustomerIdDbCommand( ByVal customerId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataByCustomerIdDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_GetDataByCustomerId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.Int, customerId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@CustomerId", SqlDbType.int, customerId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataBySupportRepId returns a IDataReader for Customer
         ''' </summary>
-        ''' <param name="supportRepId" />
+      ''' <param name="supportRepId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataBySupportRepIdDbCommand(ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand
-
-
+        Public Function GetGetDataBySupportRepIdDbCommand( ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_GetDataBySupportRepId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.Int, supportRepId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, supportRepId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Customer
+        ''' Function GetDataBySupportRepIdPageable returns a IDataReader populated with a subset of data from Customer
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="supportRepId" />
+      ''' <param name="supportRepId" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataBySupportRepIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand
-
-
+        Public Function GetGetDataBySupportRepIdPageableDbCommand( ByVal supportRepId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_GetDataBySupportRepIdPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.Int, supportRepId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, supportRepId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Customer
         ''' </summary>
-        ''' <param name="supportRepId" />
+      ''' <param name="supportRepId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataBySupportRepIdRowCountDbCommand(ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand
-
-
+        Public Function GetGetDataBySupportRepIdRowCountDbCommand( ByVal supportRepId As Int32) As IDbCommand Implements IDbCustomerCommandProvider.GetGetDataBySupportRepIdRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Customer_GetDataBySupportRepIdRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.Int, supportRepId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@SupportRepId", SqlDbType.int, supportRepId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
-    End Class
-End Namespace
+      End Function
+         
+            
+  End Class
+ End Namespace
+  

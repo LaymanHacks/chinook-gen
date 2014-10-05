@@ -15,15 +15,15 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property EmployeeDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand
-        Function GetInsertDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand
-        Function GetDeleteDbCommand(ByVal employeeId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
+        Function GetUpdateDbCommand( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String) As IDbCommand
+        Function GetInsertDbCommand( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String) As IDbCommand
+        Function GetDeleteDbCommand( ByVal employeeId As Int32) As IDbCommand
+        Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByEmployeeIdDbCommand(ByVal employeeId As Int32) As IDbCommand
-        Function GetGetDataByReportsToDbCommand(ByVal reportsTo As Int32) As IDbCommand
-        Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal reportsTo As Int32) As IDbCommand
-        Function GetGetDataByReportsToRowCountDbCommand(ByVal reportsTo As Int32) As IDbCommand
+        Function GetGetDataByEmployeeIdDbCommand( ByVal employeeId As Int32) As IDbCommand
+        Function GetGetDataByReportsToDbCommand( ByVal reportsTo As Int32) As IDbCommand
+        Function GetGetDataByReportsToPageableDbCommand( ByVal reportsTo As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand
+        Function GetGetDataByReportsToRowCountDbCommand( ByVal reportsTo As Int32) As IDbCommand
 
     End Interface
 End Namespace

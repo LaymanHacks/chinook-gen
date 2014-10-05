@@ -12,24 +12,25 @@ Imports System.Collections.Generic
 Imports Chinook.Data
 Imports Chinook.Domain.Entities
 
-
-Namespace Chinook.Data.Repository
+  
+ Namespace Chinook.Data.Repository     
     Public Interface IPlaylistTrackRepository
-        Function GetData() As ICollection(Of PlaylistTrack)
-        Sub Update(ByVal playlistId As Int32, ByVal trackId As Int32)
-        Sub Update(ByVal playlistTrack As PlaylistTrack)
-        Function Insert(ByVal playlistId As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
-        Function Insert(ByVal playlistTrack As PlaylistTrack) As ICollection(Of PlaylistTrack)
-        Sub Delete(ByVal playlistId As Int32, ByVal trackId As Int32)
-        Sub Delete(ByVal playlistTrack As PlaylistTrack)
-        Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of PlaylistTrack)
-        Function GetRowCount() As Int32
-        Function GetDataByPlaylistIdTrackId(ByVal playlistId As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByPlaylistId(ByVal playlistId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByPlaylistIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal playlistId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByPlaylistIdRowCount(ByVal playlistId As Int32) As Int32
-        Function GetDataByTrackId(ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByTrackIdPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal trackId As Int32) As ICollection(Of PlaylistTrack)
-        Function GetDataByTrackIdRowCount(ByVal trackId As Int32) As Int32
-    End Interface
-End Namespace
+        Function GetData()  as ICollection(Of PlaylistTrack)
+        Sub Update( ByVal playlistId As Int32,  ByVal trackId As Int32) 
+        Sub Update(ByVal playlistTrack as PlaylistTrack) 
+        Function Insert( ByVal playlistId As Int32,  ByVal trackId As Int32)  as ICollection(Of PlaylistTrack)
+        Function Insert(ByVal playlistTrack as PlaylistTrack)  as ICollection(Of PlaylistTrack)
+        Sub Delete( ByVal playlistId As Int32,  ByVal trackId As Int32) 
+        Sub Delete(ByVal playlistTrack as PlaylistTrack) 
+        Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetRowCount()  as Int32
+        Function GetDataByPlaylistIdTrackId( ByVal playlistId As Int32,  ByVal trackId As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetDataByPlaylistId( ByVal playlistId As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetDataByPlaylistIdPageable( ByVal playlistId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetDataByPlaylistIdRowCount( ByVal playlistId As Int32)  as Int32
+        Function GetDataByTrackId( ByVal trackId As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetDataByTrackIdPageable( ByVal trackId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of PlaylistTrack)
+        Function GetDataByTrackIdRowCount( ByVal trackId As Int32)  as Int32
+    End Interface 
+End NameSpace
+  

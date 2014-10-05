@@ -13,272 +13,393 @@ Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports Chinook.Data.DbCommandProvider
 
-Namespace Chinook.Data.SqlDbCommandProvider
+Namespace Chinook.Data.SqlDbCommandProvider 
 
+  
+Public Class SqlDbEmployeeCommandProvider
+      Implements IDbEmployeeCommandProvider
+    
+      ReadOnly _dbConnHolder As DbConnectionHolder
 
-    Public Class SqlDbEmployeeCommandProvider
-        Implements IDbEmployeeCommandProvider
+      Public Sub New()
+          _dbConnHolder = New DbConnectionHolder(DbConnectionName)
+      End Sub
 
-        ReadOnly _dbConnHolder As DbConnectionHolder
+      Public ReadOnly Property DbConnectionName() As String Implements IDbEmployeeCommandProvider.DbConnectionName
+          Get
+              Return "ChinookConnection"
+          End Get
+      End Property
 
-        Public Sub New()
-            _dbConnHolder = New DbConnectionHolder(DbConnectionName)
-        End Sub
-
-        Public ReadOnly Property DbConnectionName() As String Implements IDbEmployeeCommandProvider.DbConnectionName
-            Get
-                Return "ChinookConnection"
-            End Get
-        End Property
-
-        Public ReadOnly Property EmployeeDbConnectionHolder() As DbConnectionHolder Implements IDbEmployeeCommandProvider.EmployeeDbConnectionHolder
-            Get
-                Return _dbConnHolder
-            End Get
-        End Property
-
-
+      Public ReadOnly Property EmployeeDbConnectionHolder() As DbConnectionHolder Implements IDbEmployeeCommandProvider.EmployeeDbConnectionHolder
+          Get
+              Return _dbConnHolder
+          End Get
+      End Property
+      
+    
         ''' <summary>
         ''' Selects one or more records from the Employee table 
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetDataDbCommand() As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Employee_Select")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Updates one or more records from the Employee table 
         ''' </summary>
-        ''' <param name="employeeId" />
-        ''' <param name="lastName" />
-        ''' <param name="firstName" />
-        ''' <param name="title" />
-        ''' <param name="reportsTo" />
-        ''' <param name="birthDate" />
-        ''' <param name="hireDate" />
-        ''' <param name="address" />
-        ''' <param name="city" />
-        ''' <param name="state" />
-        ''' <param name="country" />
-        ''' <param name="postalCode" />
-        ''' <param name="phone" />
-        ''' <param name="fax" />
-        ''' <param name="email" />
+      ''' <param name="employeeId" />
+      ''' <param name="lastName" />
+      ''' <param name="firstName" />
+      ''' <param name="title" />
+      ''' <param name="reportsTo" />
+      ''' <param name="birthDate" />
+      ''' <param name="hireDate" />
+      ''' <param name="address" />
+      ''' <param name="city" />
+      ''' <param name="state" />
+      ''' <param name="country" />
+      ''' <param name="postalCode" />
+      ''' <param name="phone" />
+      ''' <param name="fax" />
+      ''' <param name="email" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetUpdateDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand Implements IDbEmployeeCommandProvider.GetUpdateDbCommand
-
-
+        Public Function GetUpdateDbCommand( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String) As IDbCommand Implements IDbEmployeeCommandProvider.GetUpdateDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_Update")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.Int, employeeId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.NVarChar, lastName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.NVarChar, firstName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.NVarChar, title))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.DateTime, birthDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.DateTime, hireDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.NVarChar, address))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.NVarChar, city))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.NVarChar, state))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.NVarChar, country))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.NVarChar, postalCode))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.NVarChar, phone))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.NVarChar, fax))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.NVarChar, email))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.int, employeeId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.nvarchar, lastName))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.nvarchar, firstName))
+      
+            If (Not title  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, title))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (ReportsTo.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, reportsTo))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
+            If (BirthDate.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.datetime, birthDate))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.datetime, global.System.DBNull.Value))
+      End If
+        
+            If (HireDate.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.datetime, hireDate))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.datetime, global.System.DBNull.Value))
+      End If
+        
+            If (Not address  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, address))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not city  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, city))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not state  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, state))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not country  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, country))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not postalCode  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, postalCode))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not phone  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, phone))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not fax  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, fax))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not email  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, email))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Inserts a record into the Employee table on the database.
         ''' </summary>
-        ''' <param name="employeeId" />
-        ''' <param name="lastName" />
-        ''' <param name="firstName" />
-        ''' <param name="title" />
-        ''' <param name="reportsTo" />
-        ''' <param name="birthDate" />
-        ''' <param name="hireDate" />
-        ''' <param name="address" />
-        ''' <param name="city" />
-        ''' <param name="state" />
-        ''' <param name="country" />
-        ''' <param name="postalCode" />
-        ''' <param name="phone" />
-        ''' <param name="fax" />
-        ''' <param name="email" />
+      ''' <param name="employeeId" />
+      ''' <param name="lastName" />
+      ''' <param name="firstName" />
+      ''' <param name="title" />
+      ''' <param name="reportsTo" />
+      ''' <param name="birthDate" />
+      ''' <param name="hireDate" />
+      ''' <param name="address" />
+      ''' <param name="city" />
+      ''' <param name="state" />
+      ''' <param name="country" />
+      ''' <param name="postalCode" />
+      ''' <param name="phone" />
+      ''' <param name="fax" />
+      ''' <param name="email" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetInsertDbCommand(ByVal employeeId As Int32, ByVal lastName As String, ByVal firstName As String, ByVal title As String, ByVal reportsTo As Int32, ByVal birthDate As DateTime, ByVal hireDate As DateTime, ByVal address As String, ByVal city As String, ByVal state As String, ByVal country As String, ByVal postalCode As String, ByVal phone As String, ByVal fax As String, ByVal email As String) As IDbCommand Implements IDbEmployeeCommandProvider.GetInsertDbCommand
-
-
+        Public Function GetInsertDbCommand( ByVal employeeId As Int32,  ByVal lastName As String,  ByVal firstName As String,  ByVal title As String,  ByVal reportsTo As  Nullable(Of Int32) ,  ByVal birthDate As  Nullable(Of DateTime) ,  ByVal hireDate As  Nullable(Of DateTime) ,  ByVal address As String,  ByVal city As String,  ByVal state As String,  ByVal country As String,  ByVal postalCode As String,  ByVal phone As String,  ByVal fax As String,  ByVal email As String) As IDbCommand Implements IDbEmployeeCommandProvider.GetInsertDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_Insert")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.Int, employeeId))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.NVarChar, lastName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.NVarChar, firstName))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.NVarChar, title))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.DateTime, birthDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.DateTime, hireDate))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.NVarChar, address))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.NVarChar, city))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.NVarChar, state))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.NVarChar, country))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.NVarChar, postalCode))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.NVarChar, phone))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.NVarChar, fax))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.NVarChar, email))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.int, employeeId))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@LastName", SqlDbType.nvarchar, lastName))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@FirstName", SqlDbType.nvarchar, firstName))
+      
+            If (Not title  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, title))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Title", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (ReportsTo.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, reportsTo))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, global.System.DBNull.Value))
+      End If
+        
+            If (BirthDate.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.datetime, birthDate))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@BirthDate", SqlDbType.datetime, global.System.DBNull.Value))
+      End If
+        
+            If (HireDate.HasValue = true ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.datetime, hireDate))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@HireDate", SqlDbType.datetime, global.System.DBNull.Value))
+      End If
+        
+            If (Not address  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, address))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Address", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not city  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, city))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@City", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not state  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, state))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@State", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not country  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, country))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Country", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not postalCode  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, postalCode))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@PostalCode", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not phone  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, phone))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Phone", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not fax  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, fax))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Fax", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
+            If (Not email  Is Nothing ) Then
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, email))
+      Else
+                          command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@Email", SqlDbType.nvarchar, global.System.DBNull.Value))
+      End If
+        
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Deletes one or more records from the Employee table 
         ''' </summary>
-        ''' <param name="employeeId" />
+      ''' <param name="employeeId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetDeleteDbCommand(ByVal employeeId As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetDeleteDbCommand
-
-
+        Public Function GetDeleteDbCommand( ByVal employeeId As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetDeleteDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_Delete")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.Int, employeeId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.int, employeeId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetPageableDbCommand
-
-
-            Dim command As New SqlCommand("Employee_GetPageable")
+        Public Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataPageableDbCommand
+            
+    
+            Dim command As New SqlCommand("Employee_GetDataPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Employee
         ''' </summary>
         ''' <returns></returns>
         ''' <remarks></remarks> 
         Public Function GetGetRowCountDbCommand() As IDbCommand Implements IDbEmployeeCommandProvider.GetGetRowCountDbCommand
-
-
+            
+    
             Dim command As New SqlCommand("Employee_GetRowCount")
             command.CommandType = CommandType.StoredProcedure
-
+    
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByEmployeeId returns a IDataReader for Employee
         ''' </summary>
-        ''' <param name="employeeId" />
+      ''' <param name="employeeId" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByEmployeeIdDbCommand(ByVal employeeId As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByEmployeeIdDbCommand
-
-
+        Public Function GetGetDataByEmployeeIdDbCommand( ByVal employeeId As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByEmployeeIdDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_GetDataByEmployeeId")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.Int, employeeId))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@EmployeeId", SqlDbType.int, employeeId))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetDataByReportsTo returns a IDataReader for Employee
         ''' </summary>
-        ''' <param name="reportsTo" />
+      ''' <param name="reportsTo" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByReportsToDbCommand(ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToDbCommand
-
-
+        Public Function GetGetDataByReportsToDbCommand( ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_GetDataByReportsTo")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, reportsTo))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Employee
+        ''' Function GetDataByReportsToPageable returns a IDataReader populated with a subset of data from Employee
         ''' </summary>
-        ''' <param name="sortExpression" />
-        ''' <param name="startRowIndex" />
-        ''' <param name="pageSize" />
-        ''' <param name="reportsTo" />
+      ''' <param name="reportsTo" />
+      ''' <param name="sortExpression" />
+      ''' <param name="page" />
+      ''' <param name="pageSize" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByReportsToPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand
-
-
+        Public Function GetGetDataByReportsToPageableDbCommand( ByVal reportsTo As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToPageableDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_GetDataByReportsToPageable")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.VarChar, sortExpression))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@startRowIndex", SqlDbType.Int, startRowIndex))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, reportsTo))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@sortExpression", SqlDbType.varchar, sortExpression))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@page", SqlDbType.Int, page))
+                command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@pageSize", SqlDbType.Int, pageSize))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
+      End Function
+         
+            
         ''' <summary>
         ''' Function GetRowCount returns the row count for Employee
         ''' </summary>
-        ''' <param name="reportsTo" />
+      ''' <param name="reportsTo" />
         ''' <returns></returns>
         ''' <remarks></remarks> 
-        Public Function GetGetDataByReportsToRowCountDbCommand(ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToRowCountDbCommand
-
-
+        Public Function GetGetDataByReportsToRowCountDbCommand( ByVal reportsTo As Int32) As IDbCommand Implements IDbEmployeeCommandProvider.GetGetDataByReportsToRowCountDbCommand
+            
+    
             Dim command As New SqlCommand("Employee_GetDataByReportsToRowCount")
             command.CommandType = CommandType.StoredProcedure
-            command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.Int, reportsTo))
-
+              command.Parameters.Add(SqlParameterFactory.CreateInputParameter("@ReportsTo", SqlDbType.int, reportsTo))
+      
             command.Connection = CType(_dbConnHolder.Connection, SqlConnection)
             Return command
-        End Function
-
-
-    End Class
-End Namespace
+      End Function
+         
+            
+  End Class
+ End Namespace
+  

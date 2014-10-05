@@ -15,10 +15,10 @@ Imports Chinook.Domain.Entities
 Imports Chinook.Data.DbCommandProvider
 Imports System.Collections.ObjectModel
 
-
-Namespace Chinook.Data.Repository
-
-    <Global.System.ComponentModel.DataObjectAttribute(True)> _
+  
+Namespace Chinook.Data.Repository    
+    
+    <Global.System.ComponentModel.DataObjectAttribute(true)>  _
     Public Class DbGenreRepository
         Implements IGenreRepository
         Implements IDisposable
@@ -28,176 +28,176 @@ Namespace Chinook.Data.Repository
 
         Public Sub New(ByVal dbGenreCommandProvider As IDbGenreCommandProvider)
             _dbGenreCommandProvider = dbGenreCommandProvider
-            _dbConnHolder = _dbGenreCommandProvider.GenreDbConnectionHolder
+            _dbConnHolder =_dbGenreCommandProvider.GenreDbConnectionHolder
         End Sub
 
-
-        ''' <summary>
-        ''' Selects one or more records from the Genre table 
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)> _
-        Public Function GetData() As ICollection(Of Genre) Implements IGenreRepository.GetData
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetGetDataDbCommand()
+      
+    ''' <summary>
+    ''' Selects one or more records from the Genre table 
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)> _ 
+    Public Function GetData()  as ICollection(Of Genre) Implements IGenreRepository.GetData
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetGetDataDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Genre)
+              Dim entList as new Collection(Of Genre)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Genre(reader.GetInt32("GenreId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Genre( reader.GetInt32("GenreId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Updates one or more records from the Genre table 
-        ''' </summary>
-        ''' <param name="GenreId"></param>
-        ''' <param name="Name"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)> _
-        Public Sub Update(ByVal genreId As Int32, ByVal name As String) Implements IGenreRepository.Update
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetUpdateDbCommand(genreId, name)
+    
+    End Function
+  
+    ''' <summary>
+    ''' Updates one or more records from the Genre table 
+    ''' </summary>
+   ''' <param name="GenreId"></param>
+   ''' <param name="Name"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)> _ 
+    Public Sub Update( ByVal genreId As Int32,  ByVal name As String)  Implements IGenreRepository.Update
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetUpdateDbCommand(GenreId, Name)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Updates one or more records from the Genre table 
+    ''' </summary>
+    ''' <param name="Genre"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _ 
+    Public Sub Update(ByVal genre as Genre)  Implements IGenreRepository.Update
+             With Genre
+Update( CInt(.GenreId), .Name)
+       End With
 
-        ''' <summary>
-        ''' Updates one or more records from the Genre table 
-        ''' </summary>
-        ''' <param name="Genre"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, False)> _
-        Public Sub Update(ByVal genre As Genre) Implements IGenreRepository.Update
-            With genre
-                Update(.GenreId, .Name)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Inserts an entity of Genre into the database.
-        ''' </summary>
-        ''' <param name="GenreId"></param>
-        ''' <param name="Name"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)> _
-        Public Function Insert(ByVal genreId As Int32, ByVal name As String) As Int32 Implements IGenreRepository.Insert
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetInsertDbCommand(genreId, name)
+    End Sub
+  
+    ''' <summary>
+    ''' Inserts an entity of Genre into the database.
+    ''' </summary>
+   ''' <param name="GenreId"></param>
+   ''' <param name="Name"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)> _ 
+    Public Function Insert( ByVal genreId As Int32,  ByVal name As String)  as Int32 Implements IGenreRepository.Insert
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetInsertDbCommand(GenreId, Name)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
+    End Function
+  
+    ''' <summary>
+    ''' Inserts an entity of Genre into the database.
+    ''' </summary>
+    ''' <param name="Genre"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _ 
+    Public Function Insert(ByVal genre as Genre)  as Int32 Implements IGenreRepository.Insert
+             With Genre
+ Return Insert( CInt(.GenreId), .Name)
+       End With
 
-        ''' <summary>
-        ''' Inserts an entity of Genre into the database.
-        ''' </summary>
-        ''' <param name="Genre"></param>
-        ''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, False)> _
-        Public Function Insert(ByVal genre As Genre) As Int32 Implements IGenreRepository.Insert
-            With genre
-                Return Insert(.GenreId, .Name)
-            End With
-
-        End Function
-
-        ''' <summary>
-        ''' Deletes one or more records from the Genre table 
-        ''' </summary>
-        ''' <param name="GenreId"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)> _
-        Public Sub Delete(ByVal genreId As Int32) Implements IGenreRepository.Delete
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetDeleteDbCommand(genreId)
+    End Function
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Genre table 
+    ''' </summary>
+   ''' <param name="GenreId"></param>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)> _ 
+    Public Sub Delete( ByVal genreId As Int32)  Implements IGenreRepository.Delete
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetDeleteDbCommand(GenreId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            command.ExecuteNonQuery()
+          Command.ExecuteNonQuery
             _dbConnHolder.Close()
-        End Sub
+    End Sub
+  
+    ''' <summary>
+    ''' Deletes one or more records from the Genre table 
+    ''' </summary>
+    ''' <param name="Genre"></param>
+    ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _ 
+    Public Sub Delete(ByVal genre as Genre)  Implements IGenreRepository.Delete
+             With Genre
+Delete( CInt(.GenreId))
+       End With
 
-        ''' <summary>
-        ''' Deletes one or more records from the Genre table 
-        ''' </summary>
-        ''' <param name="Genre"></param>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, False)> _
-        Public Sub Delete(ByVal genre As Genre) Implements IGenreRepository.Delete
-            With genre
-                Delete(.GenreId)
-            End With
-
-        End Sub
-
-        ''' <summary>
-        ''' Function GetPageable returns a IDataReader populated with a subset of data from Genre
-        ''' </summary>
-        ''' <param name="sortExpression"></param>
-        ''' <param name="startRowIndex"></param>
-        ''' <param name="pageSize"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetPageable(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As ICollection(Of Genre) Implements IGenreRepository.GetPageable
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetGetPageableDbCommand(sortExpression, startRowIndex, pageSize)
+    End Sub
+  
+    ''' <summary>
+    ''' Function GetDataPageable returns a IDataReader populated with a subset of data from Genre
+    ''' </summary>
+   ''' <param name="sortExpression"></param>
+   ''' <param name="page"></param>
+   ''' <param name="pageSize"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataPageable( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32)  as ICollection(Of Genre) Implements IGenreRepository.GetDataPageable
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetGetDataPageableDbCommand(sortExpression, page, pageSize)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Genre)
+              Dim entList as new Collection(Of Genre)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Genre(reader.GetInt32("GenreId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Genre( reader.GetInt32("GenreId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-        ''' <summary>
-        ''' Function GetRowCount returns the row count for Genre
-        ''' </summary>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetRowCount() As Int32 Implements IGenreRepository.GetRowCount
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetGetRowCountDbCommand()
+    
+    End Function
+  
+    ''' <summary>
+    ''' Function GetRowCount returns the row count for Genre
+    ''' </summary>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetRowCount()  as Int32 Implements IGenreRepository.GetRowCount
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetGetRowCountDbCommand()
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim returnValue As Int32 = Convert.ToInt32(command.ExecuteScalar())
+              Dim returnValue As Int32  = Convert.ToInt32(Command.ExecuteScalar())
             _dbConnHolder.Close()
-            Return returnValue
+            Return returnValue 
 
-        End Function
-
-        ''' <summary>
-        ''' Function GetDataByGenreId returns a IDataReader for Genre
-        ''' </summary>
-        ''' <param name="GenreId"></param>''' <returns></returns>
-        ''' <remarks></remarks> 
-        <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], False)> _
-        Public Function GetDataByGenreId(ByVal genreId As Int32) As ICollection(Of Genre) Implements IGenreRepository.GetDataByGenreId
-            Dim command As IDbCommand = _dbGenreCommandProvider.GetGetDataByGenreIdDbCommand(genreId)
+    End Function
+  
+    ''' <summary>
+    ''' Function GetDataByGenreId returns a IDataReader for Genre
+    ''' </summary>
+   ''' <param name="GenreId"></param>''' <returns></returns>
+   ''' <remarks></remarks> 
+  <Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)> _ 
+    Public Function GetDataByGenreId( ByVal genreId As Int32)  as ICollection(Of Genre) Implements IGenreRepository.GetDataByGenreId
+        Dim command As IDbCommand = _dbGenreCommandProvider.GetGetDataByGenreIdDbCommand(GenreId)
             command.Connection = _dbConnHolder.Connection
             _dbConnHolder.Open()
-            Dim entList As New Collection(Of Genre)
+              Dim entList as new Collection(Of Genre)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                Dim tempEntity As New Genre(reader.GetInt32("GenreId"), reader.GetString("Name"))
-                entList.Add(tempEntity)
+                 Dim tempEntity As New Genre( reader.GetInt32("GenreId"),  reader.GetString("Name") )
+                 entList.Add(tempEntity)
             Loop
-            reader.Close()
+            reader.Close
             Return entList
-
-        End Function
-
-
+    
+    End Function
+   
+  
 #Region "IDisposable Support"
         Private disposedValue As Boolean
         Protected Overridable Sub Dispose(disposing As Boolean)
@@ -219,6 +219,6 @@ Namespace Chinook.Data.Repository
             GC.SuppressFinalize(Me)
         End Sub
 #End Region
-
-    End Class
-End Namespace
+ 
+  End Class 
+End NameSpace

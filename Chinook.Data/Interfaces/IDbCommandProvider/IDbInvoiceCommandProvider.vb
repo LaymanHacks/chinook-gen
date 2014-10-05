@@ -15,15 +15,15 @@ Namespace Chinook.Data.DbCommandProvider
         ReadOnly Property InvoiceDbConnectionHolder() As DbConnectionHolder
         ReadOnly Property DbConnectionName As String
         Function GetGetDataDbCommand() As IDbCommand
-        Function GetUpdateDbCommand(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As IDbCommand
-        Function GetInsertDbCommand(ByVal invoiceId As Int32, ByVal customerId As Int32, ByVal invoiceDate As DateTime, ByVal billingAddress As String, ByVal billingCity As String, ByVal billingState As String, ByVal billingCountry As String, ByVal billingPostalCode As String, ByVal total As Decimal) As IDbCommand
-        Function GetDeleteDbCommand(ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32) As IDbCommand
+        Function GetUpdateDbCommand( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal) As IDbCommand
+        Function GetInsertDbCommand( ByVal invoiceId As Int32,  ByVal customerId As Int32,  ByVal invoiceDate As DateTime,  ByVal billingAddress As String,  ByVal billingCity As String,  ByVal billingState As String,  ByVal billingCountry As String,  ByVal billingPostalCode As String,  ByVal total As Decimal) As IDbCommand
+        Function GetDeleteDbCommand( ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataPageableDbCommand( ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand
         Function GetGetRowCountDbCommand() As IDbCommand
-        Function GetGetDataByInvoiceIdDbCommand(ByVal invoiceId As Int32) As IDbCommand
-        Function GetGetDataByCustomerIdDbCommand(ByVal customerId As Int32) As IDbCommand
-        Function GetGetDataByCustomerIdPageableDbCommand(ByVal sortExpression As String, ByVal startRowIndex As Int32, ByVal pageSize As Int32, ByVal customerId As Int32) As IDbCommand
-        Function GetGetDataByCustomerIdRowCountDbCommand(ByVal customerId As Int32) As IDbCommand
+        Function GetGetDataByInvoiceIdDbCommand( ByVal invoiceId As Int32) As IDbCommand
+        Function GetGetDataByCustomerIdDbCommand( ByVal customerId As Int32) As IDbCommand
+        Function GetGetDataByCustomerIdPageableDbCommand( ByVal customerId As Int32,  ByVal sortExpression As String,  ByVal page As Int32,  ByVal pageSize As Int32) As IDbCommand
+        Function GetGetDataByCustomerIdRowCountDbCommand( ByVal customerId As Int32) As IDbCommand
 
     End Interface
 End Namespace
