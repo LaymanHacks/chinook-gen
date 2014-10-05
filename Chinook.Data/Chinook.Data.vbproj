@@ -75,7 +75,7 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\markl_000\Desktop\New folder\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
+    <ProjectReference Include="..\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
       <Project>{3c920e82-f662-470b-ace4-cf5b7234eeb8}</Project>
       <Name>Chinook.Domain.Entities</Name>
     </ProjectReference>

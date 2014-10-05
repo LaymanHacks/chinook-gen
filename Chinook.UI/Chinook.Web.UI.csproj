@@ -225,12 +225,14 @@
     <Compile Include="Controllers\Api\CustomerApiController.cs" />
     <Compile Include="Controllers\Api\EmployeeApiController.cs" />
     <Compile Include="Controllers\Api\GenreApiController.cs" />
+    <Compile Include="Controllers\Api\InvoiceLineApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\TrackApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InjectorContainerFactory.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -322,13 +324,13 @@
       <Project>{3520c424-4705-4dc8-9c61-b941efcedf6c}</Project>
       <Name>Chinook.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
+      <Project>{3c920e82-f662-470b-ace4-cf5b7234eeb8}</Project>
+      <Name>Chinook.Domain.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chinook.Web\Chinook.Web.csproj">
       <Project>{ecf69a55-449e-47d1-b28c-fc9b2694febc}</Project>
       <Name>Chinook.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="C:\Users\markl_000\Desktop\New folder\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
-      <Project>{3c920e82-f662-470b-ace4-cf5b7234eeb8}</Project>
-      <Name>Chinook.Domain.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
