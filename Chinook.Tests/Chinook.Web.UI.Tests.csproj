@@ -104,6 +104,8 @@
   <ItemGroup>
     <Compile Include="Controllers\Api\AlbumApiControllerTests.cs" />
     <Compile Include="Controllers\Api\ArtistApiControllerTests.cs" />
+    <Compile Include="Controllers\Api\CustomerApiControllerTests.cs" />
+    <Compile Include="Controllers\Api\EmployeeApiControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
