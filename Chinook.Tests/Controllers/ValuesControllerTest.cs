@@ -12,7 +12,7 @@ namespace Chinook.Web.UI.Tests.Controllers
         public void Get()
         {
             // Arrange
-            ValuesController controller = new ValuesController();
+            var controller = new ValuesController();
 
             // Act
             IEnumerable<string> result = controller.Get();

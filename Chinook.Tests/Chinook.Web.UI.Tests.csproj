@@ -33,8 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Chinook.Data, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Chinook.UI\Bin\Chinook.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -95,6 +102,8 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\AlbumApiControllerTests.cs" />
+    <Compile Include="Controllers\Api\ArtistApiControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
@@ -106,11 +115,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chinook.Domain.Entities\Chinook.Domain.Entities.csproj">
+      <Project>{3C920E82-F662-470B-ACE4-CF5B7234EEB8}</Project>
+      <Name>Chinook.Domain.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chinook.UI\Chinook.Web.UI.csproj">
       <Project>{F8B529B0-37D4-466A-A6B7-5BF778F2C037}</Project>
       <Name>Chinook.Web.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chinook.Web\Chinook.Web.csproj">
+      <Project>{ECF69A55-449E-47D1-B28C-FC9B2694FEBC}</Project>
+      <Name>Chinook.Web</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

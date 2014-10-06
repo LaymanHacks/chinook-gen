@@ -43,7 +43,7 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPut]
         public void Update(Invoice invoice)
         {
-            Update((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)Total);
+            Update((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPost]
         public Int32 Insert(Invoice invoice)
         {
-            return Insert((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)Total);
+            return Insert((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
         }
 
         [HttpDelete]

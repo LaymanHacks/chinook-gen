@@ -31,6 +31,9 @@ namespace Chinook.Web.UI
 
             container.Register<IDbInvoiceCommandProvider, SqlDbInvoiceCommandProvider>();
             container.Register<IInvoiceRepository, DbInvoiceRepository>();
+
+            container.Register<IDbMediaTypeCommandProvider, SqlDbMediaTypeCommandProvider>();
+            container.Register<IMediaTypeRepository, DbMediaTypeRepository>();
             
             return container;
         }

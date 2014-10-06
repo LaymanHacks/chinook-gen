@@ -126,8 +126,8 @@ namespace Chinook.Web.UI.Controllers.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
-         
-       [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetDataByMediaTypeIdRoute")]
+
+       [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetTracksByMediaTypeIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByMediaTypeId(Int32 mediaTypeId)
         {
