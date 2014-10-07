@@ -52,13 +52,22 @@ namespace Chinook.Web.UI.Controllers.APi
             return _dbRepository.Insert(artistId, name);
         }
 
+         [Route("api/artists/{artistid:int:min(1)}")]
         [HttpDelete]
-        public void Delete(Int32 artistId)
+        public HttpResponseMessage Delete(Int32 artistId)
         {
-            _dbRepository.Delete(artistId);
+            try
+            {
+                _dbRepository.Delete(artistId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
-
+         [Route("api/artists/{artistid:int:min(1)}")]
         [HttpGet]
         public IQueryable<Artist> GetDataByArtistId(Int32 artistId)
         {
