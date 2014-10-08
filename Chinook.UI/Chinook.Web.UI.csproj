@@ -228,6 +228,8 @@
     <Compile Include="Controllers\Api\InvoiceApiController.cs" />
     <Compile Include="Controllers\Api\InvoiceLineApiController.cs" />
     <Compile Include="Controllers\Api\MediaTypeApiController.cs" />
+    <Compile Include="Controllers\Api\PlaylistApiController.cs" />
+    <Compile Include="Controllers\Api\PlaylistTrackApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\TrackApiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
