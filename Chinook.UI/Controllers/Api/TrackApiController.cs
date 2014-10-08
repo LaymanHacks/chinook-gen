@@ -149,53 +149,29 @@ namespace Chinook.Web.UI.Controllers.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
-     
-        [HttpPut]
-        public void Update(Int32 trackId, String name, int albumId, Int32 mediaTypeId, int genreId, String composer, Int32 milliseconds, int bytes, Decimal unitPrice)
-        {
-            _dbRepository.Update(trackId, name, albumId, mediaTypeId, genreId, composer, milliseconds, bytes, unitPrice);
-        }
 
-
+        [Route("api/tracks", Name = "TracksUpdateRoute")]
         [HttpPut]
         public void Update(Track track)
         {
-            if (track.AlbumId == null) return;
-            if (track.Bytes == null) return;
-            if (track.GenreId != null)
-                Update(track.TrackId, track.Name, (int) track.AlbumId, track.MediaTypeId, (int) track.GenreId, track.Composer, track.Milliseconds, (int) track.Bytes, track.UnitPrice);
+            _dbRepository.Update((Int32)track.TrackId, (string)track.Name, track.AlbumId, (Int32)track.MediaTypeId, track.GenreId, track.Composer, (Int32)track.Milliseconds, track.Bytes, (decimal)track.UnitPrice);
         }
 
-
-        [HttpPost]
-        public Int32 Insert(Int32 trackId, String name, int albumId, Int32 mediaTypeId, int genreId, String composer, Int32 milliseconds, int bytes, Decimal unitPrice)
-        {
-                return _dbRepository.Insert(trackId, name, (int) albumId, mediaTypeId, genreId, composer, milliseconds, (int) bytes, unitPrice);
-        }
-
-
+        [Route("api/tracks", Name = "TracksInsertRoute")]
         [HttpPost]
         public Int32 Insert(Track track)
         {
-            if (track.AlbumId != null)
-                if (track.GenreId != null)
-                    if (track.Bytes != null)
-                        return Insert(track.TrackId, track.Name, (int) track.AlbumId, track.MediaTypeId, (int) track.GenreId, track.Composer, track.Milliseconds, (int) track.Bytes, track.UnitPrice);
-            return -1;
+            return _dbRepository.Insert((Int32)track.TrackId, (string)track.Name, track.AlbumId, (Int32)track.MediaTypeId, track.GenreId, track.Composer, (Int32)track.Milliseconds, track.Bytes, (decimal)track.UnitPrice);
         }
 
-
-        [HttpDelete]
+         [Route("api/tracks/{trackId:int:min(1)}")]
+       [HttpDelete]
         public void Delete(Int32 trackId)
         {
             _dbRepository.Delete(trackId);
         }
 
 
-        [HttpDelete]
-        public void Delete(Track track)
-        {
-            Delete(track.TrackId);
-        }
+       
      }
 }
