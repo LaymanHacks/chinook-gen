@@ -16,9 +16,9 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
     [TestClass()]
     public class ArtistApiControllerTests
     {
-        private Mock<IArtistRepository> _artistRepository;
+        private Mock<IArtistRepository> _repository;
 
-        private List<Artist> _expectedallArtists = new List<Artist>
+        private List<Artist> _repositoryList = new List<Artist>
         {
             new Artist(1, "Alanis Morissette"),
             new Artist(2, "Alice In Chains"),
@@ -37,8 +37,8 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         [TestInitialize]
         public void Init()
         {
-            _artistRepository = new Mock<IArtistRepository>();
-            _target = new ArtistApiController(_artistRepository.Object)
+            _repository = new Mock<IArtistRepository>();
+            _target = new ArtistApiController(_repository.Object)
             {
                 Request = new HttpRequestMessage { RequestUri = new Uri("http://localhost/api/artists") }
             };
@@ -54,12 +54,12 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         [TestMethod()]
         public void GetData_ShouldReturnAllArtists()
         {
-            _artistRepository
+            _repository
                 .Setup(it => it.GetData())
-                .Returns(_expectedallArtists);
+                .Returns(_repositoryList);
 
             var result = _target.GetData().ToList();
-            Assert.AreEqual(_expectedallArtists.Count, result.Count);
+            Assert.AreEqual(_repositoryList.Count, result.Count);
         }
 
 
@@ -68,11 +68,11 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         {
             PagedResult<Artist> expectedResult;
 
-            _artistRepository
+            _repository
                 .Setup(it => it.GetDataPageable(It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
                 .Returns<string, Int32, Int32>((sort, page, size) =>
                 {
-                    var query = _expectedallArtists;
+                    var query = _repositoryList;
                     switch (sort)
                     {
                         case "ArtistId":
@@ -85,73 +85,73 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                     return query.Take(size).Skip((page-1)*size).ToList();
                 });
 
-          _artistRepository
+          _repository
                   .Setup(it => it.GetRowCount())
-                  .Returns(_expectedallArtists.Count);
+                  .Returns(_repositoryList.Count);
 
 
           var result = _target.GetDataPageable("Name", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
-            Assert.AreEqual(_expectedallArtists.Take(2).ToList().Count, expectedResult.Results.Count);
-            Assert.AreEqual(_expectedallArtists.OrderBy(q => q.Name).FirstOrDefault().Name, expectedResult.Results.FirstOrDefault().Name);
-            Assert.AreEqual(_expectedallArtists.ToList().Count, expectedResult.TotalCount);
+            Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.OrderBy(q => q.Name).FirstOrDefault().Name, expectedResult.Results.FirstOrDefault().Name);
+            Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
         }
 
         [TestMethod()]
         public void UpdateTest()
         {
-            var iniCount = _expectedallArtists.Count();
-            _artistRepository.Setup(x => x.Update(It.IsAny<Int32>(), It.IsAny<String>()))
+            var iniCount = _repositoryList.Count();
+            _repository.Setup(x => x.Update(It.IsAny<Int32>(), It.IsAny<String>()))
                 .Callback<Int32, String>((id, name) =>
                 {
-                     _expectedallArtists.Find(x => x.ArtistId == id).Name = name;
+                     _repositoryList.Find(x => x.ArtistId == id).Name = name;
                    
                 });
 
             _target.Update(10, "Korn");
-      Assert.AreEqual("Korn", _expectedallArtists.Find(x => x.ArtistId == 10).Name);
+      Assert.AreEqual("Korn", _repositoryList.Find(x => x.ArtistId == 10).Name);
       }
 
         [TestMethod()]
         public void InsertTest()
         {
-            var iniCount = _expectedallArtists.Count();
-            _artistRepository.Setup(x => x.Insert(It.IsAny<Int32>(), It.IsAny<String>()))
+            var iniCount = _repositoryList.Count();
+            _repository.Setup(x => x.Insert(It.IsAny<Int32>(), It.IsAny<String>()))
                 .Returns<Int32, String>((id,name) =>
                 {
-                    _expectedallArtists.Add(new Artist(id,name));
+                    _repositoryList.Add(new Artist(id,name));
                     return id;
                 });
 
             Int32 result = _target.Insert(11, "Korn");
-            Assert.AreEqual(11, _expectedallArtists.Count());
-            Assert.AreNotEqual(iniCount, _expectedallArtists.Count());
+            Assert.AreEqual(11, _repositoryList.Count());
+            Assert.AreNotEqual(iniCount, _repositoryList.Count());
         }
 
         [TestMethod()]
         public void DeleteTest()
         {
-            var iniCount = _expectedallArtists.Count();
-            _artistRepository.Setup(x => x.Delete(It.IsAny<Int32>()))
+            var iniCount = _repositoryList.Count();
+            _repository.Setup(x => x.Delete(It.IsAny<Int32>()))
                 .Callback<Int32>(x =>
                 {
-                    var i = _expectedallArtists.FindIndex(q => q.ArtistId.Equals(x));
-                    _expectedallArtists.RemoveAt(i);
+                    var i = _repositoryList.FindIndex(q => q.ArtistId.Equals(x));
+                    _repositoryList.RemoveAt(i);
                 });
             HttpResponseMessage result = _target.Delete(1);
-            Assert.AreEqual(iniCount - 1, _expectedallArtists.Count());
+            Assert.AreEqual(iniCount - 1, _repositoryList.Count());
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         [TestMethod()]
         public void GetDataByArtistIdTest()
         {
-            _artistRepository
+            _repository
                  .Setup(it => it.GetDataByArtistId(It.IsAny<Int32>()))
-                 .Returns<Int32>((artistId) =>(ICollection<Artist>)_expectedallArtists.Where(x => x.ArtistId == artistId).ToList());
+                 .Returns<Int32>((artistId) =>(ICollection<Artist>)_repositoryList.Where(x => x.ArtistId == artistId).ToList());
 
             var result = _target.GetDataByArtistId(1).ToList();
-            var firstOrDefault = _expectedallArtists.FirstOrDefault();
+            var firstOrDefault = _repositoryList.FirstOrDefault();
             if (firstOrDefault == null) return;
             var orDefault = result.FirstOrDefault();
             if (orDefault != null) Assert.AreEqual(firstOrDefault.Name, orDefault.Name);
