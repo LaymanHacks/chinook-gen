@@ -26,72 +26,53 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             _dbRepository = new DbMediaTypeRepository(dbCommandProvider);
         }
-
-        [Route("api/mediaTypes/all", Name = "GetDataRoute")]
+   
+        [Route("api/mediaTypes/all", Name = "MediaTypesGetDataRoute")]
         [HttpGet]
-        public IQueryable<MediaType> GetData()
+        public IQueryable<MediaType> GetData() 
         {
             return _dbRepository.GetData().AsQueryable();
         }
 
-        [HttpPut]
-        public void Update(Int32 mediaTypeId, String name)
-        {
-            _dbRepository.Update(mediaTypeId, name);
-        }
-
-
+        [Route("api/mediaTypes", Name = "MediaTypesUpdateRoute")]
         [HttpPut]
         public void Update(MediaType mediaType)
         {
-            Update((Int32)mediaType.MediaTypeId, mediaType.Name);
-        }
+            _dbRepository.Update( (Int32)mediaType.MediaTypeId, mediaType.Name);
+          }
 
-        [HttpPost]
-        public Int32 Insert(Int32 mediaTypeId, String name)
-        {
-            return _dbRepository.Insert(mediaTypeId, name);
-        }
-
-
+        [Route("api/mediaTypes", Name = "MediaTypesInsertRoute")]
         [HttpPost]
         public Int32 Insert(MediaType mediaType)
         {
-            return Insert((Int32)mediaType.MediaTypeId, mediaType.Name);
-        }
+             return _dbRepository.Insert( (Int32)mediaType.MediaTypeId, mediaType.Name);
+          }
 
+        [Route("api/mediaTypes", Name = "MediaTypesDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 mediaTypeId)
+        public void Delete(Int32 mediaTypeId) 
         {
             _dbRepository.Delete(mediaTypeId);
         }
 
-
-        [HttpDelete]
-        public void Delete(MediaType mediaType)
-        {
-            Delete((Int32)mediaType.MediaTypeId);
-        }
-
-        [Route("api/mediaTypes", Name = "GetDataPageableRoute")]
+        [Route("api/mediaTypes", Name = "MediaTypesGetDataPageableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
+        public  HttpResponseMessage  GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
         {
-            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
+              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
-            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetDataPageableRoute", page,
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "MediaTypesGetDataPageableRoute", page,
                 pageSize, totalCount, results);
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
-        [Route("api/mediaTypes/{mediaTypeId}", Name = "GetmediaTypesByMediaTypeIdRoute")]
+        [Route("api/mediaTypes/{mediaTypeId}", Name = "MediaTypesGetDataByMediaTypeIdRoute")]
         [HttpGet]
-        public IQueryable<MediaType> GetDataByMediaTypeId(Int32 mediaTypeId)
+        public IQueryable<MediaType> GetDataByMediaTypeId(Int32 mediaTypeId) 
         {
             return _dbRepository.GetDataByMediaTypeId(mediaTypeId).AsQueryable();
         }
-
-
+        
     }
 }

@@ -27,84 +27,68 @@ namespace Chinook.Web.UI.Controllers.Api
             _dbRepository = new DbInvoiceRepository(dbCommandProvider);
         }
 
+        [Route("api/invoices/all", Name = "InvoicesGetDataRoute")]
         [HttpGet]
         public IQueryable<Invoice> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
         }
 
-        [HttpPut]
-        public void Update(Int32 invoiceId, Int32 customerId, DateTime invoiceDate, String billingAddress, String billingCity, String billingState, String billingCountry, String billingPostalCode, Decimal total)
-        {
-            _dbRepository.Update(invoiceId, customerId, invoiceDate, billingAddress, billingCity, billingState, billingCountry, billingPostalCode, total);
-        }
-
-
+        [Route("api/invoices", Name = "InvoicesUpdateRoute")]
         [HttpPut]
         public void Update(Invoice invoice)
         {
-            Update((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
+            _dbRepository.Update((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
         }
 
-        [HttpPost]
-        public Int32 Insert(Int32 invoiceId, Int32 customerId, DateTime invoiceDate, String billingAddress, String billingCity, String billingState, String billingCountry, String billingPostalCode, Decimal total)
-        {
-            return _dbRepository.Insert(invoiceId, customerId, invoiceDate, billingAddress, billingCity, billingState, billingCountry, billingPostalCode, total);
-        }
-
-
+        [Route("api/invoices", Name = "InvoicesInsertRoute")]
         [HttpPost]
         public Int32 Insert(Invoice invoice)
         {
-            return Insert((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
+            return _dbRepository.Insert((Int32)invoice.InvoiceId, (Int32)invoice.CustomerId, (DateTime)invoice.InvoiceDate, invoice.BillingAddress, invoice.BillingCity, invoice.BillingState, invoice.BillingCountry, invoice.BillingPostalCode, (decimal)invoice.Total);
         }
 
+        [Route("api/invoices", Name = "InvoicesDeleteRoute")]
         [HttpDelete]
         public void Delete(Int32 invoiceId)
         {
             _dbRepository.Delete(invoiceId);
         }
 
-
-        [HttpDelete]
-        public void Delete(Invoice invoice)
-        {
-            Delete((Int32)invoice.InvoiceId);
-        }
-
+        [Route("api/invoices", Name = "InvoicesGetDataPageableRoute")]
         [HttpGet]
-        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
-            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetDataPageableRoute", page,
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "InvoicesGetDataPageableRoute", page,
                 pageSize, totalCount, results);
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
-        [Route("api/invoices/{invoiceId}", Name = "GetDataByInvoiceIdRoute")]
+        [Route("api/invoices/{invoiceId:int}", Name = "InvoicesGetDataByInvoiceIdRoute")]
         [HttpGet]
         public IQueryable<Invoice> GetDataByInvoiceId(Int32 invoiceId)
         {
             return _dbRepository.GetDataByInvoiceId(invoiceId).AsQueryable();
         }
 
-        [Route("api/customers/{customerId}/invoices/all", Name = "GetinvoicesByCustomerIdRoute")]
+        [Route("api/customers/{customerId}/invoices/all", Name = "InvoicesGetDataByCustomerIdRoute")]
         [HttpGet]
         public IQueryable<Invoice> GetDataByCustomerId(Int32 customerId)
         {
             return _dbRepository.GetDataByCustomerId(customerId).AsQueryable();
         }
 
-        [Route("api/customers/{customerId}/invoices", Name = "GetinvoicesByCustomerIdPageableRoute")]
+        [Route("api/customers/{customerId}/invoices", Name = "InvoicesGetDataByCustomerIdPageableRoute")]
         [HttpGet]
         public HttpResponseMessage GetDataByCustomerIdPageable(Int32 customerId, String sortExpression, Int32 page, Int32 pageSize)
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
             var results = _dbRepository.GetDataByCustomerIdPageable(customerId, sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetDataByCustomerIdRowCount(customerId);
-            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetinvoicesByCustomerIdPageableRoute", page,
+            var pagedResults = PagedResultHelper.CreatePagedResult(Request, "InvoicesGetDataByCustomerIdPageableRoute", page,
                 pageSize, totalCount, results);
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
