@@ -1,0 +1,28 @@
+﻿@model Chinook.Domain.Entities.Artist
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<div ng-controller="ctrlArtistDetails">
+    <div>
+        <h4>Artist</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                {{artists.Name}}
+            </dt>
+
+            <dd>
+               {{artists.Name}}
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
+        @Html.ActionLink("Back to List", "Index")*@
+    </p>
+</div>
