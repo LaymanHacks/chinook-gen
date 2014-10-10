@@ -150,7 +150,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         [TestMethod()]
         public void GetDataByAlbumIdTest()
         {
-            PagedResult<Album> expectedResult;
+            
 
             _repository
                 .Setup(it => it.GetDataByAlbumId(It.IsAny<Int32>()))
@@ -168,8 +168,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         [TestMethod()]
         public void GetDataByArtistIdTest()
         {
-            PagedResult<Album> expectedResult;
-
+          
             _repository
                 .Setup(it => it.GetDataByArtistId(It.IsAny<Int32>()))
                 .Returns<Int32>((artistId) =>
