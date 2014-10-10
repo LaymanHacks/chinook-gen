@@ -267,9 +267,19 @@
     <Content Include="app\layout\sidebar.js" />
     <Content Include="app\layout\topnav.html" />
     <Content Include="app\layout\widgetheader.html" />
+    <Content Include="app\services\albumDataService.js" />
     <Content Include="app\services\artistDataService.js" />
+    <Content Include="app\services\customerDataService.js" />
     <Content Include="app\services\datacontext.js" />
     <Content Include="app\services\directives.js" />
+    <Content Include="app\services\employeeDataService.js" />
+    <Content Include="app\services\genreDataService.js" />
+    <Content Include="app\services\invoiceDataService.js" />
+    <Content Include="app\services\invoiceLineDataService.js" />
+    <Content Include="app\services\mediaTypeDataService.js" />
+    <Content Include="app\services\playlistDataService.js" />
+    <Content Include="app\services\playlistTrackDataService.js" />
+    <Content Include="app\services\trackDataService.js" />
     <Content Include="App_Data\Chinook.mdf" />
     <Content Include="App_Data\Chinook_log.ldf">
       <DependentUpon>Chinook.mdf</DependentUpon>
