@@ -19,13 +19,13 @@ namespace Chinook.Web.UI.Controllers
         // GET: Artist
         public ActionResult Index()
         {
-            return View(_dbRepository.GetData().AsQueryable());
+            return View();
         }
 
         // GET: Artist/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByArtistId(id).FirstOrDefault());
         }
 
         // GET: Artist/Create

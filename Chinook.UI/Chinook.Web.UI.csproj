@@ -390,11 +390,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Artist\Index.cshtml" />
-    <Content Include="Views\Artist\Details.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\Artist\Edit.cshtml" />
     <Content Include="Views\Album\Index.cshtml" />
+    <Content Include="Views\Artist\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

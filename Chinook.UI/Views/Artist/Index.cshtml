@@ -25,6 +25,7 @@
                 {{item.Name}}
             </td>
             <td>
+                <a href="/artist/Details/{{item.ArtistId}}">Details</a>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ArtistId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })*@

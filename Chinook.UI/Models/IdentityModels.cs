@@ -29,5 +29,7 @@ namespace Chinook.Web.UI.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Chinook.Domain.Entities.Artist> Artists { get; set; }
     }
 }
