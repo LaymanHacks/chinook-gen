@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Http;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
-using Chinook.Web.UI.Controllers.APi;
 using Chinook.Web.UI.Controllers.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

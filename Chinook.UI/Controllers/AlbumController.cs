@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Chinook.Data.Repository;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Web.UI.Controllers
 {
@@ -18,7 +19,7 @@ namespace Chinook.Web.UI.Controllers
         // GET: Album
         public ActionResult Index()
         {
-            return View(_dbRepository.GetData());
+            return View();
         }
 
         // GET: Album/Details/5
@@ -57,17 +58,17 @@ namespace Chinook.Web.UI.Controllers
 
         // POST: Album/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Album album)
         {
             try
             {
-                // TODO: Add update logic here
-
+                _dbRepository.Update(album);
+              
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(_dbRepository.GetDataByAlbumId(id).FirstOrDefault());
             }
         }
 

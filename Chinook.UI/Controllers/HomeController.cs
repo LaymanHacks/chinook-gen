@@ -10,7 +10,7 @@ namespace Chinook.Web.UI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Chinook Sample Home Page";
 
             return View();
         }

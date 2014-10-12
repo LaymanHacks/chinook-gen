@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Chinook.Data.Repository;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Web.UI.Controllers
 {
@@ -36,11 +37,11 @@ namespace Chinook.Web.UI.Controllers
 
         // POST: Artist/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Artist artist)
         {
             try
             {
-                // TODO: Add insert logic here
+                _dbRepository.Insert(artist);
 
                 return RedirectToAction("Index");
             }
@@ -53,45 +54,26 @@ namespace Chinook.Web.UI.Controllers
         // GET: Artist/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByArtistId(id).FirstOrDefault());
         }
 
         // POST: Artist/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Artist artist)
         {
             try
             {
-                // TODO: Add update logic here
+                _dbRepository.Insert(artist);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(_dbRepository.GetDataByArtistId(id).FirstOrDefault());
             }
         }
 
-        // GET: Artist/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Artist/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
+        
     }
 }

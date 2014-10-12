@@ -19,13 +19,13 @@ namespace Chinook.Web.UI.Controllers
         // GET: Genre
         public ActionResult Index()
         {
-            return View();
+            return View(_dbRepository.GetData());
         }
 
         // GET: Genre/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByGenreId(id).FirstOrDefault());
         }
 
         // GET: Genre/Create
