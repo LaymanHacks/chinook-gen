@@ -11,6 +11,21 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <div ng-controller="artistIndexCtrl as vm">
+    <div style="float: right" class="btn-group" dropdown>
+        <button type="button" class="btn btn-primary">{{vm.pageSize}} Items per page</button>
+        <button type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="vm.pageSize=10;vm.pageChanged()">10</a></li>
+            <li><a href="#" ng-click="vm.pageSize=20;vm.pageChanged()">20</a></li>
+            <li><a href="#" ng-click="vm.pageSize=50;vm.pageChanged()">50</a></li>
+        </ul>
+    </div>
+    
+   
+
     <table class="table">
         <tr>
             <th>
@@ -24,15 +39,18 @@
             <td>
                 {{item.Name}}
             </td>
-            <td>
-                <a href="/artist/Details/{{item.ArtistId}}">Details</a>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ArtistId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ArtistId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ArtistId })*@
+            <td style="width: 150px;">
+                <a href="/artist/Details/{{item.ArtistId}}">Details</a> |
+                <a href="/artist/Edit/{{item.ArtistId}}">Edit</a> |
+                <a href="" ng-click="vm.deleteArtist(item.artistid)">Delete</a>
             </td>
         </tr>
 
     </table>
-    <pagination total-items="vm.pagableResults.TotalCount" items-per-page="vm.pagableResults.PageSize" ng-model="vm.currentPage" ng-change="vm.pageChanged()" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
+    <pagination total-items="vm.pagableResults.TotalCount" items-per-page="vm.pageSize" ng-model="vm.currentPage" ng-change="vm.pageChanged()" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
 
 </div>
+@section Scripts {
+<script src="~/app/artist/index.js"></script>
+<script src="~/app/services/artistDataService.js"></script>
+}

@@ -13,17 +13,16 @@
             description: 'Artist List'
         };
        
-
         vm.pagableResults = [];
         vm.title = 'ArtistList';
         vm.sortExpression = 'Name';
         vm.currentPage = 1;
         vm.pageSize = 20;
+        vm.deleteArtist = deleteArtist;
 
         activate();
 
         vm.pageChanged = function () {
-           
             return getDataPageable(vm.sortExpression, vm.currentPage, vm.pageSize);
         };
 
@@ -35,18 +34,14 @@
         
         function getDataPageable(sortExpression, page, pageSize) {
             return artistDataService.getDataPageable(sortExpression, page, pageSize).then(function (results) {
-                
                 return  vm.pagableResults = results.data;
               });
         }
+
+        function deleteArtist(artistId) {
+            alert("test worked");
+          //  return artistDataService.deleteArtist(artistId);
+        };
     }
 })();
 
-angular.module('app').filter('range', function () {
-    return function (val, range) {
-        range = parseInt(range);
-        for (var i = 0; i < range; i++)
-            val.push(i);
-        return val;
-    };
-});
