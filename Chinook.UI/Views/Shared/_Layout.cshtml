@@ -24,8 +24,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
-    <link href="~/Content/customtheme.css" rel="stylesheet">
-    <link href="~/Content/styles.css" rel="stylesheet" />
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -49,13 +48,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Chinook Sample</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   
     
     <!-- Vendor Scripts -->
     
@@ -88,11 +87,14 @@
     <script src="~/app/dashboard/dashboard.js"></script>
     <script src="~/app/layout/shell.js"></script>
     <script src="~/app/layout/sidebar.js"></script>
-    <script src="~/app/artist/index.js"></script>
+
 
     <!-- app Services -->
     <script src="~/app/services/datacontext.js"></script>
     <script src="~/app/services/directives.js"></script>
-    <script src="~/app/services/artistDataService.js"></script>
+    
+    @RenderSection("scripts", required: false)
+    
+   
 </body>
 </html>

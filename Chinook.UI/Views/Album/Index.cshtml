@@ -10,31 +10,43 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArtistId)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtistId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AlbumId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AlbumId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AlbumId })
-        </td>
-    </tr>
+<div ng-controller="albumIndexCtrl as vm">
+    <div style="float: right" class="btn-group" dropdown>
+        <button type="button" class="btn btn-primary">{{vm.pageSize}} Items per page</button>
+        <button type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="vm.pageSize=10;vm.pageChanged()">10</a></li>
+            <li><a href="#" ng-click="vm.pageSize=20;vm.pageChanged()">20</a></li>
+            <li><a href="#" ng-click="vm.pageSize=50;vm.pageChanged()">50</a></li>
+        </ul>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                Title
+            </th>
+           
+            <th></th>
+        </tr>
+
+
+        <tr ng-repeat="item in vm.pagableResults.Results">
+            <td>
+                <a href="/album/edit/{{item.AlbumId}}">{{item.Title}}</a>
+            </td>
+            <td style="width: 50px;">
+
+                <a href="" ng-click="vm.deleteAlbum(item.AlbumId)"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+          
+    </table>
+</div>
+@section Scripts {
+    <script src="~/app/album/index.js"></script>
+    <script src="~/app/services/albumDataService.js"></script>
 }
-
-</table>

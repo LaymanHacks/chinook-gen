@@ -24,7 +24,7 @@ namespace Chinook.Web.UI.Controllers
         // GET: Album/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByAlbumId(id).FirstOrDefault());
         }
 
         // GET: Album/Create
@@ -52,7 +52,7 @@ namespace Chinook.Web.UI.Controllers
         // GET: Album/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByAlbumId(id).FirstOrDefault());
         }
 
         // POST: Album/Edit/5

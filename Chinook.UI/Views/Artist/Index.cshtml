@@ -37,12 +37,11 @@
 
         <tr ng-repeat="item in vm.pagableResults.Results">
             <td>
-                {{item.Name}}
-            </td>
-            <td style="width: 150px;">
-                <a href="/artist/Details/{{item.ArtistId}}">Details</a> |
-                <a href="/artist/Edit/{{item.ArtistId}}">Edit</a> |
-                <a href="" ng-click="vm.deleteArtist(item.artistid)">Delete</a>
+                <a href="/artist/Edit/{{item.ArtistId}}">{{item.Name}}</a>
+</td>
+            <td style="width: 50px;">
+               
+                <a href="" ng-click="vm.deleteArtist(item.artistid)"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
 
