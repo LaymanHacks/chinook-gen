@@ -108,7 +108,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                    
                 });
 
-            _target.Update(10, "Korn");
+            _target.Update(new Artist(10, "Korn"));
       Assert.AreEqual("Korn", _repositoryList.Find(x => x.ArtistId == 10).Name);
       }
 
@@ -123,7 +123,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                     return id;
                 });
 
-            Int32 result = _target.Insert(11, "Korn");
+            Int32 result = _target.Insert(new Artist( 11, "Korn"));
             Assert.AreEqual(11, _repositoryList.Count());
             Assert.AreNotEqual(iniCount, _repositoryList.Count());
         }

@@ -40,16 +40,18 @@ namespace Chinook.Web.UI.Controllers.APi
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
+        [Route("api/artists", Name = "ArtistsUpdateRoute")]
         [HttpPut]
-        public void Update(Int32 artistId, String name)
+        public void Update(Artist artist)
         {
-            _dbRepository.Update(artistId, name);
+            _dbRepository.Update((Int32)artist.ArtistId, artist.Name);
         }
 
+        [Route("api/artists", Name = "ArtistsInsertRoute")]
         [HttpPost]
-        public Int32 Insert(Int32 artistId, String name)
+        public Int32 Insert(Artist artist)
         {
-            return _dbRepository.Insert(artistId, name);
+            return _dbRepository.Insert((Int32)artist.ArtistId, artist.Name);
         }
 
          [Route("api/artists/{artistid:int:min(1)}")]
