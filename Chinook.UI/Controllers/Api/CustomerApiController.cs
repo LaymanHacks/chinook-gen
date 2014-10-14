@@ -49,9 +49,17 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/customers", Name = "CustomersDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 customerId) 
+        public HttpResponseMessage Delete(Int32 customerId) 
         {
-            _dbRepository.Delete(customerId);
+              try
+            {
+                _dbRepository.Delete(customerId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/customers", Name = "CustomersGetDataPageableRoute")]
