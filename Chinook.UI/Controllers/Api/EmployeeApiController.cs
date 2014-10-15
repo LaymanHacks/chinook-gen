@@ -22,9 +22,9 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IEmployeeRepository _dbRepository;
 
-        public EmployeeApiController(IDbEmployeeCommandProvider dbCommandProvider)
+        public EmployeeApiController(IEmployeeRepository dbRepository)
         {
-            _dbRepository = new DbEmployeeRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
    
         [Route("api/employees/all", Name = "EmployeesGetDataRoute")]
@@ -50,9 +50,18 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/employees", Name = "EmployeesDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 employeeId) 
+        public HttpResponseMessage Delete(Int32 employeeId) 
         {
-            _dbRepository.Delete(employeeId);
+            try
+            {
+                _dbRepository.Delete(employeeId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+          
         }
 
         [Route("api/employees", Name = "EmployeesGetDataPageableRoute")]

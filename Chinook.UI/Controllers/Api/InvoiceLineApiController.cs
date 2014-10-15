@@ -50,9 +50,17 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/invoiceLines", Name = "InvoiceLinesDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 invoiceLineId)
+        public HttpResponseMessage Delete(Int32 invoiceLineId)
         {
-            _dbRepository.Delete(invoiceLineId);
+            try
+            {
+                _dbRepository.Delete(invoiceLineId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/invoiceLines", Name = "InvoiceLinesGetDataPageableRoute")]

@@ -50,9 +50,17 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/mediaTypes", Name = "MediaTypesDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 mediaTypeId) 
+        public HttpResponseMessage Delete(Int32 mediaTypeId) 
         {
-            _dbRepository.Delete(mediaTypeId);
+            try
+            {
+                _dbRepository.Delete(mediaTypeId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/mediaTypes", Name = "MediaTypesGetDataPageableRoute")]
