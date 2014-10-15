@@ -179,29 +179,161 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         }
 
 
-        
+
         [TestMethod()]
-        public void GetDataPageableSubSetTest()
+        public void GetDataPageableTest()
         {
-            Assert.Fail();
+            PagedResult<Customer> expectedResult;
+
+            _repository
+                 .Setup(it => it.GetDataPageable(It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
+                 .Returns<String, Int32, Int32>((sortExpression, page, pageSize) =>
+                 {
+                     var query = _repositoryList;
+                     switch (sortExpression)
+                     {
+                         case "CustomerId":
+                             query = new List<Customer>(query.OrderBy(q => q.CustomerId));
+                             break;
+                         case "FirstName":
+                             query = new List<Customer>(query.OrderBy(q => q.FirstName));
+                             break;
+                         case "LastName":
+                             query = new List<Customer>(query.OrderBy(q => q.LastName));
+                             break;
+                         case "Company":
+                             query = new List<Customer>(query.OrderBy(q => q.Company));
+                             break;
+                         case "Address":
+                             query = new List<Customer>(query.OrderBy(q => q.Address));
+                             break;
+                         case "City":
+                             query = new List<Customer>(query.OrderBy(q => q.City));
+                             break;
+                         case "State":
+                             query = new List<Customer>(query.OrderBy(q => q.State));
+                             break;
+                         case "Country":
+                             query = new List<Customer>(query.OrderBy(q => q.Country));
+                             break;
+                         case "PostalCode":
+                             query = new List<Customer>(query.OrderBy(q => q.PostalCode));
+                             break;
+                         case "Phone":
+                             query = new List<Customer>(query.OrderBy(q => q.Phone));
+                             break;
+                         case "Fax":
+                             query = new List<Customer>(query.OrderBy(q => q.Fax));
+                             break;
+                         case "Email":
+                             query = new List<Customer>(query.OrderBy(q => q.Email));
+                             break;
+                         case "SupportRepId":
+                             query = new List<Customer>(query.OrderBy(q => q.SupportRepId));
+                             break;
+                     }
+                     return query.Take(pageSize).Skip((page - 1) * pageSize).ToList();
+                 });
+
+            _repository
+                 .Setup(it => it.GetRowCount())
+                 .Returns(_repositoryList.Count);
+
+            var result = _target.GetDataPageable("CustomerId", 1, 2);
+            Assert.IsTrue(result.TryGetContentValue(out expectedResult));
+            Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.OrderBy(q => q.CustomerId).FirstOrDefault().CustomerId, expectedResult.Results.FirstOrDefault().CustomerId);
+            Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
         }
 
         [TestMethod()]
-        public void GetDataByCustomerIdTest()
+        public void GetDataByCustomerIdTest() 
         {
-            Assert.Fail();
+            _repository
+                 .Setup(it => it.GetDataByCustomerId(It.IsAny<Int32>()))
+                     .Returns<Int32>((customerId) => 
+                 { 
+                      return _repositoryList.Where(x => x.CustomerId==customerId).ToList();
+                 });
+                
+            var result = _target.GetDataByCustomerId(1).ToList();
+            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 1).Count, result.Count);
         }
 
         [TestMethod()]
-        public void GetDataBySupportRepIdTest()
+        public void GetDataBySupportRepIdTest() 
         {
-            Assert.Fail();
+            _repository
+                 .Setup(it => it.GetDataBySupportRepId(It.IsAny<Int32>()))
+                     .Returns<Int32>((supportRepId) => _repositoryList.Where(x => x.SupportRepId==supportRepId).ToList());
+                
+            var result = _target.GetDataBySupportRepId(1).ToList();
+             Assert.AreEqual(_repositoryList.Count, result.Count);
         }
 
         [TestMethod()]
-        public void GetDataBySupportRepIdPageableSubSetTest()
+        public void GetDataBySupportRepIdPageableTest()
         {
-            Assert.Fail();
+            PagedResult<Customer> expectedResult;
+
+            _repository
+                 .Setup(it => it.GetDataBySupportRepIdPageable(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
+                 .Returns<Int32, String, Int32, Int32>((supportRepId, sortExpression, page, pageSize) => 
+                 { 
+                      var query = _repositoryList;
+                      switch (sortExpression)
+                      {
+                          case  "CustomerId":
+                              query = new List<Customer>(query.OrderBy(q => q.CustomerId));
+                              break;
+                          case  "FirstName":
+                              query = new List<Customer>(query.OrderBy(q => q.FirstName));
+                              break;
+                          case  "LastName":
+                              query = new List<Customer>(query.OrderBy(q => q.LastName));
+                              break;
+                          case  "Company":
+                              query = new List<Customer>(query.OrderBy(q => q.Company));
+                              break;
+                          case  "Address":
+                              query = new List<Customer>(query.OrderBy(q => q.Address));
+                              break;
+                          case  "City":
+                              query = new List<Customer>(query.OrderBy(q => q.City));
+                              break;
+                          case  "State":
+                              query = new List<Customer>(query.OrderBy(q => q.State));
+                              break;
+                          case  "Country":
+                              query = new List<Customer>(query.OrderBy(q => q.Country));
+                              break;
+                          case  "PostalCode":
+                              query = new List<Customer>(query.OrderBy(q => q.PostalCode));
+                              break;
+                          case  "Phone":
+                              query = new List<Customer>(query.OrderBy(q => q.Phone));
+                              break;
+                          case  "Fax":
+                              query = new List<Customer>(query.OrderBy(q => q.Fax));
+                              break;
+                          case  "Email":
+                              query = new List<Customer>(query.OrderBy(q => q.Email));
+                              break;
+                          case  "SupportRepId":
+                              query = new List<Customer>(query.OrderBy(q => q.SupportRepId));
+                              break;                      }
+                      return query.Take(pageSize).Skip((page-1)*pageSize).ToList();
+                 });
+
+            _repository
+                 .Setup(it => it.GetRowCount())
+                 .Returns(_repositoryList.Count);
+
+            var result = _target.GetDataPageable("CustomerId", 1, 2);
+            Assert.IsTrue(result.TryGetContentValue(out expectedResult));
+            Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.OrderBy(q => q.CustomerId).FirstOrDefault().CustomerId, expectedResult.Results.FirstOrDefault().CustomerId);
+            Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
         }
     }
 }
