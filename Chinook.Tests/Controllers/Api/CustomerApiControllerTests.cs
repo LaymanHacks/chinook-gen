@@ -51,6 +51,18 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         }
 
         [TestMethod()]
+        public void GetDataTest()
+        {
+            _repository
+               .Setup(it => it.GetData())
+               .Returns(_repositoryList);
+
+            var result = _target.GetData().ToList();
+            Assert.AreEqual(_repositoryList.Count, result.Count);
+        }
+
+
+        [TestMethod()]
         public void Delete_Should_Delete_A_Customer()
         {
             _repository
@@ -70,41 +82,104 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
 
 
         [TestMethod()]
-        public void UpdateTest()
+        public void Update_Should_Update_An_Customer()
         {
+            _repository
+                 .Setup(it => it.Update(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>()))
+                 .Callback<Int32, String, String, String, String, String, String, String, String, String, String, String, Int32>((customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId) =>
+                 {
+                     var tCustomer = _repositoryList.Find(x => x.CustomerId == customerId);
+                     tCustomer.FirstName = firstName;
+                     tCustomer.LastName = lastName;
+                     tCustomer.Company = company;
+                     tCustomer.Address = address;
+                     tCustomer.City = city;
+                     tCustomer.State = state;
+                     tCustomer.Country = country;
+                     tCustomer.PostalCode = postalCode;
+                     tCustomer.Phone = phone;
+                     tCustomer.Fax = fax;
+                     tCustomer.Email = email;
+                     tCustomer.SupportRepId = supportRepId;
+                 });
+            var tempCustomer = _repositoryList.Find(x => x.CustomerId == 1);
+            var testCustomer = new Customer
+            {
+                CustomerId = tempCustomer.CustomerId,
+                FirstName = tempCustomer.FirstName,
+                LastName = tempCustomer.LastName,
+                Company = tempCustomer.Company,
+                Address = tempCustomer.Address,
+                City = tempCustomer.City,
+                State = tempCustomer.State,
+                Country = tempCustomer.Country,
+                PostalCode = tempCustomer.PostalCode,
+                Phone = tempCustomer.Phone,
+                Fax = tempCustomer.Fax,
+                Email = tempCustomer.Email,
+                SupportRepId = tempCustomer.SupportRepId
+            };
+
+            //TODO change something on testCustomer           
+            //testCustomer.oldValue = newValue; 
+            _target.Update(testCustomer);
+            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
+            //TODO fail until we update the test above
             Assert.Fail();
         }
 
         [TestMethod()]
-        public void UpdateTest1()
+        public void Insert_Should_Insert_An_Customer()
         {
+            _repository
+                 .Setup(it => it.Insert(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>()))
+                 .Returns<Int32, String, String, String, String, String, String, String, String, String, String, String, Int32>((customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId) =>
+                 {
+                     var tCustomer = _repositoryList.Find(x => x.CustomerId == customerId);
+                     tCustomer.FirstName = firstName;
+                     tCustomer.LastName = lastName;
+                     tCustomer.Company = company;
+                     tCustomer.Address = address;
+                     tCustomer.City = city;
+                     tCustomer.State = state;
+                     tCustomer.Country = country;
+                     tCustomer.PostalCode = postalCode;
+                     tCustomer.Phone = phone;
+                     tCustomer.Fax = fax;
+                     tCustomer.Email = email;
+                     tCustomer.SupportRepId = supportRepId;
+
+                     return customerId;
+
+                 });
+            var tempCustomer = _repositoryList.Find(x => x.CustomerId == 1);
+            var testCustomer = new Customer
+            {
+                CustomerId = tempCustomer.CustomerId,
+                FirstName = tempCustomer.FirstName,
+                LastName = tempCustomer.LastName,
+                Company = tempCustomer.Company,
+                Address = tempCustomer.Address,
+                City = tempCustomer.City,
+                State = tempCustomer.State,
+                Country = tempCustomer.Country,
+                PostalCode = tempCustomer.PostalCode,
+                Phone = tempCustomer.Phone,
+                Fax = tempCustomer.Fax,
+                Email = tempCustomer.Email,
+                SupportRepId = tempCustomer.SupportRepId
+            };
+
+            //TODO change something on testCustomer           
+            //testCustomer.oldValue = newValue; 
+            _target.Update(testCustomer);
+            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
+            //TODO fail until we update the test above
             Assert.Fail();
         }
 
-        [TestMethod()]
-        public void InsertTest()
-        {
-            Assert.Fail();
-        }
 
-        [TestMethod()]
-        public void InsertTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DeleteTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DeleteTest1()
-        {
-            Assert.Fail();
-        }
-
+        
         [TestMethod()]
         public void GetDataPageableSubSetTest()
         {
