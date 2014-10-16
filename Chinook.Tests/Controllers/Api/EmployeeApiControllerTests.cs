@@ -347,7 +347,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                  .Setup(it => it.GetRowCount())
                  .Returns(_repositoryList.Count);
 
-            var result = _target.GetDataPageable("EmployeeId", 1, 2);
+            var result = _target.GetDataByReportsToPageable(1,"EmployeeId", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
             Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
             Assert.AreEqual(_repositoryList.OrderBy(q => q.EmployeeId).FirstOrDefault().EmployeeId, expectedResult.Results.FirstOrDefault().EmployeeId);
