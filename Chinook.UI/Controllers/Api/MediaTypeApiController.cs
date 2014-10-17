@@ -22,14 +22,14 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IMediaTypeRepository _dbRepository;
 
-        public MediaTypeApiController(IDbMediaTypeCommandProvider dbCommandProvider)
+        public MediaTypeApiController(IMediaTypeRepository dbRepository)
         {
-            _dbRepository = new DbMediaTypeRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
-   
+
         [Route("api/mediaTypes/all", Name = "MediaTypesGetDataRoute")]
         [HttpGet]
-        public IQueryable<MediaType> GetData() 
+        public IQueryable<MediaType> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
         }
@@ -38,19 +38,19 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPut]
         public void Update(MediaType mediaType)
         {
-            _dbRepository.Update( (Int32)mediaType.MediaTypeId, mediaType.Name);
-          }
+            _dbRepository.Update((Int32)mediaType.MediaTypeId, mediaType.Name);
+        }
 
         [Route("api/mediaTypes", Name = "MediaTypesInsertRoute")]
         [HttpPost]
         public Int32 Insert(MediaType mediaType)
         {
-             return _dbRepository.Insert( (Int32)mediaType.MediaTypeId, mediaType.Name);
-          }
+            return _dbRepository.Insert((Int32)mediaType.MediaTypeId, mediaType.Name);
+        }
 
         [Route("api/mediaTypes", Name = "MediaTypesDeleteRoute")]
         [HttpDelete]
-        public HttpResponseMessage Delete(Int32 mediaTypeId) 
+        public HttpResponseMessage Delete(Int32 mediaTypeId)
         {
             try
             {
@@ -65,10 +65,10 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/mediaTypes", Name = "MediaTypesGetDataPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "MediaTypesGetDataPageableRoute", page,
                 pageSize, totalCount, results);
@@ -77,10 +77,10 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/mediaTypes/{mediaTypeId}", Name = "MediaTypesGetDataByMediaTypeIdRoute")]
         [HttpGet]
-        public IQueryable<MediaType> GetDataByMediaTypeId(Int32 mediaTypeId) 
+        public IQueryable<MediaType> GetDataByMediaTypeId(Int32 mediaTypeId)
         {
             return _dbRepository.GetDataByMediaTypeId(mediaTypeId).AsQueryable();
         }
-        
+
     }
 }

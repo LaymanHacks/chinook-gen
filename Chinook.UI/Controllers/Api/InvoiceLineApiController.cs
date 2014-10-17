@@ -22,9 +22,9 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IInvoiceLineRepository _dbRepository;
 
-        public InvoiceLineApiController(IDbInvoiceLineCommandProvider dbCommandProvider)
+        public InvoiceLineApiController(IInvoiceLineRepository dbRepository)
         {
-            _dbRepository = new DbInvoiceLineRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
 
         [Route("api/invoiceLines/all", Name = "InvoiceLinesGetDataRoute")]

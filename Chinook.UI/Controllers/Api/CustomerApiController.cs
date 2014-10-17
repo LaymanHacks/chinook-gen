@@ -25,10 +25,10 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             _dbRepository = dbRepository;
         }
-   
-                [Route("api/customers/all", Name = "CustomersGetDataRoute")]
+
+        [Route("api/customers/all", Name = "CustomersGetDataRoute")]
         [HttpGet]
-        public IQueryable<Customer> GetData() 
+        public IQueryable<Customer> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
         }
@@ -37,21 +37,21 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPut]
         public void Update(Customer customer)
         {
-            _dbRepository.Update( (Int32)customer.CustomerId,  (string)customer.FirstName,  (string)customer.LastName, customer.Company, customer.Address, customer.City, customer.State, customer.Country, customer.PostalCode, customer.Phone, customer.Fax,  (string)customer.Email, customer.SupportRepId);
-          }
+            _dbRepository.Update((Int32)customer.CustomerId, (string)customer.FirstName, (string)customer.LastName, customer.Company, customer.Address, customer.City, customer.State, customer.Country, customer.PostalCode, customer.Phone, customer.Fax, (string)customer.Email, customer.SupportRepId);
+        }
 
         [Route("api/customers", Name = "CustomersInsertRoute")]
         [HttpPost]
         public Int32 Insert(Customer customer)
         {
-             return _dbRepository.Insert( (Int32)customer.CustomerId,  (string)customer.FirstName,  (string)customer.LastName, customer.Company, customer.Address, customer.City, customer.State, customer.Country, customer.PostalCode, customer.Phone, customer.Fax,  (string)customer.Email, customer.SupportRepId);
-          }
+            return _dbRepository.Insert((Int32)customer.CustomerId, (string)customer.FirstName, (string)customer.LastName, customer.Company, customer.Address, customer.City, customer.State, customer.Country, customer.PostalCode, customer.Phone, customer.Fax, (string)customer.Email, customer.SupportRepId);
+        }
 
         [Route("api/customers", Name = "CustomersDeleteRoute")]
         [HttpDelete]
-        public HttpResponseMessage Delete(Int32 customerId) 
+        public HttpResponseMessage Delete(Int32 customerId)
         {
-              try
+            try
             {
                 _dbRepository.Delete(customerId);
                 return Request.CreateResponse(HttpStatusCode.OK);
@@ -64,10 +64,10 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/customers", Name = "CustomersGetDataPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "CustomersGetDataPageableRoute", page,
                 pageSize, totalCount, results);
@@ -76,24 +76,24 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/customers/{customerId}", Name = "CustomersGetDataByCustomerIdRoute")]
         [HttpGet]
-        public IQueryable<Customer> GetDataByCustomerId(Int32 customerId) 
+        public IQueryable<Customer> GetDataByCustomerId(Int32 customerId)
         {
             return _dbRepository.GetDataByCustomerId(customerId).AsQueryable();
         }
 
         [Route("api/employees/{supportRepId}/customers/all", Name = "CustomersGetDataBySupportRepIdRoute")]
         [HttpGet]
-        public IQueryable<Customer> GetDataBySupportRepId(Int32 supportRepId) 
+        public IQueryable<Customer> GetDataBySupportRepId(Int32 supportRepId)
         {
             return _dbRepository.GetDataBySupportRepId(supportRepId).AsQueryable();
         }
 
         [Route("api/employees/{supportRepId}/customers", Name = "CustomersGetDataBySupportRepIdPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataBySupportRepIdPageable(Int32 supportRepId, String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataBySupportRepIdPageable(Int32 supportRepId, String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataBySupportRepIdPageable(supportRepId, sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataBySupportRepIdPageable(supportRepId, sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetDataBySupportRepIdRowCount(supportRepId);
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "CustomersGetDataBySupportRepIdPageableRoute", page,
                 pageSize, totalCount, results);

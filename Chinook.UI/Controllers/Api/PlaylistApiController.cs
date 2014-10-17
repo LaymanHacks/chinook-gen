@@ -22,9 +22,9 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IPlaylistRepository _dbRepository;
 
-        public PlaylistApiController(IDbPlaylistCommandProvider dbCommandProvider)
+        public PlaylistApiController(IPlaylistRepository dbRepository)
         {
-            _dbRepository = new DbPlaylistRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
 
         [Route("api/playlists/all", Name = "PlaylistsGetDataRoute")]
@@ -50,9 +50,17 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/playlists", Name = "PlaylistsDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 playlistId)
+        public HttpResponseMessage Delete(Int32 playlistId)
         {
-            _dbRepository.Delete(playlistId);
+            try
+            {
+                _dbRepository.Delete(playlistId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/playlists", Name = "PlaylistsGetDataPageableRoute")]

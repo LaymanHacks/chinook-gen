@@ -22,14 +22,14 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IGenreRepository _dbRepository;
 
-        public GenreApiController(IDbGenreCommandProvider dbCommandProvider)
+        public GenreApiController(IGenreRepository dbRepository)
         {
-            _dbRepository = new DbGenreRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
-   
-                [Route("api/genres/all", Name = "GenresGetDataRoute")]
+
+        [Route("api/genres/all", Name = "GenresGetDataRoute")]
         [HttpGet]
-        public IQueryable<Genre> GetData() 
+        public IQueryable<Genre> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
         }
@@ -38,29 +38,37 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPut]
         public void Update(Genre genre)
         {
-            _dbRepository.Update( (Int32)genre.GenreId, genre.Name);
-          }
+            _dbRepository.Update((Int32)genre.GenreId, genre.Name);
+        }
 
         [Route("api/genres", Name = "GenresInsertRoute")]
         [HttpPost]
         public Int32 Insert(Genre genre)
         {
-             return _dbRepository.Insert( (Int32)genre.GenreId, genre.Name);
-          }
+            return _dbRepository.Insert((Int32)genre.GenreId, genre.Name);
+        }
 
         [Route("api/genres", Name = "GenresDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 genreId) 
+        public HttpResponseMessage Delete(Int32 genreId)
         {
-            _dbRepository.Delete(genreId);
+            try
+            {
+                _dbRepository.Delete(genreId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/genres", Name = "GenresGetDataPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GenresGetDataPageableRoute", page,
                 pageSize, totalCount, results);
@@ -69,7 +77,7 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/genres/{genreId:int}", Name = "GenresGetDataByGenreIdRoute")]
         [HttpGet]
-        public IQueryable<Genre> GetDataByGenreId(Int32 genreId) 
+        public IQueryable<Genre> GetDataByGenreId(Int32 genreId)
         {
             return _dbRepository.GetDataByGenreId(genreId).AsQueryable();
         }

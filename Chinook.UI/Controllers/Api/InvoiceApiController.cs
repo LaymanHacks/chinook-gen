@@ -22,9 +22,9 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly IInvoiceRepository _dbRepository;
 
-        public InvoiceApiController(IDbInvoiceCommandProvider dbCommandProvider)
+        public InvoiceApiController(IInvoiceRepository dbRepository)
         {
-            _dbRepository = new DbInvoiceRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
 
         [Route("api/invoices/all", Name = "InvoicesGetDataRoute")]
@@ -50,9 +50,17 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/invoices", Name = "InvoicesDeleteRoute")]
         [HttpDelete]
-        public void Delete(Int32 invoiceId)
+        public HttpResponseMessage Delete(Int32 invoiceId)
         {
-            _dbRepository.Delete(invoiceId);
+            try
+            {
+                _dbRepository.Delete(invoiceId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         [Route("api/invoices", Name = "InvoicesGetDataPageableRoute")]

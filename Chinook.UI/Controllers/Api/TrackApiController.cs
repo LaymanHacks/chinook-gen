@@ -23,12 +23,12 @@ namespace Chinook.Web.UI.Controllers.Api
     {
         private readonly ITrackRepository _dbRepository;
 
-        public TrackApiController(IDbTrackCommandProvider dbCommandProvider)
+        public TrackApiController(ITrackRepository dbRepository)
         {
-            _dbRepository = new DbTrackRepository(dbCommandProvider);
+            _dbRepository = dbRepository;
         }
 
-         [Route("api/tracks/all")]
+        [Route("api/tracks/all")]
         [HttpGet]
         public IQueryable<Track> GetData()
         {
@@ -72,7 +72,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetTracksByPlaylistIdPageable(playlistId,sortExpression, (page - 1)*pageSize, pageSize);
+            var tracks = _dbRepository.GetTracksByPlaylistIdPageable(playlistId, sortExpression, (page - 1) * pageSize, pageSize);
             var totalCount = _dbRepository.GetTracksByPlaylistIdRowCount(playlistId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByPlaylistIdPageableRoute", page,
@@ -80,7 +80,7 @@ namespace Chinook.Web.UI.Controllers.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
-        
+
         [Route("api/album/{albumId}/tracks/all", Name = "GetDataByAlbumIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByAlbumId(Int32 albumId)
@@ -95,7 +95,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByAlbumIdPageable(albumId,sortExpression, (page - 1)*pageSize, pageSize);
+            var tracks = _dbRepository.GetDataByAlbumIdPageable(albumId, sortExpression, (page - 1) * pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByAlbumIdRowCount(albumId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByAlbumIdRoutePagable", page,
@@ -103,7 +103,7 @@ namespace Chinook.Web.UI.Controllers.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
-        
+
         [Route("api/genre/{genreId}/tracks/all", Name = "GetDataByGenreIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByGenreId(Int32 genreId)
@@ -118,7 +118,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByGenreIdPageable(genreId,sortExpression, (page - 1)*pageSize, pageSize);
+            var tracks = _dbRepository.GetDataByGenreIdPageable(genreId, sortExpression, (page - 1) * pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByGenreIdRowCount(genreId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByGenreIdRoutePagable", page,
@@ -127,7 +127,7 @@ namespace Chinook.Web.UI.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, pagedResults);
         }
 
-       [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetTracksByMediaTypeIdRoute")]
+        [Route("api/mediaType/{mediaTypeId}/tracks/all", Name = "GetTracksByMediaTypeIdRoute")]
         [HttpGet]
         public IQueryable<Track> GetDataByMediaTypeId(Int32 mediaTypeId)
         {
@@ -141,7 +141,7 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var tracks = _dbRepository.GetDataByMediaTypeIdPageable(mediaTypeId,sortExpression, (page - 1)*pageSize, pageSize);
+            var tracks = _dbRepository.GetDataByMediaTypeIdPageable(mediaTypeId, sortExpression, (page - 1) * pageSize, pageSize);
             var totalCount = _dbRepository.GetDataByMediaTypeIdRowCount(mediaTypeId);
 
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "GetTracksByMediaTypeIdRoutePagable", page,
@@ -164,14 +164,19 @@ namespace Chinook.Web.UI.Controllers.Api
             return _dbRepository.Insert((Int32)track.TrackId, (string)track.Name, track.AlbumId, (Int32)track.MediaTypeId, track.GenreId, track.Composer, (Int32)track.Milliseconds, track.Bytes, (decimal)track.UnitPrice);
         }
 
-         [Route("api/tracks/{trackId:int:min(1)}")]
-       [HttpDelete]
-        public void Delete(Int32 trackId)
+        [Route("api/tracks/{trackId:int:min(1)}")]
+        [HttpDelete]
+        public HttpResponseMessage Delete(Int32 trackId)
         {
-            _dbRepository.Delete(trackId);
-        }
-
-
-       
-     }
+            try
+            {
+                _dbRepository.Delete(trackId);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+           }
+    }
 }

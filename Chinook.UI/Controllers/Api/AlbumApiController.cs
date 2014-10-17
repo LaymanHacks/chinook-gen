@@ -25,10 +25,10 @@ namespace Chinook.Web.UI.Controllers.Api
         {
             _dbRepository = dbRepository;
         }
-   
+
         [Route("api/albums/all", Name = "AlbumsGetDataRoute")]
         [HttpGet]
-        public IQueryable<Album> GetData() 
+        public IQueryable<Album> GetData()
         {
             return _dbRepository.GetData().AsQueryable();
         }
@@ -37,15 +37,15 @@ namespace Chinook.Web.UI.Controllers.Api
         [HttpPut]
         public void Update(Album album)
         {
-            _dbRepository.Update( (Int32)album.AlbumId,  (string)album.Title,  (Int32)album.ArtistId);
-          }
+            _dbRepository.Update((Int32)album.AlbumId, (string)album.Title, (Int32)album.ArtistId);
+        }
 
         [Route("api/albums", Name = "AlbumsInsertRoute")]
         [HttpPost]
         public Int32 Insert(Album album)
         {
-             return _dbRepository.Insert( (Int32)album.AlbumId,  (string)album.Title,  (Int32)album.ArtistId);
-          }
+            return _dbRepository.Insert((Int32)album.AlbumId, (string)album.Title, (Int32)album.ArtistId);
+        }
 
         [Route("api/albums", Name = "AlbumsDeleteRoute")]
         [HttpDelete]
@@ -60,15 +60,15 @@ namespace Chinook.Web.UI.Controllers.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-           
+
         }
 
         [Route("api/albums", Name = "AlbumsGetDataPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataPageable(String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataPageable(String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataPageable(sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataPageable(sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetRowCount();
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsGetDataPageableRoute", page,
                 pageSize, totalCount, results);
@@ -77,24 +77,24 @@ namespace Chinook.Web.UI.Controllers.Api
 
         [Route("api/albums/{albumId}", Name = "AlbumsGetDataByAlbumIdRoute")]
         [HttpGet]
-        public IQueryable<Album> GetDataByAlbumId(Int32 albumId) 
+        public IQueryable<Album> GetDataByAlbumId(Int32 albumId)
         {
             return _dbRepository.GetDataByAlbumId(albumId).AsQueryable();
         }
 
         [Route("api/artists/{artistId}/albums/all", Name = "AlbumsGetDataByArtistIdRoute")]
         [HttpGet]
-        public IQueryable<Album> GetDataByArtistId(Int32 artistId) 
+        public IQueryable<Album> GetDataByArtistId(Int32 artistId)
         {
             return _dbRepository.GetDataByArtistId(artistId).AsQueryable();
         }
 
         [Route("api/artists/{artistId}/albums", Name = "AlbumsGetDataByArtistIdPageableRoute")]
         [HttpGet]
-        public  HttpResponseMessage  GetDataByArtistIdPageable(Int32 artistId, String sortExpression, Int32 page, Int32 pageSize) 
+        public HttpResponseMessage GetDataByArtistIdPageable(Int32 artistId, String sortExpression, Int32 page, Int32 pageSize)
         {
-              if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
-            var results =_dbRepository.GetDataByArtistIdPageable(artistId, sortExpression, page, pageSize);
+            if (page < 1) return Request.CreateResponse(HttpStatusCode.BadRequest);
+            var results = _dbRepository.GetDataByArtistIdPageable(artistId, sortExpression, page, pageSize);
             var totalCount = _dbRepository.GetDataByArtistIdRowCount(artistId);
             var pagedResults = PagedResultHelper.CreatePagedResult(Request, "AlbumsGetDataByArtistIdPageableRoute", page,
                 pageSize, totalCount, results);
