@@ -10,25 +10,29 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+<div ng-controller="genreIndexCtrl as vm">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GenreId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GenreId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GenreId })
-        </td>
-    </tr>
+
+        <tr ng-repeat="item in vm.pagableResults.Results">
+            <td>
+                <a href="/genre/Edit/{{item.GenreId}}">{{item.Name}}</a>
+            </td>
+            <td style="width: 50px;">
+
+                <a href="" ng-click="vm.deleteGenre(item.GenreId)"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+    </table>
+    <pagination total-items="vm.pagableResults.TotalCount" items-per-page="vm.pageSize" ng-model="vm.currentPage" ng-change="vm.pageChanged()" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
+</div>
+@section Scripts {
+    <script src="~/app/genre/index.js"></script>
+    <script src="~/app/services/genreDataService.js"></script>
 }
-
-</table>

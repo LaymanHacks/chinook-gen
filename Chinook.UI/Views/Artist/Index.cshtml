@@ -23,8 +23,8 @@
             <li><a href="#" ng-click="vm.pageSize=50;vm.pageChanged()">50</a></li>
         </ul>
     </div>
-    
-   
+
+
 
     <table class="table">
         <tr>
@@ -38,9 +38,9 @@
         <tr ng-repeat="item in vm.pagableResults.Results">
             <td>
                 <a href="/artist/Edit/{{item.ArtistId}}">{{item.Name}}</a>
-</td>
+            </td>
             <td style="width: 50px;">
-               
+
                 <a href="" ng-click="vm.deleteArtist(item.artistid)"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
@@ -50,6 +50,6 @@
 
 </div>
 @section Scripts {
-<script src="~/app/artist/index.js"></script>
-<script src="~/app/services/artistDataService.js"></script>
+    <script src="~/app/artist/index.js"></script>
+    <script src="~/app/services/artistDataService.js"></script>
 }

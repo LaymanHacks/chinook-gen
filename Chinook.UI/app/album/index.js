@@ -17,7 +17,7 @@
         vm.title = 'albumList';
         vm.sortExpression = 'Title';
         vm.currentPage = 1;
-        vm.pageSize = 20;
+        vm.pageSize = 10;
         vm.deleteAlbum = deleteAlbum;
 
         activate();

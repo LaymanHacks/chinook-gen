@@ -252,6 +252,7 @@
   <ItemGroup>
     <Content Include="app\admin\admin.html" />
     <Content Include="app\admin\admin.js" />
+    <Content Include="app\genre\index.js" />
     <Content Include="app\album\index.js" />
     <Content Include="app\app.js" />
     <Content Include="app\artist\index.js" />

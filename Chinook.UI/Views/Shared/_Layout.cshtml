@@ -35,12 +35,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Chinook Sample", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-              </ul>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Album", "Index", "Album", new { area = "" }, null)</li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Artist", "Index", "Artist", new { area = "" }, null)</li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Genre", "Index", "Genre", new { area = "" }, null)</li>
+                </ul>
             </div>
         </div>
     </div>
