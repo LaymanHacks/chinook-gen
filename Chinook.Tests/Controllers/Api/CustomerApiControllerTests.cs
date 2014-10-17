@@ -85,8 +85,8 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         public void Update_Should_Update_An_Customer()
         {
             _repository
-                 .Setup(it => it.Update(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>()))
-                 .Callback<Int32, String, String, String, String, String, String, String, String, String, String, String, Int32>((customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId) =>
+                 .Setup(it => it.Update(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32?>()))
+                 .Callback<Int32, String, String, String, String, String, String, String, String, String, String, String, Int32?>((customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId) =>
                  {
                      var tCustomer = _repositoryList.Find(x => x.CustomerId == customerId);
                      tCustomer.FirstName = firstName;
@@ -102,7 +102,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                      tCustomer.Email = email;
                      tCustomer.SupportRepId = supportRepId;
                  });
-            var tempCustomer = _repositoryList.Find(x => x.CustomerId == 1);
+            var tempCustomer = _repositoryList.Find(x => x.CustomerId == 2);
             var testCustomer = new Customer
             {
                 CustomerId = tempCustomer.CustomerId,
@@ -120,12 +120,10 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                 SupportRepId = tempCustomer.SupportRepId
             };
 
-            //TODO change something on testCustomer           
-            //testCustomer.oldValue = newValue; 
+            testCustomer.Country = "TestCountry"; 
             _target.Update(testCustomer);
-            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
-            //TODO fail until we update the test above
-            Assert.Fail();
+            Assert.AreEqual("TestCountry", _repositoryList.Find(x => x.CustomerId == 2).Country);
+           
         }
 
         [TestMethod()]
@@ -135,47 +133,17 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                  .Setup(it => it.Insert(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>()))
                  .Returns<Int32, String, String, String, String, String, String, String, String, String, String, String, Int32>((customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId) =>
                  {
-                     var tCustomer = _repositoryList.Find(x => x.CustomerId == customerId);
-                     tCustomer.FirstName = firstName;
-                     tCustomer.LastName = lastName;
-                     tCustomer.Company = company;
-                     tCustomer.Address = address;
-                     tCustomer.City = city;
-                     tCustomer.State = state;
-                     tCustomer.Country = country;
-                     tCustomer.PostalCode = postalCode;
-                     tCustomer.Phone = phone;
-                     tCustomer.Fax = fax;
-                     tCustomer.Email = email;
-                     tCustomer.SupportRepId = supportRepId;
 
+                     _repositoryList.Add(new Customer(customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email, supportRepId));
                      return customerId;
 
                  });
-            var tempCustomer = _repositoryList.Find(x => x.CustomerId == 1);
-            var testCustomer = new Customer
-            {
-                CustomerId = tempCustomer.CustomerId,
-                FirstName = tempCustomer.FirstName,
-                LastName = tempCustomer.LastName,
-                Company = tempCustomer.Company,
-                Address = tempCustomer.Address,
-                City = tempCustomer.City,
-                State = tempCustomer.State,
-                Country = tempCustomer.Country,
-                PostalCode = tempCustomer.PostalCode,
-                Phone = tempCustomer.Phone,
-                Fax = tempCustomer.Fax,
-                Email = tempCustomer.Email,
-                SupportRepId = tempCustomer.SupportRepId
-            };
+           
+            var testCustomer = new Customer(11,"FirstName","LastName","Company","Address","City","State","Country","PostalCode","Phone","Fax","Email",1);
 
-            //TODO change something on testCustomer           
-            //testCustomer.oldValue = newValue; 
-            _target.Update(testCustomer);
-            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
-            //TODO fail until we update the test above
-            Assert.Fail();
+          _target.Insert(testCustomer);
+            Assert.AreEqual(11, _repositoryList.Count());  
+           
         }
 
 
@@ -251,13 +219,10 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         {
             _repository
                  .Setup(it => it.GetDataByCustomerId(It.IsAny<Int32>()))
-                     .Returns<Int32>((customerId) => 
-                 { 
-                      return _repositoryList.Where(x => x.CustomerId==customerId).ToList();
-                 });
+                     .Returns<Int32>((customerId) => _repositoryList.Where(x => x.CustomerId==customerId).ToList());
                 
             var result = _target.GetDataByCustomerId(1).ToList();
-            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 1).Count, result.Count);
+            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 1).ToList().Count, result.Count);
         }
 
         [TestMethod()]
@@ -267,8 +232,8 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                  .Setup(it => it.GetDataBySupportRepId(It.IsAny<Int32>()))
                      .Returns<Int32>((supportRepId) => _repositoryList.Where(x => x.SupportRepId==supportRepId).ToList());
                 
-            var result = _target.GetDataBySupportRepId(1).ToList();
-             Assert.AreEqual(_repositoryList.Count, result.Count);
+            var result = _target.GetDataBySupportRepId(4).ToList();
+            Assert.AreEqual(_repositoryList.Count(x => x.SupportRepId == 4), result.Count);
         }
 
         [TestMethod()]
@@ -279,8 +244,8 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
             _repository
                  .Setup(it => it.GetDataBySupportRepIdPageable(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
                  .Returns<Int32, String, Int32, Int32>((supportRepId, sortExpression, page, pageSize) => 
-                 { 
-                      var query = _repositoryList;
+                 {
+                     var query = _repositoryList.Where(x => x.SupportRepId == supportRepId);
                       switch (sortExpression)
                       {
                           case  "CustomerId":
@@ -329,11 +294,10 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                  .Setup(it => it.GetRowCount())
                  .Returns(_repositoryList.Count);
 
-            var result = _target.GetDataPageable("CustomerId", 1, 2);
+            var result = _target.GetDataBySupportRepIdPageable(4,"CustomerId", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
-            Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
-            Assert.AreEqual(_repositoryList.OrderBy(q => q.CustomerId).FirstOrDefault().CustomerId, expectedResult.Results.FirstOrDefault().CustomerId);
-            Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
+            Assert.AreEqual(_repositoryList.Where(x => x.SupportRepId == 4).Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.Where(x => x.SupportRepId == 4).OrderBy(q => q.CustomerId).FirstOrDefault().CustomerId, expectedResult.Results.FirstOrDefault().CustomerId);
         }
     }
 }

@@ -24,13 +24,34 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
     [TestClass()]
     public class EmployeeApiControllerTests
     {
-
         private Mock<IEmployeeRepository> _repository;
 
         private List<Employee> _repositoryList = new List<Employee>
         {
-        //TODO Initialize test data
-            new Employee()
+            new Employee(1, "Adams", "Andrew", "General Manager", null, Convert.ToDateTime("1962-02-18 00:00:00.000"),
+                Convert.ToDateTime("2002-08-14 00:00:00.000"), "11120 Jasper Ave NW", "Edmonton", "AB", "Canada",
+                "T5K 2N1", "+1 (780) 428-9482", "+1 (780) 428-3457", "andrew@chinookcorp.com"),
+            new Employee(2, "Edwards", "Nancy", "Sales Manager", 1, Convert.ToDateTime("1958-12-08 00:00:00.000"),
+                Convert.ToDateTime("2002-05-01 00:00:00.000"), "825 8 Ave SW", "Calgary", "AB", "Canada", "T2P 2T3",
+                "+1 (403) 262-3443", "+1 (403) 262-3322", "nancy@chinookcorp.com"),
+            new Employee(3, "Peacock", "Jane", "Sales Support Agent", 2, Convert.ToDateTime("1973-08-29 00:00:00.000"),
+                Convert.ToDateTime("2002-04-01 00:00:00.000"), "1111 6 Ave SW", "Calgary", "AB", "Canada", "T2P 5M5",
+                "+1 (403) 262-3443", "+1 (403) 262-6712", "jane@chinookcorp.com"),
+            new Employee(4, "Park", "Margaret", "Sales Support Agent", 2, Convert.ToDateTime("1947-09-19 00:00:00.000"),
+                Convert.ToDateTime("2003-05-03 00:00:00.000"), "683 10 Street SW", "Calgary", "AB", "Canada", "T2P 5G3",
+                "+1 (403) 263-4423", "+1 (403) 263-4289", "margaret@chinookcorp.com"),
+            new Employee(5, "Johnson", "Steve", "Sales Support Agent", 2, Convert.ToDateTime("1965-03-03 00:00:00.000"),
+                Convert.ToDateTime("2003-10-17 00:00:00.000"), "7727B 41 Ave", "Calgary", "AB", "Canada", "T3B 1Y7",
+                "1 (780) 836-9987", "1 (780) 836-9543", "steve@chinookcorp.com"),
+            new Employee(6, "Mitchell", "Michael", "IT Manager", 1, Convert.ToDateTime("1973-07-01 00:00:00.000"),
+                Convert.ToDateTime("2003-10-17 00:00:00.000"), "5827 Bowness Road NW", "Calgary", "AB", "Canada",
+                "T3B 0C5", "+1 (403) 246-9887", "+1 (403) 246-9899", "michael@chinookcorp.com"),
+            new Employee(7, "King", "Robert", "IT Staff", 6, Convert.ToDateTime("1970-05-29 00:00:00.000"),
+                Convert.ToDateTime("2004-01-02 00:00:00.000"), "590 Columbia Boulevard West", "Lethbridge", "AB",
+                "Canada", "T1K 5N8", "+1 (403) 456-9986", "+1 (403) 456-8485", "robert@chinookcorp.com"),
+            new Employee(8, "Callahan", "Laura", "IT Staff", 6, Convert.ToDateTime("1968-01-09 00:00:00.000"),
+                Convert.ToDateTime("2004-03-04 00:00:00.000"), "923 7 ST NW", "Lethbridge", "AB", "Canada", "T1H 1Y8",
+                "+1 (403) 467-3351", "+1 (403) 467-8772", "laura@chinookcorp.com")
         };
 
         private EmployeeApiController _target;
@@ -41,7 +62,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
             _repository = new Mock<IEmployeeRepository>();
             _target = new EmployeeApiController(_repository.Object)
             {
-                Request = new HttpRequestMessage { RequestUri = new Uri("http://localhost/api/Employees") }
+                Request = new HttpRequestMessage {RequestUri = new Uri("http://localhost/api/Employees")}
             };
 
             var config = new HttpConfiguration();
@@ -53,39 +74,48 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         }
 
         [TestMethod()]
-        public void GetDataTest() 
+        public void GetDataTest()
         {
             _repository
-                 .Setup(it => it.GetData())
-                     .Returns(_repositoryList);
-                
+                .Setup(it => it.GetData())
+                .Returns(_repositoryList);
+
             var result = _target.GetData().ToList();
-             Assert.AreEqual(_repositoryList.Where(x => ).ToList().Count, result.Count);
+            Assert.AreEqual(_repositoryList.ToList().Count, result.Count);
         }
 
         [TestMethod()]
         public void Update_Should_Update_A_Employee()
         {
             _repository
-                 .Setup(it => it.Update(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>()))
-                 .Callback<Int32, String, String, String, Int32, DateTime, DateTime, String, String, String, String, String, String, String, String>((employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state, country, postalCode, phone, fax, email) =>
-                 {
-                     var tEmployee = _repositoryList.Find(x => x.EmployeeId == employeeId);
-                     tEmployee.LastName = lastName;
-                     tEmployee.FirstName = firstName;
-                     tEmployee.Title = title;
-                     tEmployee.ReportsTo = reportsTo;
-                     tEmployee.BirthDate = birthDate;
-                     tEmployee.HireDate = hireDate;
-                     tEmployee.Address = address;
-                     tEmployee.City = city;
-                     tEmployee.State = state;
-                     tEmployee.Country = country;
-                     tEmployee.PostalCode = postalCode;
-                     tEmployee.Phone = phone;
-                     tEmployee.Fax = fax;
-                     tEmployee.Email = email;
-                 });
+                .Setup(
+                    it =>
+                        it.Update(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(),
+                            It.IsAny<Int32?>(), It.IsAny<DateTime?>(), It.IsAny<DateTime?>(), It.IsAny<String>(),
+                            It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(),
+                            It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>()))
+                .Callback
+                <Int32, String, String, String, Int32?, DateTime?, DateTime?, String, String, String, String, String,
+                    String, String, String>(
+                        (employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state,
+                            country, postalCode, phone, fax, email) =>
+                        {
+                            var tEmployee = _repositoryList.Find(x => x.EmployeeId == employeeId);
+                            tEmployee.LastName = lastName;
+                            tEmployee.FirstName = firstName;
+                            tEmployee.Title = title;
+                            tEmployee.ReportsTo = reportsTo;
+                            tEmployee.BirthDate = birthDate;
+                            tEmployee.HireDate = hireDate;
+                            tEmployee.Address = address;
+                            tEmployee.City = city;
+                            tEmployee.State = state;
+                            tEmployee.Country = country;
+                            tEmployee.PostalCode = postalCode;
+                            tEmployee.Phone = phone;
+                            tEmployee.Fax = fax;
+                            tEmployee.Email = email;
+                        });
             var tempEmployee = _repositoryList.Find(x => x.EmployeeId == 1);
             var testEmployee = new Employee
             {
@@ -106,76 +136,47 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                 Email = tempEmployee.Email
             };
 
-            //TODO change something on testEmployee
-            //testEmployee.oldValue = newValue; 
+            testEmployee.Country = "TestValue";
             _target.Update(testEmployee);
-            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
-            //TODO fail until we update the test above
-            Assert.Fail();
+            Assert.AreEqual("TestValue", _repositoryList.Find(x => x.EmployeeId == 1).Country);
         }
 
         [TestMethod()]
         public void Insert_Should_Insert_A_Employee()
         {
             _repository
-                 .Setup(it => it.Insert(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>()))
-                 .Returns<Int32, String, String, String, Int32, DateTime, DateTime, String, String, String, String, String, String, String, String>((employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state, country, postalCode, phone, fax, email) =>
-                 {
-                     var tEmployee = _repositoryList.Find(x => x.EmployeeId == employeeId);
-                     tEmployee.LastName = lastName;
-                     tEmployee.FirstName = firstName;
-                     tEmployee.Title = title;
-                     tEmployee.ReportsTo = reportsTo;
-                     tEmployee.BirthDate = birthDate;
-                     tEmployee.HireDate = hireDate;
-                     tEmployee.Address = address;
-                     tEmployee.City = city;
-                     tEmployee.State = state;
-                     tEmployee.Country = country;
-                     tEmployee.PostalCode = postalCode;
-                     tEmployee.Phone = phone;
-                     tEmployee.Fax = fax;
-                     tEmployee.Email = email;
-                     return employeeId;
-                 });
-            var tempEmployee = _repositoryList.Find(x => x.EmployeeId == 1);
-            var testEmployee = new Employee
-            {
-                EmployeeId = tempEmployee.EmployeeId,
-                LastName = tempEmployee.LastName,
-                FirstName = tempEmployee.FirstName,
-                Title = tempEmployee.Title,
-                ReportsTo = tempEmployee.ReportsTo,
-                BirthDate = tempEmployee.BirthDate,
-                HireDate = tempEmployee.HireDate,
-                Address = tempEmployee.Address,
-                City = tempEmployee.City,
-                State = tempEmployee.State,
-                Country = tempEmployee.Country,
-                PostalCode = tempEmployee.PostalCode,
-                Phone = tempEmployee.Phone,
-                Fax = tempEmployee.Fax,
-                Email = tempEmployee.Email
-            };
+                .Setup(
+                    it =>
+                        it.Insert(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(),
+                            It.IsAny<Int32?>(), It.IsAny<DateTime?>(), It.IsAny<DateTime?>(), It.IsAny<String>(),
+                            It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>(),
+                            It.IsAny<String>(), It.IsAny<String>(), It.IsAny<String>()))
+                .Returns
+                <Int32, String, String, String, Int32?, DateTime?, DateTime?, String, String, String, String, String,
+                    String, String, String>(
+                        (employeeId, lastName, firstName, title, reportsTo, birthDate, hireDate, address, city, state,
+                            country, postalCode, phone, fax, email) =>
+                        {
+                            _repositoryList.Add(new Employee(employeeId, lastName, firstName, title, reportsTo,
+                                birthDate, hireDate, address, city, state, country, postalCode, phone, fax, email));
+                            return employeeId;
+                        });
 
-            //TODO change something on testEmployee
-            //testEmployee.oldValue = newValue; 
-            _target.Update(testEmployee);
-            //Assert.AreEqual(newValue, _repositoryList.Find(x => ).oldValue);
-            //TODO fail until we update the test above
-            Assert.Fail();
+            _target.Insert(new Employee(9, "lastName", "firstName", "title", 1, DateTime.Today, DateTime.Today,
+                "address", "city", "state", "country", "555555", "555-555-5555", "555-555-5555", "email@email.com"));
+            Assert.AreEqual(9, _repositoryList.Count());
         }
 
         [TestMethod()]
         public void Delete_Should_Delete_A_Employee()
         {
             _repository
-                 .Setup(it => it.Delete(It.IsAny<Int32>()))
-                 .Callback<Int32>((employeeId) =>
-                 {
-                     var i = _repositoryList.FindIndex(q => q.EmployeeId == employeeId);
-                     _repositoryList.RemoveAt(i);
-                 });
+                .Setup(it => it.Delete(It.IsAny<Int32>()))
+                .Callback<Int32>((employeeId) =>
+                {
+                    var i = _repositoryList.FindIndex(q => q.EmployeeId == employeeId);
+                    _repositoryList.RemoveAt(i);
+                });
             var iniCount = _repositoryList.Count();
             HttpResponseMessage result = _target.Delete(1);
             Assert.AreEqual(iniCount - 1, _repositoryList.Count());
@@ -188,69 +189,70 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
             PagedResult<Employee> expectedResult;
 
             _repository
-                 .Setup(it => it.GetDataPageable(It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
-                 .Returns<String, Int32, Int32>((sortExpression, page, pageSize) =>
-                 {
-                     var query = _repositoryList;
-                     switch (sortExpression)
-                     {
-                         case "EmployeeId":
-                             query = new List<Employee>(query.OrderBy(q => q.EmployeeId));
-                             break;
-                         case "LastName":
-                             query = new List<Employee>(query.OrderBy(q => q.LastName));
-                             break;
-                         case "FirstName":
-                             query = new List<Employee>(query.OrderBy(q => q.FirstName));
-                             break;
-                         case "Title":
-                             query = new List<Employee>(query.OrderBy(q => q.Title));
-                             break;
-                         case "ReportsTo":
-                             query = new List<Employee>(query.OrderBy(q => q.ReportsTo));
-                             break;
-                         case "BirthDate":
-                             query = new List<Employee>(query.OrderBy(q => q.BirthDate));
-                             break;
-                         case "HireDate":
-                             query = new List<Employee>(query.OrderBy(q => q.HireDate));
-                             break;
-                         case "Address":
-                             query = new List<Employee>(query.OrderBy(q => q.Address));
-                             break;
-                         case "City":
-                             query = new List<Employee>(query.OrderBy(q => q.City));
-                             break;
-                         case "State":
-                             query = new List<Employee>(query.OrderBy(q => q.State));
-                             break;
-                         case "Country":
-                             query = new List<Employee>(query.OrderBy(q => q.Country));
-                             break;
-                         case "PostalCode":
-                             query = new List<Employee>(query.OrderBy(q => q.PostalCode));
-                             break;
-                         case "Phone":
-                             query = new List<Employee>(query.OrderBy(q => q.Phone));
-                             break;
-                         case "Fax":
-                             query = new List<Employee>(query.OrderBy(q => q.Fax));
-                             break;
-                         case "Email":
-                             query = new List<Employee>(query.OrderBy(q => q.Email));
-                             break;
-                     }
-                     return query.Take(pageSize).Skip((page - 1) * pageSize).ToList();
-                 });
+                .Setup(it => it.GetDataPageable(It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
+                .Returns<String, Int32, Int32>((sortExpression, page, pageSize) =>
+                {
+                    var query = _repositoryList;
+                    switch (sortExpression)
+                    {
+                        case "EmployeeId":
+                            query = new List<Employee>(query.OrderBy(q => q.EmployeeId));
+                            break;
+                        case "LastName":
+                            query = new List<Employee>(query.OrderBy(q => q.LastName));
+                            break;
+                        case "FirstName":
+                            query = new List<Employee>(query.OrderBy(q => q.FirstName));
+                            break;
+                        case "Title":
+                            query = new List<Employee>(query.OrderBy(q => q.Title));
+                            break;
+                        case "ReportsTo":
+                            query = new List<Employee>(query.OrderBy(q => q.ReportsTo));
+                            break;
+                        case "BirthDate":
+                            query = new List<Employee>(query.OrderBy(q => q.BirthDate));
+                            break;
+                        case "HireDate":
+                            query = new List<Employee>(query.OrderBy(q => q.HireDate));
+                            break;
+                        case "Address":
+                            query = new List<Employee>(query.OrderBy(q => q.Address));
+                            break;
+                        case "City":
+                            query = new List<Employee>(query.OrderBy(q => q.City));
+                            break;
+                        case "State":
+                            query = new List<Employee>(query.OrderBy(q => q.State));
+                            break;
+                        case "Country":
+                            query = new List<Employee>(query.OrderBy(q => q.Country));
+                            break;
+                        case "PostalCode":
+                            query = new List<Employee>(query.OrderBy(q => q.PostalCode));
+                            break;
+                        case "Phone":
+                            query = new List<Employee>(query.OrderBy(q => q.Phone));
+                            break;
+                        case "Fax":
+                            query = new List<Employee>(query.OrderBy(q => q.Fax));
+                            break;
+                        case "Email":
+                            query = new List<Employee>(query.OrderBy(q => q.Email));
+                            break;
+                    }
+                    return query.Take(pageSize).Skip((page - 1)*pageSize).ToList();
+                });
 
             _repository
-                 .Setup(it => it.GetRowCount())
-                 .Returns(_repositoryList.Count);
+                .Setup(it => it.GetRowCount())
+                .Returns(_repositoryList.Count);
 
             var result = _target.GetDataPageable("EmployeeId", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
             Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
-            Assert.AreEqual(_repositoryList.OrderBy(q => q.EmployeeId).FirstOrDefault().EmployeeId, expectedResult.Results.FirstOrDefault().EmployeeId);
+            Assert.AreEqual(_repositoryList.OrderBy(q => q.EmployeeId).FirstOrDefault().EmployeeId,
+                expectedResult.Results.FirstOrDefault().EmployeeId);
             Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
         }
 
@@ -258,11 +260,9 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         public void GetDataByEmployeeIdTest()
         {
             _repository
-                 .Setup(it => it.GetDataByEmployeeId(It.IsAny<Int32>()))
-                     .Returns<Int32>((employeeId) =>
-                     {
-                         return _repositoryList.Where(x => x.EmployeeId == employeeId).ToList();
-                     });
+                .Setup(it => it.GetDataByEmployeeId(It.IsAny<Int32>()))
+                .Returns<Int32>(
+                    (employeeId) => { return _repositoryList.Where(x => x.EmployeeId == employeeId).ToList(); });
 
             var result = _target.GetDataByEmployeeId(1).ToList();
             Assert.AreEqual(_repositoryList.Where(x => x.EmployeeId == 1).ToList().Count, result.Count);
@@ -272,11 +272,8 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
         public void GetDataByReportsToTest()
         {
             _repository
-                 .Setup(it => it.GetDataByReportsTo(It.IsAny<Int32>()))
-                     .Returns<Int32>((reportsTo) =>
-                     {
-                         return _repositoryList.Where(x => x.ReportsTo == reportsTo).ToList();
-                     });
+                .Setup(it => it.GetDataByReportsTo(It.IsAny<Int32>()))
+                .Returns<Int32>((reportsTo) => { return _repositoryList.Where(x => x.ReportsTo == reportsTo).ToList(); });
 
             var result = _target.GetDataByReportsTo(1).ToList();
             Assert.AreEqual(_repositoryList.Where(x => x.ReportsTo == 1).ToList().Count, result.Count);
@@ -288,72 +285,74 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
             PagedResult<Employee> expectedResult;
 
             _repository
-                 .Setup(it => it.GetDataByReportsToPageable(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<Int32>(), It.IsAny<Int32>()))
-                 .Returns<Int32, String, Int32, Int32>((reportsTo, sortExpression, page, pageSize) =>
-                 {
-                     var query = _repositoryList;
-                     switch (sortExpression)
-                     {
-                         case "EmployeeId":
-                             query = new List<Employee>(query.OrderBy(q => q.EmployeeId));
-                             break;
-                         case "LastName":
-                             query = new List<Employee>(query.OrderBy(q => q.LastName));
-                             break;
-                         case "FirstName":
-                             query = new List<Employee>(query.OrderBy(q => q.FirstName));
-                             break;
-                         case "Title":
-                             query = new List<Employee>(query.OrderBy(q => q.Title));
-                             break;
-                         case "ReportsTo":
-                             query = new List<Employee>(query.OrderBy(q => q.ReportsTo));
-                             break;
-                         case "BirthDate":
-                             query = new List<Employee>(query.OrderBy(q => q.BirthDate));
-                             break;
-                         case "HireDate":
-                             query = new List<Employee>(query.OrderBy(q => q.HireDate));
-                             break;
-                         case "Address":
-                             query = new List<Employee>(query.OrderBy(q => q.Address));
-                             break;
-                         case "City":
-                             query = new List<Employee>(query.OrderBy(q => q.City));
-                             break;
-                         case "State":
-                             query = new List<Employee>(query.OrderBy(q => q.State));
-                             break;
-                         case "Country":
-                             query = new List<Employee>(query.OrderBy(q => q.Country));
-                             break;
-                         case "PostalCode":
-                             query = new List<Employee>(query.OrderBy(q => q.PostalCode));
-                             break;
-                         case "Phone":
-                             query = new List<Employee>(query.OrderBy(q => q.Phone));
-                             break;
-                         case "Fax":
-                             query = new List<Employee>(query.OrderBy(q => q.Fax));
-                             break;
-                         case "Email":
-                             query = new List<Employee>(query.OrderBy(q => q.Email));
-                             break;
-                     }
-                     return query.Take(pageSize).Skip((page - 1) * pageSize).ToList();
-                 });
+                .Setup(
+                    it =>
+                        it.GetDataByReportsToPageable(It.IsAny<Int32>(), It.IsAny<String>(), It.IsAny<Int32>(),
+                            It.IsAny<Int32>()))
+                .Returns<Int32, String, Int32, Int32>((reportsTo, sortExpression, page, pageSize) =>
+                {
+                    var query = _repositoryList.Where(x => x.ReportsTo == reportsTo);
+                    switch (sortExpression)
+                    {
+                        case "EmployeeId":
+                            query = new List<Employee>(query.OrderBy(q => q.EmployeeId));
+                            break;
+                        case "LastName":
+                            query = new List<Employee>(query.OrderBy(q => q.LastName));
+                            break;
+                        case "FirstName":
+                            query = new List<Employee>(query.OrderBy(q => q.FirstName));
+                            break;
+                        case "Title":
+                            query = new List<Employee>(query.OrderBy(q => q.Title));
+                            break;
+                        case "ReportsTo":
+                            query = new List<Employee>(query.OrderBy(q => q.ReportsTo));
+                            break;
+                        case "BirthDate":
+                            query = new List<Employee>(query.OrderBy(q => q.BirthDate));
+                            break;
+                        case "HireDate":
+                            query = new List<Employee>(query.OrderBy(q => q.HireDate));
+                            break;
+                        case "Address":
+                            query = new List<Employee>(query.OrderBy(q => q.Address));
+                            break;
+                        case "City":
+                            query = new List<Employee>(query.OrderBy(q => q.City));
+                            break;
+                        case "State":
+                            query = new List<Employee>(query.OrderBy(q => q.State));
+                            break;
+                        case "Country":
+                            query = new List<Employee>(query.OrderBy(q => q.Country));
+                            break;
+                        case "PostalCode":
+                            query = new List<Employee>(query.OrderBy(q => q.PostalCode));
+                            break;
+                        case "Phone":
+                            query = new List<Employee>(query.OrderBy(q => q.Phone));
+                            break;
+                        case "Fax":
+                            query = new List<Employee>(query.OrderBy(q => q.Fax));
+                            break;
+                        case "Email":
+                            query = new List<Employee>(query.OrderBy(q => q.Email));
+                            break;
+                    }
+                    return query.Take(pageSize).Skip((page - 1)*pageSize).ToList();
+                });
 
             _repository
-                 .Setup(it => it.GetRowCount())
-                 .Returns(_repositoryList.Count);
+                .Setup(it => it.GetDataByReportsToRowCount(1))
+                .Returns(_repositoryList.Count);
 
-            var result = _target.GetDataByReportsToPageable(1,"EmployeeId", 1, 2);
+            var result = _target.GetDataByReportsToPageable(1, "EmployeeId", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
-            Assert.AreEqual(_repositoryList.Take(2).ToList().Count, expectedResult.Results.Count);
-            Assert.AreEqual(_repositoryList.OrderBy(q => q.EmployeeId).FirstOrDefault().EmployeeId, expectedResult.Results.FirstOrDefault().EmployeeId);
+            Assert.AreEqual(_repositoryList.Where(x => x.ReportsTo == 1).Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.Where(x => x.ReportsTo == 1).OrderBy(q => q.EmployeeId).FirstOrDefault().EmployeeId,
+                expectedResult.Results.FirstOrDefault().EmployeeId);
             Assert.AreEqual(_repositoryList.ToList().Count, expectedResult.TotalCount);
         }
-
-
     }
 }
