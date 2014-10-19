@@ -19,7 +19,7 @@ using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 using Chinook.Web.UI.Controllers.Api;
 
-namespace Chinook.Web.UI.Test.Controllers.Api
+namespace Chinook.Web.UI.Tests.Controllers.Api
 {
     [TestClass()]
     public class MediaTypeApiControllerTests
@@ -29,8 +29,11 @@ namespace Chinook.Web.UI.Test.Controllers.Api
 
         private List<MediaType> _repositoryList = new List<MediaType>
         {
-        //TODO Initialize test data
-            new MediaType()
+                new MediaType(1,"MPEG audio file"),
+                new MediaType(2,"Protected AAC audio file"),
+                new MediaType(3,"Protected MPEG-4 video file"),
+                new MediaType(4,"Purchased AAC audio file"),
+                new MediaType(5,"AAC audio file")
         };
 
         private MediaTypeApiController _target;
@@ -96,8 +99,8 @@ namespace Chinook.Web.UI.Test.Controllers.Api
                      return mediaTypeId;
                  });
 
-           _target.Insert(new MediaType(11, "name"));
-            Assert.AreEqual(11, _repositoryList.Count());
+           _target.Insert(new MediaType(6, "name"));
+            Assert.AreEqual(6, _repositoryList.Count());
            
         }
 

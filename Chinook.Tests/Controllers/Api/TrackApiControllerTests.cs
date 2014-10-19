@@ -29,8 +29,16 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
 
         private List<Track> _repositoryList = new List<Track>
         {
-        //TODO Initialize test data
-            new Track()
+            new Track(1, "For Those About To Rock (We Salute You)",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",343719,11170334 ,0.99m),
+            new Track(2,"Balls to the Wall",2,2,1,"",342562,5510424,0.99m),
+            new Track(3,"Fast As a Shark",3,2,1,"F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman",230619,3990994,0.99m),
+            new Track(4,"Restless and Wild",3,2,1,"F. Baltes, R.A. Smith-Diesel, S. Kaufman, U. Dirkscneider & W. Hoffman",252051,4331779,0.99m),
+            new Track(5,"Princess of the Dawn",3,2,1,"Deaffy & R.A. Smith-Diesel",375418,6290521,0.99m),
+            new Track(6,"Put The Finger On You",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",205662,6713451,0.99m),
+            new Track(7,"Let's Get It Up",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",233926,7636561,0.99m),
+            new Track(8,"Inject The Venom",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",210834,6852860,0.99m),
+            new Track(9,"Snowballed",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",203102,6599424,0.99m),
+            new Track(10, "Evil Walks",1,1,1,"Angus Young, Malcolm Young, Brian Johnson",263497,8611245,0.99m)
         };
 
         private TrackApiController _target;

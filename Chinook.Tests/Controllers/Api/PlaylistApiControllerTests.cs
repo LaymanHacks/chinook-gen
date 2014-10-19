@@ -19,7 +19,7 @@ using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 using Chinook.Web.UI.Controllers.Api;
 
-namespace Chinook.Web.UI.Test.Controllers.Api
+namespace Chinook.Web.UI.Tests.Controllers.Api
 {
     [TestClass()]
     public class PlaylistApiControllerTests
@@ -29,8 +29,16 @@ namespace Chinook.Web.UI.Test.Controllers.Api
 
         private List<Playlist> _repositoryList = new List<Playlist>
         {
-        //TODO Initialize test data
-            new Playlist()
+                new Playlist(1,"Music"),
+                new Playlist(2,"Movies"),
+                new Playlist(3,"TV Shows"),
+                new Playlist(4,"Audiobooks"),
+                new Playlist(5,"90’s Music"),
+                new Playlist(6,"Audiobooks"),
+                new Playlist(7,"Movies"),
+                new Playlist(8,"Music"),
+                new Playlist(9,"Music Videos"),
+                new Playlist(10,"TV Shows")
         };
 
         private PlaylistApiController _target;

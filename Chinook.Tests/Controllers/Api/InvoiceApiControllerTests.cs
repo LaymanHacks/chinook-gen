@@ -29,8 +29,16 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
 
         private List<Invoice> _repositoryList = new List<Invoice>
         {
-        //TODO Initialize test data
-            new Invoice()
+            new Invoice(1,2,Convert.ToDateTime("Jan  1 2009 12:00AM"),"Theodor-Heuss-Straße 34","Stuttgart","","Germany","70174",1.98m),
+            new Invoice(2,2,Convert.ToDateTime("Jan  2 2009 12:00AM"),"Ullevålsveien 14","Oslo","","Norway","0171",3.96m),
+            new Invoice(3,2,Convert.ToDateTime("Jan  3 2009 12:00AM"),"Grétrystraat 63","Brussels","","Belgium","1000",5.94m),
+            new Invoice(4,14,Convert.ToDateTime("Jan  6 2009 12:00AM"),"8210 111 ST NW","Edmonton","AB","Canada","T6G 2C7",8.91m),
+            new Invoice(5,23,Convert.ToDateTime("Jan 11 2009 12:00AM"),"69 Salem Street","Boston","MA","USA","2113",13.86m),
+            new Invoice(6,37,Convert.ToDateTime("Jan 19 2009 12:00AM"),"Berger Straße 10","Frankfurt","","Germany","60316",0.99m),
+            new Invoice(7,38,Convert.ToDateTime("Feb  1 2009 12:00AM"),"Barbarossastraße 19","Berlin","","Germany","10779",1.98m),
+            new Invoice(8,40,Convert.ToDateTime("Feb  1 2009 12:00AM"),"8, Rue Hanovre","Paris","","France","75002",1.98m),
+            new Invoice(9,42,Convert.ToDateTime("Feb  2 2009 12:00AM"),"9, Place Louis Barthou","Bordeaux","","France","33000",3.96m),
+            new Invoice(10,46,Convert.ToDateTime("Feb  3 2009 12:00AM"),"3 Chatham Street","Dublin","Dublin","Ireland","",5.94m)
         };
 
         private InvoiceApiController _target;
@@ -257,13 +265,13 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
                  });
 
             _repository
-                 .Setup(it => it.GetDataByCustomerIdRowCount(1))
+                 .Setup(it => it.GetDataByCustomerIdRowCount(2))
                  .Returns(_repositoryList.Count);
 
-            var result = _target.GetDataByCustomerIdPageable(1, "InvoiceId", 1, 2);
+            var result = _target.GetDataByCustomerIdPageable(2, "InvoiceId", 1, 2);
             Assert.IsTrue(result.TryGetContentValue(out expectedResult));
-            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 1).Take(2).ToList().Count, expectedResult.Results.Count);
-            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 1).OrderBy(q => q.InvoiceId).FirstOrDefault().InvoiceId, expectedResult.Results.FirstOrDefault().InvoiceId);
+            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 2).Take(2).ToList().Count, expectedResult.Results.Count);
+            Assert.AreEqual(_repositoryList.Where(x => x.CustomerId == 2).OrderBy(q => q.InvoiceId).FirstOrDefault().InvoiceId, expectedResult.Results.FirstOrDefault().InvoiceId);
         }
 
 

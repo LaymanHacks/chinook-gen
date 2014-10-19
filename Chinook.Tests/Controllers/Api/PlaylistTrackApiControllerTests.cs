@@ -19,7 +19,7 @@ using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 using Chinook.Web.UI.Controllers.Api;
 
-namespace Chinook.Web.UI.Test.Controllers.Api
+namespace Chinook.Web.UI.Tests.Controllers.Api
 {
     [TestClass()]
     public class PlaylistTrackApiControllerTests
@@ -29,8 +29,16 @@ namespace Chinook.Web.UI.Test.Controllers.Api
 
         private List<PlaylistTrack> _repositoryList = new List<PlaylistTrack>
         {
-        //TODO Initialize test data
-            new PlaylistTrack()
+            new PlaylistTrack(1,3402),
+            new PlaylistTrack(1,3389),
+            new PlaylistTrack(1,3390),
+            new PlaylistTrack(1,3391),
+            new PlaylistTrack(1,3392),
+            new PlaylistTrack(1,3393),
+            new PlaylistTrack(2,3394),
+            new PlaylistTrack(2,3395),
+            new PlaylistTrack(2,3396),
+            new PlaylistTrack(1,3397)
         };
 
         private PlaylistTrackApiController _target;
@@ -72,17 +80,15 @@ namespace Chinook.Web.UI.Test.Controllers.Api
             { 
                  var tPlaylistTrack = _repositoryList.Find(x => x.PlaylistId==playlistId & x.TrackId==trackId);
             });
-            var tempPlaylistTrack = _repositoryList.Find(x => x.PlaylistId==1 & x.TrackId==1);
+            var tempPlaylistTrack = _repositoryList.Find(x => x.PlaylistId == 1 & x.TrackId == 3402);
             var testPlaylistTrack = new PlaylistTrack {
                  PlaylistId = tempPlaylistTrack.PlaylistId, 
                  TrackId = tempPlaylistTrack.TrackId};
             
-            //TODO change something on testPlaylistTrack
-            //testPlaylistTrack.oldValue = newValue; 
+            testPlaylistTrack.TrackId = 3499; 
             _target.Update(testPlaylistTrack);
-            //Assert.AreEqual(newValue, _repositoryList.Find(x => x.PlaylistId==1 and x.TrackId==1).oldValue);
-            //TODO fail until we update the test above
-            Assert.Fail();
+            Assert.AreEqual(3499, _repositoryList.Find(x => x.PlaylistId == 1 & x.TrackId == 3402).TrackId);
+          
         }
 
         [TestMethod()]
@@ -113,7 +119,7 @@ namespace Chinook.Web.UI.Test.Controllers.Api
                       _repositoryList.RemoveAt(i);
                  });
             var iniCount = _repositoryList.Count();
-            HttpResponseMessage result = _target.Delete(1,1);
+            HttpResponseMessage result = _target.Delete(1, 3402);
             Assert.AreEqual(iniCount - 1, _repositoryList.Count());
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
