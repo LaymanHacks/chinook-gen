@@ -37,17 +37,16 @@ namespace Chinook.Web.UI.Controllers
 
         // POST: Album/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Album album)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                _dbRepository.Insert(album);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(album);
             }
         }
 
@@ -64,12 +63,11 @@ namespace Chinook.Web.UI.Controllers
             try
             {
                 _dbRepository.Update(album);
-
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(_dbRepository.GetDataByAlbumId(id).FirstOrDefault());
+                return View(album);
             }
         }
 

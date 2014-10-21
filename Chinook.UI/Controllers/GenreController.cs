@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Web.UI.Controllers
 {
@@ -36,39 +37,37 @@ namespace Chinook.Web.UI.Controllers
 
         // POST: Genre/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Genre genre)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                _dbRepository.Insert(genre);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(genre);
             }
         }
 
         // GET: Genre/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByGenreId(id).First());
         }
 
         // POST: Genre/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Genre genre)
         {
             try
             {
-                // TODO: Add update logic here
-
+                _dbRepository.Update(genre);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(genre);
             }
         }
 

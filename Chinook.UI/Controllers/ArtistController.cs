@@ -42,7 +42,6 @@ namespace Chinook.Web.UI.Controllers
             try
             {
                 _dbRepository.Insert(artist);
-
                 return RedirectToAction("Index");
             }
             catch
@@ -63,8 +62,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(artist);
-
+                _dbRepository.Update(artist);
                 return RedirectToAction("Index");
             }
             catch
