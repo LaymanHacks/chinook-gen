@@ -253,6 +253,7 @@
   <ItemGroup>
     <Content Include="app\admin\admin.html" />
     <Content Include="app\admin\admin.js" />
+    <Content Include="app\employee\index.js" />
     <Content Include="app\genre\index.js" />
     <Content Include="app\album\index.js" />
     <Content Include="app\app.js" />
@@ -409,6 +410,7 @@
     <Content Include="Views\Genre\Edit.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

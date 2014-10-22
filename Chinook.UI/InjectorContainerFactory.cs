@@ -17,23 +17,32 @@ namespace Chinook.Web.UI
             container.Register<IDbArtistCommandProvider, SqlDbArtistCommandProvider>();
             container.Register<IArtistRepository, DbArtistRepository>();
 
-            container.Register<IDbTrackCommandProvider, SqlDbTrackCommandProvider>();
-            container.Register<ITrackRepository, DbTrackRepository>();
-
-            container.Register<IDbGenreCommandProvider, SqlDbGenreCommandProvider>();
-            container.Register<IGenreRepository, DbGenreRepository>();
-
             container.Register<IDbCustomerCommandProvider, SqlDbCustomerCommandProvider>();
             container.Register<ICustomerRepository, DbCustomerRepository>();
+
+            container.Register<IDbEmployeeCommandProvider, SqlDbEmployeeCommandProvider>();
+            container.Register<IEmployeeRepository, DbEmployeeRepository>();
+            
+            container.Register<IDbGenreCommandProvider, SqlDbGenreCommandProvider>();
+            container.Register<IGenreRepository, DbGenreRepository>();
+            
+            container.Register<IDbInvoiceCommandProvider, SqlDbInvoiceCommandProvider>();
+            container.Register<IInvoiceRepository, DbInvoiceRepository>();
 
             container.Register<IDbInvoiceLineCommandProvider, SqlDbInvoiceLineCommandProvider>();
             container.Register<IInvoiceLineRepository, DbInvoiceLineRepository>();
 
-            container.Register<IDbInvoiceCommandProvider, SqlDbInvoiceCommandProvider>();
-            container.Register<IInvoiceRepository, DbInvoiceRepository>();
-
             container.Register<IDbMediaTypeCommandProvider, SqlDbMediaTypeCommandProvider>();
             container.Register<IMediaTypeRepository, DbMediaTypeRepository>();
+
+            container.Register<IDbPlaylistCommandProvider, SqlDbPlaylistCommandProvider>();
+            container.Register<IPlaylistRepository, DbPlaylistRepository>();
+
+            container.Register<IDbPlaylistTrackCommandProvider, SqlDbPlaylistTrackCommandProvider>();
+            container.Register<IPlaylistTrackRepository, DbPlaylistTrackRepository>();
+
+            container.Register<IDbTrackCommandProvider, SqlDbTrackCommandProvider>();
+            container.Register<ITrackRepository, DbTrackRepository>();
             
             return container;
         }

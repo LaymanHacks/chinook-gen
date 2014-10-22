@@ -179,7 +179,7 @@ Delete( CInt(.EmployeeId))
               Dim entList as new Collection(Of Employee)
             Dim reader As New SafeDataReader(command.ExecuteReader(CommandBehavior.CloseConnection))
             Do While (reader.Read())
-                 Dim tempEntity As New Employee( reader.GetInt32("EmployeeId"),  reader.GetString("LastName") ,  reader.GetString("FirstName") ,  reader.GetString("Title") ,  reader.GetNullableInt32("ReportsTo"),  reader.GetNullableDateTime("BirthDate"),  reader.GetNullableDateTime("HireDate"),  reader.GetString("Address") ,  reader.GetString("City") ,  reader.GetString("State") ,  reader.GetString("Country") ,  reader.GetString("PostalCode") ,  reader.GetString("Phone") ,  reader.GetString("Fax") ,  reader.GetString("Email") )
+                Dim tempEntity As New Employee(reader.GetInt32("EmployeeId"), reader.GetString("LastName"), reader.GetString("FirstName"), reader.GetString("Title"), CType(reader("ReportsTo"), Integer?), reader.GetNullableDateTime("BirthDate"), reader.GetNullableDateTime("HireDate"), reader.GetString("Address"), reader.GetString("City"), reader.GetString("State"), reader.GetString("Country"), reader.GetString("PostalCode"), reader.GetString("Phone"), reader.GetString("Fax"), reader.GetString("Email"))
                  entList.Add(tempEntity)
             Loop
             reader.Close

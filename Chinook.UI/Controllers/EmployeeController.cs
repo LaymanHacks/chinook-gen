@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Chinook.Data.Repository;
+using Chinook.Domain.Entities;
 
 namespace Chinook.Web.UI.Controllers
 {
@@ -26,7 +27,7 @@ namespace Chinook.Web.UI.Controllers
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_dbRepository.GetDataByEmployeeId(id).First());
         }
 
         // GET: Employee/Create
@@ -37,17 +38,16 @@ namespace Chinook.Web.UI.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                _dbRepository.Insert(employee);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(employee);
             }
         }
 
