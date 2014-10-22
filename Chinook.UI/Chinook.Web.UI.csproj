@@ -234,6 +234,7 @@
     <Compile Include="Controllers\Api\PlaylistApiController.cs" />
     <Compile Include="Controllers\Api\PlaylistTrackApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\TrackApiController.cs" />
@@ -406,6 +407,8 @@
     <Content Include="Views\Album\Create.cshtml" />
     <Content Include="Views\Genre\Create.cshtml" />
     <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
