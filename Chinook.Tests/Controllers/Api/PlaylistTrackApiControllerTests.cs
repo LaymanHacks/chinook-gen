@@ -87,7 +87,7 @@ namespace Chinook.Web.UI.Tests.Controllers.Api
             
             testPlaylistTrack.TrackId = 3499; 
             _target.Update(testPlaylistTrack);
-            Assert.AreEqual(3499, _repositoryList.Find(x => x.PlaylistId == 1 & x.TrackId == 3402).TrackId);
+            Assert.AreEqual(3499, _repositoryList.Find(x => x.PlaylistId == 1 & x.TrackId == 3499).TrackId);
           
         }
 
