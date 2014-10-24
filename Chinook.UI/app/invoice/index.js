@@ -15,7 +15,7 @@
        
         vm.pagableResults = [];
         vm.title = 'InvoiceList';
-        vm.sortExpression = 'Name';
+        vm.sortExpression = 'InvoiceId';
         vm.currentPage = 1;
         vm.pageSize = 10;
         vm.deleteInvoice = deleteInvoice;

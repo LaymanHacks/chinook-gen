@@ -11,6 +11,18 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <div ng-controller="genreIndexCtrl as vm">
+    <div style="float: right" class="btn-group" dropdown>
+        <button type="button" class="btn btn-primary">{{vm.pageSize}} Items per page</button>
+        <button type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="vm.pageSize=10;vm.pageChanged()">10</a></li>
+            <li><a href="#" ng-click="vm.pageSize=20;vm.pageChanged()">20</a></li>
+            <li><a href="#" ng-click="vm.pageSize=50;vm.pageChanged()">50</a></li>
+        </ul>
+    </div>
     <table class="table">
         <tr>
             <th>
