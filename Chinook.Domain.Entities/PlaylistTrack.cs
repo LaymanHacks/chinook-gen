@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class PlaylistTrackList :  Collection<PlaylistTrack>
     {
         public PlaylistTrack First()
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class PlaylistTrack{
       
         private Int32 _playlistId;
@@ -67,7 +67,7 @@ namespace Chinook.Domain.Entities
             set{this._trackId = value;}
         }
 
-        [DataMember()]
+        [DataMember]
         public virtual Playlist Playlist 
         {
           get { return  _playlist;}
@@ -75,7 +75,7 @@ namespace Chinook.Domain.Entities
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Track Track 
         {
           get { return  _track;}

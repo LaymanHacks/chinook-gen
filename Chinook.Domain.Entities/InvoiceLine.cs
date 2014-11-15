@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class InvoiceLineList :  Collection<InvoiceLine>
     {
         public InvoiceLine First()
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class InvoiceLine{
       
         private Int32 _invoiceLineId;
@@ -109,7 +109,7 @@ namespace Chinook.Domain.Entities
             set{this._quantity = value;}
         }
 
-        [DataMember()]
+        [DataMember]
         public virtual Invoice Invoice 
         {
           get { return  _invoice;}
@@ -117,7 +117,7 @@ namespace Chinook.Domain.Entities
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Track Track 
         {
           get { return  _track;}

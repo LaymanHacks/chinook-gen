@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class TrackList :  Collection<Track>
     {
         public Track First()
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class Track{
       
         private Int32 _trackId;
@@ -35,8 +35,8 @@ namespace Chinook.Domain.Entities
         private Int32 _milliseconds;
         private Nullable<Int32> _bytes;
         private Decimal _unitPrice;
-        private InvoiceLineList _invoiceLines;
-        private PlaylistList _playlists; 
+        private Collection<InvoiceLine> _invoiceLines;
+        private Collection<Playlist> _playlists; 
         private Album _album; 
         private Genre _genre; 
         private MediaType _mediaType;  
@@ -168,23 +168,23 @@ namespace Chinook.Domain.Entities
             set{this._unitPrice = value;}
         }
 
-        [DataMember()]
-        public virtual InvoiceLineList InvoiceLines 
+        [DataMember]
+        public virtual Collection<InvoiceLine> InvoiceLines 
         {
           get { return  _invoiceLines;}
           set { _invoiceLines = value;}
         }
   
       
-        [DataMember()]
-        public virtual PlaylistList Playlists 
+        [DataMember]
+        public virtual Collection<Playlist> Playlists 
         {
           get { return  _playlists;}
           set { _playlists = value;}
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Album Album 
         {
           get { return  _album;}
@@ -192,7 +192,7 @@ namespace Chinook.Domain.Entities
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Genre Genre 
         {
           get { return  _genre;}
@@ -200,7 +200,7 @@ namespace Chinook.Domain.Entities
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual MediaType MediaType 
         {
           get { return  _mediaType;}

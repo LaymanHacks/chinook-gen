@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class CustomerList :  Collection<Customer>
     {
         public Customer First()
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class Customer{
       
         private Int32 _customerId;
@@ -39,7 +39,7 @@ namespace Chinook.Domain.Entities
         private String _fax;
         private String _email;
         private Nullable<Int32> _supportRepId;
-        private InvoiceList _invoices; 
+        private Collection<Invoice> _invoices; 
         private Employee _supportRepIdEmployee;  
 
       public Customer() : base()
@@ -221,15 +221,15 @@ namespace Chinook.Domain.Entities
             set{this._supportRepId = value;}
         }
 
-        [DataMember()]
-        public virtual InvoiceList Invoices 
+        [DataMember]
+        public virtual Collection<Invoice> Invoices 
         {
           get { return  _invoices;}
           set { _invoices = value;}
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Employee SupportRepIdEmployee 
         {
           get { return  _supportRepIdEmployee;}

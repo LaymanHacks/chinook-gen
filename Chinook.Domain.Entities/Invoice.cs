@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class InvoiceList :  Collection<Invoice>
     {
         public Invoice First()
@@ -23,7 +23,7 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class Invoice{
       
         private Int32 _invoiceId;
@@ -35,7 +35,7 @@ namespace Chinook.Domain.Entities
         private String _billingCountry;
         private String _billingPostalCode;
         private Decimal _total;
-        private InvoiceLineList _invoiceLines; 
+        private Collection<InvoiceLine> _invoiceLines; 
         private Customer _customer;  
 
       public Invoice() : base()
@@ -165,15 +165,15 @@ namespace Chinook.Domain.Entities
             set{this._total = value;}
         }
 
-        [DataMember()]
-        public virtual InvoiceLineList InvoiceLines 
+        [DataMember]
+        public virtual Collection<InvoiceLine> InvoiceLines 
         {
           get { return  _invoiceLines;}
           set { _invoiceLines = value;}
         }
   
       
-        [DataMember()]
+        [DataMember]
         public virtual Customer Customer 
         {
           get { return  _customer;}

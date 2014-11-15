@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 
 namespace Chinook.Domain.Entities
 {
-    [Serializable()]
+    [Serializable]
     public partial class ArtistList :  Collection<Artist>
     {
         public Artist First()
@@ -23,12 +23,12 @@ namespace Chinook.Domain.Entities
         }
     }
     
-    [DataContract()]
+    [DataContract]
     public partial class Artist{
       
         private Int32 _artistId;
         private String _name;
-        private AlbumList _albums;  
+        private Collection<Album> _albums;  
 
       public Artist() : base()
       {
@@ -66,8 +66,8 @@ namespace Chinook.Domain.Entities
             set{this._name = value;}
         }
 
-        [DataMember()]
-        public virtual AlbumList Albums 
+        [DataMember]
+        public virtual Collection<Album> Albums 
         {
           get { return  _albums;}
           set { _albums = value;}
