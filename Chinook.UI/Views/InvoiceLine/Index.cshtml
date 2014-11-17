@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Chinook.Domain.Entities.Invoice>
+﻿@model IEnumerable<Chinook.Domain.Entities.InvoiceLine>
 
 @{
     ViewBag.Title = "Index";
@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<div ng-controller="invoiceIndexCtrl as vm">
+<div ng-controller="invoiceLineIndexCtrl as vm">
     <div style="float: right" class="btn-group" dropdown>
         <button type="button" class="btn btn-primary">{{vm.pageSize}} Items per page</button>
         <button type="button" class="btn dropdown-toggle">
@@ -26,71 +26,42 @@
     <table class="table">
         <tr>
             <th>
-                CustomerId
+                InvoiceId
             </th>
             <th>
-                InvoiceDate
+                TrackId
             </th>
             <th>
-                BillingAddress
+                UnitPrice
             </th>
             <th>
-                BillingCity
-            </th>
-            <th>
-                BillingState
-            </th>
-            <th>
-                BillingCountry
-            </th>
-            <th>
-                BillingPostalCode
-            </th>
-            <th>
-                Total
+                Quantity
             </th>
             <th></th>
         </tr>
 
-
         <tr ng-repeat="item in vm.pagableResults.Results">
             <td>
-                {{item.CustomerId}}
+                {{item.InvoiceId}}
             </td>
             <td>
-                {{item.InvoiceDate}}
+                {{item.TrackId}}
             </td>
             <td>
-                {{item.BillingAddress}}
+                {{item.UnitPrice}}
             </td>
             <td>
-                {{item.BillingCity}}
+                {{item.Quantity}}
             </td>
             <td>
-                {{item.BillingState}}
-            </td>
-            <td>
-                {{item.BillingCountry}}
-            </td>
-            <td>
-                {{item.BillingPostalCode}}
-            </td>
-            <td>
-                {{item.Total}}
-            </td>
-            <td>
-                <a href="" ng-click="vm.deleteInvoice(item.InvoiceId)"><i class="fa fa-trash-o"></i></a>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.InvoiceId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.InvoiceId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceId })*@
-            </td>
+                <a href="/invoiceLine/Edit/{{item.InvoiceId}}">Edit</a>
+                @*@Html.ActionLink(" details", "Details" , new { id=item.InvoiceLineId }) |
+                   @html.actionlink("delete", "Delete" , new { id=item.InvoiceLineId })*@</td>
         </tr>
-
-
     </table>
     <pagination total-items="vm.pagableResults.TotalCount" items-per-page="vm.pageSize" ng-model="vm.currentPage" ng-change="vm.pageChanged()" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
 </div>
 @section Scripts {
-    <script src="~/app/invoice/index.js"></script>
-    <script src="~/app/services/invoiceDataService.js"></script>
+    <script src="~/app/invoiceLine/index.js"></script>
+    <script src="~/app/services/invoiceLineDataService.js"></script>
 }

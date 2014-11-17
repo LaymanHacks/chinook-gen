@@ -239,6 +239,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\TrackApiController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\InvoiceLineController.cs" />
+    <Compile Include="Controllers\MediaTypeController.cs" />
+    <Compile Include="Controllers\PlaylistController.cs" />
+    <Compile Include="Controllers\PlaylistTrackController.cs" />
+    <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +259,7 @@
   <ItemGroup>
     <Content Include="app\admin\admin.html" />
     <Content Include="app\admin\admin.js" />
+    <Content Include="app\invoiceLine\index.js" />
     <Content Include="app\invoice\index.js" />
     <Content Include="app\employee\index.js" />
     <Content Include="app\genre\index.js" />
@@ -414,6 +420,10 @@
     <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\InvoiceLine\Index.cshtml" />
+    <Content Include="Views\InvoiceLine\Details.cshtml" />
+    <Content Include="Views\InvoiceLine\Create.cshtml" />
+    <Content Include="Views\InvoiceLine\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
