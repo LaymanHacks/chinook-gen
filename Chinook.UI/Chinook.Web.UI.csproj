@@ -259,6 +259,7 @@
   <ItemGroup>
     <Content Include="app\admin\admin.html" />
     <Content Include="app\admin\admin.js" />
+    <Content Include="app\customer\Index.js" />
     <Content Include="app\invoiceLine\index.js" />
     <Content Include="app\invoice\index.js" />
     <Content Include="app\employee\index.js" />
@@ -282,6 +283,9 @@
     <Content Include="app\layout\sidebar.js" />
     <Content Include="app\layout\topnav.html" />
     <Content Include="app\layout\widgetheader.html" />
+    <Content Include="app\MediaType\Index.js" />
+    <Content Include="app\PlaylistTrack\Index.js" />
+    <Content Include="app\Playlist\Index.js" />
     <Content Include="app\services\albumDataService.js" />
     <Content Include="app\services\artistDataService.js" />
     <Content Include="app\services\customerDataService.js" />
@@ -295,6 +299,7 @@
     <Content Include="app\services\playlistDataService.js" />
     <Content Include="app\services\playlistTrackDataService.js" />
     <Content Include="app\services\trackDataService.js" />
+    <Content Include="app\Track\Index.js" />
     <Content Include="App_Data\Chinook.mdf" />
     <Content Include="App_Data\Chinook_log.ldf">
       <DependentUpon>Chinook.mdf</DependentUpon>
@@ -424,6 +429,25 @@
     <Content Include="Views\InvoiceLine\Details.cshtml" />
     <Content Include="Views\InvoiceLine\Create.cshtml" />
     <Content Include="Views\InvoiceLine\Edit.cshtml" />
+    <Content Include="Views\Invoice\Create.cshtml" />
+    <Content Include="Views\Invoice\Details.cshtml" />
+    <Content Include="Views\Invoice\Edit.cshtml" />
+    <Content Include="Views\MediaType\Create.cshtml" />
+    <Content Include="Views\MediaType\Details.cshtml" />
+    <Content Include="Views\MediaType\Edit.cshtml" />
+    <Content Include="Views\MediaType\Index.cshtml" />
+    <Content Include="Views\PlaylistTrack\Create.cshtml" />
+    <Content Include="Views\PlaylistTrack\Details.cshtml" />
+    <Content Include="Views\PlaylistTrack\Edit.cshtml" />
+    <Content Include="Views\PlaylistTrack\Index.cshtml" />
+    <Content Include="Views\Playlist\Create.cshtml" />
+    <Content Include="Views\Playlist\Details.cshtml" />
+    <Content Include="Views\Playlist\Edit.cshtml" />
+    <Content Include="Views\Playlist\Index.cshtml" />
+    <Content Include="Views\Track\Create.cshtml" />
+    <Content Include="Views\Track\Details.cshtml" />
+    <Content Include="Views\Track\Edit.cshtml" />
+    <Content Include="Views\Track\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

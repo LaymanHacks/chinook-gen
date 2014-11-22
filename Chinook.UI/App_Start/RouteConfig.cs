@@ -13,6 +13,10 @@ namespace Chinook.Web.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            // Web API routes
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

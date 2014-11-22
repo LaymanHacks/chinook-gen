@@ -5,6 +5,7 @@ using System.Web.Routing;
 using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
 using Chinook.Data.SqlDbCommandProvider;
+using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 using SimpleInjector.Integration.WebApi;
@@ -22,6 +23,9 @@ namespace Chinook.Web.UI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             var container = InjectorContainerFactory.BuildSimpleInjectorContainer();
+
+            var jsonformatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            jsonformatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
