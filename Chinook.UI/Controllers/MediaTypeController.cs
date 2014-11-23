@@ -17,11 +17,13 @@ namespace Chinook.Web.UI.Controllers
 {
     public class MediaTypeController : Controller
     {
-        private readonly IMediaTypeRepository _dbRepository;
+        private readonly IMediaTypeRepository _dbMediaTypeRepository;
+        
 
-        public MediaTypeController(IMediaTypeRepository dbRepository)
+        public MediaTypeController(IMediaTypeRepository dbMediaTypeRepository)
         {
-            _dbRepository = dbRepository;
+            _dbMediaTypeRepository = dbMediaTypeRepository;
+            
         }
         
         // GET: MediaType
@@ -34,12 +36,13 @@ namespace Chinook.Web.UI.Controllers
         [Route("MediaType/Details/{mediaTypeId}", Name = "GetMediaTypeDetails")]
         public ActionResult Details(Int32 mediaTypeId)
         {
-            return View(_dbRepository.GetDataByMediaTypeId(mediaTypeId).FirstOrDefault());
+            return View(_dbMediaTypeRepository.GetDataByMediaTypeId(mediaTypeId).FirstOrDefault());
         }
 
         // GET: MediaType/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -49,7 +52,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(mediaType);
+                _dbMediaTypeRepository.Insert(mediaType);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +65,19 @@ namespace Chinook.Web.UI.Controllers
         [Route("MediaType/Edit/{mediaTypeId}", Name = "GetMediaTypeEdit")]
         public ActionResult Edit(Int32 mediaTypeId)
         {
-            return View(_dbRepository.GetDataByMediaTypeId(mediaTypeId).FirstOrDefault());
+        	var mediaType = _dbMediaTypeRepository.GetDataByMediaTypeId(mediaTypeId).FirstOrDefault();    
+            
+            return View(mediaType);
         }
 
-        // POST: MediaType/Edit
-        [Route("MediaType/Edit", Name = "PostMediaTypeEdit")]
+        // POST: MediaType/Edit/5
+        [Route("MediaType/Edit/{mediaTypeId}", Name = "PostMediaTypeEdit")]
         [HttpPost]
-        public ActionResult Edit(MediaType mediaType)
+        public ActionResult Edit(Int32 mediaTypeId, MediaType mediaType)
         {
             try
             {
-                _dbRepository.Update(mediaType);
+                _dbMediaTypeRepository.Update(mediaType);
                 return RedirectToAction("Index");
             }
             catch

@@ -17,11 +17,13 @@ namespace Chinook.Web.UI.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeRepository _dbRepository;
+        private readonly IEmployeeRepository _dbEmployeeRepository;
+        
 
-        public EmployeeController(IEmployeeRepository dbRepository)
+        public EmployeeController(IEmployeeRepository dbEmployeeRepository)
         {
-            _dbRepository = dbRepository;
+            _dbEmployeeRepository = dbEmployeeRepository;
+            
         }
         
         // GET: Employee
@@ -34,12 +36,14 @@ namespace Chinook.Web.UI.Controllers
         [Route("Employee/Details/{employeeId}", Name = "GetEmployeeDetails")]
         public ActionResult Details(Int32 employeeId)
         {
-            return View(_dbRepository.GetDataByEmployeeId(employeeId).FirstOrDefault());
+            return View(_dbEmployeeRepository.GetDataByEmployeeId(employeeId).FirstOrDefault());
         }
 
         // GET: Employee/Create
         public ActionResult Create()
         {
+            ViewBag.Employees = new SelectList(_dbEmployeeRepository.GetData(), "EmployeeId", "EmployeeId");
+            
             return View();
         }
 
@@ -49,7 +53,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(employee);
+                _dbEmployeeRepository.Insert(employee);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +66,20 @@ namespace Chinook.Web.UI.Controllers
         [Route("Employee/Edit/{employeeId}", Name = "GetEmployeeEdit")]
         public ActionResult Edit(Int32 employeeId)
         {
-            return View(_dbRepository.GetDataByEmployeeId(employeeId).FirstOrDefault());
+        	var employee = _dbEmployeeRepository.GetDataByEmployeeId(employeeId).FirstOrDefault();    
+            if (employee != null) ViewBag.Employees = new SelectList(_dbEmployeeRepository.GetData(), "EmployeeId", "EmployeeId", employee.ReportsTo);
+            
+            return View(employee);
         }
 
-        // POST: Employee/Edit
-        [Route("Employee/Edit", Name = "PostEmployeeEdit")]
+        // POST: Employee/Edit/5
+        [Route("Employee/Edit/{employeeId}", Name = "PostEmployeeEdit")]
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Edit(Int32 employeeId, Employee employee)
         {
             try
             {
-                _dbRepository.Update(employee);
+                _dbEmployeeRepository.Update(employee);
                 return RedirectToAction("Index");
             }
             catch

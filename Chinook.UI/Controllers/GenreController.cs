@@ -17,11 +17,13 @@ namespace Chinook.Web.UI.Controllers
 {
     public class GenreController : Controller
     {
-        private readonly IGenreRepository _dbRepository;
+        private readonly IGenreRepository _dbGenreRepository;
+        
 
-        public GenreController(IGenreRepository dbRepository)
+        public GenreController(IGenreRepository dbGenreRepository)
         {
-            _dbRepository = dbRepository;
+            _dbGenreRepository = dbGenreRepository;
+            
         }
         
         // GET: Genre
@@ -34,12 +36,13 @@ namespace Chinook.Web.UI.Controllers
         [Route("Genre/Details/{genreId}", Name = "GetGenreDetails")]
         public ActionResult Details(Int32 genreId)
         {
-            return View(_dbRepository.GetDataByGenreId(genreId).FirstOrDefault());
+            return View(_dbGenreRepository.GetDataByGenreId(genreId).FirstOrDefault());
         }
 
         // GET: Genre/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -49,7 +52,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(genre);
+                _dbGenreRepository.Insert(genre);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +65,19 @@ namespace Chinook.Web.UI.Controllers
         [Route("Genre/Edit/{genreId}", Name = "GetGenreEdit")]
         public ActionResult Edit(Int32 genreId)
         {
-            return View(_dbRepository.GetDataByGenreId(genreId).FirstOrDefault());
+        	var genre = _dbGenreRepository.GetDataByGenreId(genreId).FirstOrDefault();    
+            
+            return View(genre);
         }
 
-        // POST: Genre/Edit
-        [Route("Genre/Edit", Name = "PostGenreEdit")]
+        // POST: Genre/Edit/5
+        [Route("Genre/Edit/{genreId}", Name = "PostGenreEdit")]
         [HttpPost]
-        public ActionResult Edit(Genre genre)
+        public ActionResult Edit(Int32 genreId, Genre genre)
         {
             try
             {
-                _dbRepository.Update(genre);
+                _dbGenreRepository.Update(genre);
                 return RedirectToAction("Index");
             }
             catch

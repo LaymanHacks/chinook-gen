@@ -17,11 +17,19 @@ namespace Chinook.Web.UI.Controllers
 {
     public class TrackController : Controller
     {
-        private readonly ITrackRepository _dbRepository;
+        private readonly ITrackRepository _dbTrackRepository;
+        private readonly IAlbumRepository _dbAlbumRepository;
+        private readonly IMediaTypeRepository _dbMediaTypeRepository;
+        private readonly IGenreRepository _dbGenreRepository;
+        
 
-        public TrackController(ITrackRepository dbRepository)
+        public TrackController(ITrackRepository dbTrackRepository, IAlbumRepository dbAlbumRepository, IMediaTypeRepository dbMediaTypeRepository, IGenreRepository dbGenreRepository)
         {
-            _dbRepository = dbRepository;
+            _dbTrackRepository = dbTrackRepository;
+            _dbAlbumRepository = dbAlbumRepository; 
+            _dbMediaTypeRepository = dbMediaTypeRepository; 
+            _dbGenreRepository = dbGenreRepository; 
+            
         }
         
         // GET: Track
@@ -34,12 +42,16 @@ namespace Chinook.Web.UI.Controllers
         [Route("Track/Details/{trackId}", Name = "GetTrackDetails")]
         public ActionResult Details(Int32 trackId)
         {
-            return View(_dbRepository.GetDataByTrackId(trackId).FirstOrDefault());
+            return View(_dbTrackRepository.GetDataByTrackId(trackId).FirstOrDefault());
         }
 
         // GET: Track/Create
         public ActionResult Create()
         {
+            ViewBag.Albums = new SelectList(_dbAlbumRepository.GetData(), "AlbumId", "Title");
+            ViewBag.MediaTypes = new SelectList(_dbMediaTypeRepository.GetData(), "MediaTypeId", "Name");
+            ViewBag.Genres = new SelectList(_dbGenreRepository.GetData(), "GenreId", "Name");
+            
             return View();
         }
 
@@ -49,7 +61,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(track);
+                _dbTrackRepository.Insert(track);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +74,22 @@ namespace Chinook.Web.UI.Controllers
         [Route("Track/Edit/{trackId}", Name = "GetTrackEdit")]
         public ActionResult Edit(Int32 trackId)
         {
-            return View(_dbRepository.GetDataByTrackId(trackId).FirstOrDefault());
+        	var track = _dbTrackRepository.GetDataByTrackId(trackId).FirstOrDefault();    
+            if (track != null) ViewBag.Albums = new SelectList(_dbAlbumRepository.GetData(), "AlbumId", "Title", track.AlbumId);
+            if (track != null) ViewBag.MediaTypes = new SelectList(_dbMediaTypeRepository.GetData(), "MediaTypeId", "Name", track.MediaTypeId);
+            if (track != null) ViewBag.Genres = new SelectList(_dbGenreRepository.GetData(), "GenreId", "Name", track.GenreId);
+            
+            return View(track);
         }
 
-        // POST: Track/Edit
-        [Route("Track/Edit", Name = "PostTrackEdit")]
+        // POST: Track/Edit/5
+        [Route("Track/Edit/{trackId}", Name = "PostTrackEdit")]
         [HttpPost]
-        public ActionResult Edit(Track track)
+        public ActionResult Edit(Int32 trackId, Track track)
         {
             try
             {
-                _dbRepository.Update(track);
+                _dbTrackRepository.Update(track);
                 return RedirectToAction("Index");
             }
             catch

@@ -17,11 +17,17 @@ namespace Chinook.Web.UI.Controllers
 {
     public class InvoiceLineController : Controller
     {
-        private readonly IInvoiceLineRepository _dbRepository;
+        private readonly IInvoiceLineRepository _dbInvoiceLineRepository;
+        private readonly IInvoiceRepository _dbInvoiceRepository;
+        private readonly ITrackRepository _dbTrackRepository;
+        
 
-        public InvoiceLineController(IInvoiceLineRepository dbRepository)
+        public InvoiceLineController(IInvoiceLineRepository dbInvoiceLineRepository, IInvoiceRepository dbInvoiceRepository, ITrackRepository dbTrackRepository)
         {
-            _dbRepository = dbRepository;
+            _dbInvoiceLineRepository = dbInvoiceLineRepository;
+            _dbInvoiceRepository = dbInvoiceRepository; 
+            _dbTrackRepository = dbTrackRepository; 
+            
         }
         
         // GET: InvoiceLine
@@ -34,12 +40,15 @@ namespace Chinook.Web.UI.Controllers
         [Route("InvoiceLine/Details/{invoiceLineId}", Name = "GetInvoiceLineDetails")]
         public ActionResult Details(Int32 invoiceLineId)
         {
-            return View(_dbRepository.GetDataByInvoiceLineId(invoiceLineId).FirstOrDefault());
+            return View(_dbInvoiceLineRepository.GetDataByInvoiceLineId(invoiceLineId).FirstOrDefault());
         }
 
         // GET: InvoiceLine/Create
         public ActionResult Create()
         {
+            ViewBag.Invoices = new SelectList(_dbInvoiceRepository.GetData(), "InvoiceId", "InvoiceId");
+            ViewBag.Tracks = new SelectList(_dbTrackRepository.GetData(), "TrackId", "TrackId");
+            
             return View();
         }
 
@@ -49,7 +58,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(invoiceLine);
+                _dbInvoiceLineRepository.Insert(invoiceLine);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +71,21 @@ namespace Chinook.Web.UI.Controllers
         [Route("InvoiceLine/Edit/{invoiceLineId}", Name = "GetInvoiceLineEdit")]
         public ActionResult Edit(Int32 invoiceLineId)
         {
-            return View(_dbRepository.GetDataByInvoiceLineId(invoiceLineId).FirstOrDefault());
+        	var invoiceLine = _dbInvoiceLineRepository.GetDataByInvoiceLineId(invoiceLineId).FirstOrDefault();    
+            if (invoiceLine != null) ViewBag.Invoices = new SelectList(_dbInvoiceRepository.GetData(), "InvoiceId", "InvoiceId", invoiceLine.InvoiceId);
+            if (invoiceLine != null) ViewBag.Tracks = new SelectList(_dbTrackRepository.GetData(), "TrackId", "TrackId", invoiceLine.TrackId);
+            
+            return View(invoiceLine);
         }
 
-        // POST: InvoiceLine/Edit
-        [Route("InvoiceLine/Edit", Name = "PostInvoiceLineEdit")]
+        // POST: InvoiceLine/Edit/5
+        [Route("InvoiceLine/Edit/{invoiceLineId}", Name = "PostInvoiceLineEdit")]
         [HttpPost]
-        public ActionResult Edit(InvoiceLine invoiceLine)
+        public ActionResult Edit(Int32 invoiceLineId, InvoiceLine invoiceLine)
         {
             try
             {
-                _dbRepository.Update(invoiceLine);
+                _dbInvoiceLineRepository.Update(invoiceLine);
                 return RedirectToAction("Index");
             }
             catch

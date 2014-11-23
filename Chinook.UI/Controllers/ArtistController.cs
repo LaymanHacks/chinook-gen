@@ -17,11 +17,13 @@ namespace Chinook.Web.UI.Controllers
 {
     public class ArtistController : Controller
     {
-        private readonly IArtistRepository _dbRepository;
+        private readonly IArtistRepository _dbArtistRepository;
+        
 
-        public ArtistController(IArtistRepository dbRepository)
+        public ArtistController(IArtistRepository dbArtistRepository)
         {
-            _dbRepository = dbRepository;
+            _dbArtistRepository = dbArtistRepository;
+            
         }
         
         // GET: Artist
@@ -34,12 +36,13 @@ namespace Chinook.Web.UI.Controllers
         [Route("Artist/Details/{artistId}", Name = "GetArtistDetails")]
         public ActionResult Details(Int32 artistId)
         {
-            return View(_dbRepository.GetDataByArtistId(artistId).FirstOrDefault());
+            return View(_dbArtistRepository.GetDataByArtistId(artistId).FirstOrDefault());
         }
 
         // GET: Artist/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -49,7 +52,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(artist);
+                _dbArtistRepository.Insert(artist);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +65,19 @@ namespace Chinook.Web.UI.Controllers
         [Route("Artist/Edit/{artistId}", Name = "GetArtistEdit")]
         public ActionResult Edit(Int32 artistId)
         {
-            return View(_dbRepository.GetDataByArtistId(artistId).FirstOrDefault());
+        	var artist = _dbArtistRepository.GetDataByArtistId(artistId).FirstOrDefault();    
+            
+            return View(artist);
         }
 
-        // POST: Artist/Edit
-        [Route("Artist/Edit", Name = "PostArtistEdit")]
+        // POST: Artist/Edit/5
+        [Route("Artist/Edit/{artistId}", Name = "PostArtistEdit")]
         [HttpPost]
-        public ActionResult Edit(Artist artist)
+        public ActionResult Edit(Int32 artistId, Artist artist)
         {
             try
             {
-                _dbRepository.Update(artist);
+                _dbArtistRepository.Update(artist);
                 return RedirectToAction("Index");
             }
             catch

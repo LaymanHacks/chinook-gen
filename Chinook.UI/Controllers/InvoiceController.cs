@@ -17,11 +17,15 @@ namespace Chinook.Web.UI.Controllers
 {
     public class InvoiceController : Controller
     {
-        private readonly IInvoiceRepository _dbRepository;
+        private readonly IInvoiceRepository _dbInvoiceRepository;
+        private readonly ICustomerRepository _dbCustomerRepository;
+        
 
-        public InvoiceController(IInvoiceRepository dbRepository)
+        public InvoiceController(IInvoiceRepository dbInvoiceRepository, ICustomerRepository dbCustomerRepository)
         {
-            _dbRepository = dbRepository;
+            _dbInvoiceRepository = dbInvoiceRepository;
+            _dbCustomerRepository = dbCustomerRepository; 
+            
         }
         
         // GET: Invoice
@@ -34,12 +38,14 @@ namespace Chinook.Web.UI.Controllers
         [Route("Invoice/Details/{invoiceId}", Name = "GetInvoiceDetails")]
         public ActionResult Details(Int32 invoiceId)
         {
-            return View(_dbRepository.GetDataByInvoiceId(invoiceId).FirstOrDefault());
+            return View(_dbInvoiceRepository.GetDataByInvoiceId(invoiceId).FirstOrDefault());
         }
 
         // GET: Invoice/Create
         public ActionResult Create()
         {
+            ViewBag.Customers = new SelectList(_dbCustomerRepository.GetData(), "CustomerId", "CustomerId");
+            
             return View();
         }
 
@@ -49,7 +55,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(invoice);
+                _dbInvoiceRepository.Insert(invoice);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +68,20 @@ namespace Chinook.Web.UI.Controllers
         [Route("Invoice/Edit/{invoiceId}", Name = "GetInvoiceEdit")]
         public ActionResult Edit(Int32 invoiceId)
         {
-            return View(_dbRepository.GetDataByInvoiceId(invoiceId).FirstOrDefault());
+        	var invoice = _dbInvoiceRepository.GetDataByInvoiceId(invoiceId).FirstOrDefault();    
+            if (invoice != null) ViewBag.Customers = new SelectList(_dbCustomerRepository.GetData(), "CustomerId", "CustomerId", invoice.CustomerId);
+            
+            return View(invoice);
         }
 
-        // POST: Invoice/Edit
-        [Route("Invoice/Edit", Name = "PostInvoiceEdit")]
+        // POST: Invoice/Edit/5
+        [Route("Invoice/Edit/{invoiceId}", Name = "PostInvoiceEdit")]
         [HttpPost]
-        public ActionResult Edit(Invoice invoice)
+        public ActionResult Edit(Int32 invoiceId, Invoice invoice)
         {
             try
             {
-                _dbRepository.Update(invoice);
+                _dbInvoiceRepository.Update(invoice);
                 return RedirectToAction("Index");
             }
             catch

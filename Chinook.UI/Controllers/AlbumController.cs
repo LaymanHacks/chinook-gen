@@ -17,11 +17,15 @@ namespace Chinook.Web.UI.Controllers
 {
     public class AlbumController : Controller
     {
-        private readonly IAlbumRepository _dbRepository;
+        private readonly IAlbumRepository _dbAlbumRepository;
+        private readonly IArtistRepository _dbArtistRepository;
+        
 
-        public AlbumController(IAlbumRepository dbRepository)
+        public AlbumController(IAlbumRepository dbAlbumRepository, IArtistRepository dbArtistRepository)
         {
-            _dbRepository = dbRepository;
+            _dbAlbumRepository = dbAlbumRepository;
+            _dbArtistRepository = dbArtistRepository; 
+            
         }
         
         // GET: Album
@@ -34,12 +38,14 @@ namespace Chinook.Web.UI.Controllers
         [Route("Album/Details/{albumId}", Name = "GetAlbumDetails")]
         public ActionResult Details(Int32 albumId)
         {
-            return View(_dbRepository.GetDataByAlbumId(albumId).FirstOrDefault());
+            return View(_dbAlbumRepository.GetDataByAlbumId(albumId).FirstOrDefault());
         }
 
         // GET: Album/Create
         public ActionResult Create()
         {
+            ViewBag.Artists = new SelectList(_dbArtistRepository.GetData(), "ArtistId", "ArtistId");
+            
             return View();
         }
 
@@ -49,7 +55,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(album);
+                _dbAlbumRepository.Insert(album);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +68,20 @@ namespace Chinook.Web.UI.Controllers
         [Route("Album/Edit/{albumId}", Name = "GetAlbumEdit")]
         public ActionResult Edit(Int32 albumId)
         {
-            return View(_dbRepository.GetDataByAlbumId(albumId).FirstOrDefault());
+        	var album = _dbAlbumRepository.GetDataByAlbumId(albumId).FirstOrDefault();    
+            if (album != null) ViewBag.Artists = new SelectList(_dbArtistRepository.GetData(), "ArtistId", "Name", album.ArtistId);
+            
+            return View(album);
         }
 
-        // POST: Album/Edit
-        [Route("Album/Edit", Name = "PostAlbumEdit")]
+        // POST: Album/Edit/5
+        [Route("Album/Edit/{albumId}", Name = "PostAlbumEdit")]
         [HttpPost]
-        public ActionResult Edit(Album album)
+        public ActionResult Edit(Int32 albumId, Album album)
         {
             try
             {
-                _dbRepository.Update(album);
+                _dbAlbumRepository.Update(album);
                 return RedirectToAction("Index");
             }
             catch

@@ -17,11 +17,13 @@ namespace Chinook.Web.UI.Controllers
 {
     public class PlaylistController : Controller
     {
-        private readonly IPlaylistRepository _dbRepository;
+        private readonly IPlaylistRepository _dbPlaylistRepository;
+        
 
-        public PlaylistController(IPlaylistRepository dbRepository)
+        public PlaylistController(IPlaylistRepository dbPlaylistRepository)
         {
-            _dbRepository = dbRepository;
+            _dbPlaylistRepository = dbPlaylistRepository;
+            
         }
         
         // GET: Playlist
@@ -34,12 +36,13 @@ namespace Chinook.Web.UI.Controllers
         [Route("Playlist/Details/{playlistId}", Name = "GetPlaylistDetails")]
         public ActionResult Details(Int32 playlistId)
         {
-            return View(_dbRepository.GetDataByPlaylistId(playlistId).FirstOrDefault());
+            return View(_dbPlaylistRepository.GetDataByPlaylistId(playlistId).FirstOrDefault());
         }
 
         // GET: Playlist/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -49,7 +52,7 @@ namespace Chinook.Web.UI.Controllers
         {
             try
             {
-                _dbRepository.Insert(playlist);
+                _dbPlaylistRepository.Insert(playlist);
                 return RedirectToAction("Index");
             }
             catch
@@ -62,17 +65,19 @@ namespace Chinook.Web.UI.Controllers
         [Route("Playlist/Edit/{playlistId}", Name = "GetPlaylistEdit")]
         public ActionResult Edit(Int32 playlistId)
         {
-            return View(_dbRepository.GetDataByPlaylistId(playlistId).FirstOrDefault());
+        	var playlist = _dbPlaylistRepository.GetDataByPlaylistId(playlistId).FirstOrDefault();    
+            
+            return View(playlist);
         }
 
-        // POST: Playlist/Edit
-        [Route("Playlist/Edit", Name = "PostPlaylistEdit")]
+        // POST: Playlist/Edit/5
+        [Route("Playlist/Edit/{playlistId}", Name = "PostPlaylistEdit")]
         [HttpPost]
-        public ActionResult Edit(Playlist playlist)
+        public ActionResult Edit(Int32 playlistId, Playlist playlist)
         {
             try
             {
-                _dbRepository.Update(playlist);
+                _dbPlaylistRepository.Update(playlist);
                 return RedirectToAction("Index");
             }
             catch
