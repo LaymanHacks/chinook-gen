@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using Chinook.Web.UI.Areas.HelpPage.ModelDescriptions;
-using Chinook.Web.UI.Areas.HelpPage.Models;
+using Chinook.UI.Web.Areas.HelpPage.ModelDescriptions;
+using Chinook.UI.Web.Areas.HelpPage.Models;
 
-namespace Chinook.Web.UI.Areas.HelpPage
+namespace Chinook.UI.Web.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

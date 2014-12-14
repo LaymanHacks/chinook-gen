@@ -3,7 +3,7 @@ using Chinook.Data.Repository;
 using Chinook.Data.SqlDbCommandProvider;
 using SimpleInjector;
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public class InjectorContainerFactory
     {

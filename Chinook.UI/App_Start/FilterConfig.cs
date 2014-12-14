@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public class FilterConfig
     {

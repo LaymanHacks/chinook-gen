@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Chinook.Web.UI.Models;
-using Chinook.Web.UI.Providers;
-using Chinook.Web.UI.Results;
+using Chinook.UI.Web.Models;
+using Chinook.UI.Web.Providers;
+using Chinook.UI.Web.Results;
 
-namespace Chinook.Web.UI.Controllers
+namespace Chinook.UI.Web.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

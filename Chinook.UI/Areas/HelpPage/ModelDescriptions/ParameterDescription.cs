@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Chinook.Web.UI.Areas.HelpPage.ModelDescriptions
+namespace Chinook.UI.Web.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterDescription
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Chinook.Web.UI.Startup))]
+[assembly: OwinStartup(typeof(Chinook.UI.Web.Startup))]
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public partial class Startup
     {

@@ -10,7 +10,7 @@ using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 using SimpleInjector.Integration.WebApi;
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

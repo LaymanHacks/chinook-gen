@@ -6,7 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public static class WebApiConfig
     {

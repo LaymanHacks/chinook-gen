@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Chinook.Web.UI.Areas.HelpPage.ModelDescriptions
+namespace Chinook.UI.Web.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Chinook.Web.UI
+namespace Chinook.UI.Web
 {
     public class BundleConfig
     {

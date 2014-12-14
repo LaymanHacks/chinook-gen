@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Chinook.Web.UI.Areas.HelpPage.ModelDescriptions;
-using Chinook.Web.UI.Areas.HelpPage.Models;
+using Chinook.UI.Web.Areas.HelpPage.ModelDescriptions;
+using Chinook.UI.Web.Areas.HelpPage.Models;
 
-namespace Chinook.Web.UI.Areas.HelpPage.Controllers
+namespace Chinook.UI.Web.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

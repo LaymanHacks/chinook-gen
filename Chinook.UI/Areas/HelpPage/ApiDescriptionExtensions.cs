@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace Chinook.Web.UI.Areas.HelpPage
+namespace Chinook.UI.Web.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

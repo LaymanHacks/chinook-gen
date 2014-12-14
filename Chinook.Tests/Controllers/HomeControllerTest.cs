@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using Chinook.Web.UI.Controllers;
+using Chinook.UI.Web.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Chinook.Web.UI.Tests.Controllers
+namespace Chinook.UI.Web.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

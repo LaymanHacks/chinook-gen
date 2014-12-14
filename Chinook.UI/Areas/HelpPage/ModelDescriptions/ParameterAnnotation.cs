@@ -1,6 +1,6 @@
 using System;
 
-namespace Chinook.Web.UI.Areas.HelpPage.ModelDescriptions
+namespace Chinook.UI.Web.Areas.HelpPage.ModelDescriptions
 {
     public class ParameterAnnotation
     {

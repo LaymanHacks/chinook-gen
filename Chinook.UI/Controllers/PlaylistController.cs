@@ -13,7 +13,7 @@ using System.Web.Mvc;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
 
-namespace Chinook.Web.UI.Controllers
+namespace Chinook.UI.Web.Controllers
 {
     public class PlaylistController : Controller
     {

@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chinook.Web.UI</RootNamespace>
-    <AssemblyName>Chinook.Web.UI</AssemblyName>
+    <RootNamespace>Chinook.UI.Web</RootNamespace>
+    <AssemblyName>Chinook.UI.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -312,6 +312,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\codemirror-3.01\codemirror.css" />
     <Content Include="Content\customtheme.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -377,6 +378,11 @@
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\codemirror-3.01\codemirror.js" />
+    <Content Include="Scripts\codemirror-3.01\mode\css.js" />
+    <Content Include="Scripts\codemirror-3.01\mode\htmlmixed.js" />
+    <Content Include="Scripts\codemirror-3.01\mode\javascript.js" />
+    <Content Include="Scripts\codemirror-3.01\mode\xml.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />

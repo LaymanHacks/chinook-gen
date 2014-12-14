@@ -9,9 +9,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Chinook.Web.UI.Models;
+using Chinook.UI.Web.Models;
 
-namespace Chinook.Web.UI.Providers
+namespace Chinook.UI.Web.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

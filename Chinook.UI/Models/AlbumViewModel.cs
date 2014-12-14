@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Chinook.Domain.Entities;
 
-namespace Chinook.Web.UI.Models
+namespace Chinook.UI.Web.Models
 {
     public class AlbumViewModel 
     {

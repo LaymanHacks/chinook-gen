@@ -1,6 +1,6 @@
 using System;
 
-namespace Chinook.Web.UI.Areas.HelpPage
+namespace Chinook.UI.Web.Areas.HelpPage
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.

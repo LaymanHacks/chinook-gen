@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Chinook.Web.UI.Areas.HelpPage
+namespace Chinook.UI.Web.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

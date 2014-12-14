@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Chinook.Web.UI.Controllers
+namespace Chinook.UI.Web.Controllers
 {
     public class HomeController : Controller
     {

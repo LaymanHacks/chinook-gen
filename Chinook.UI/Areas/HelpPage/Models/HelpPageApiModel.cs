@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using Chinook.Web.UI.Areas.HelpPage.ModelDescriptions;
+using Chinook.UI.Web.Areas.HelpPage.ModelDescriptions;
 
-namespace Chinook.Web.UI.Areas.HelpPage.Models
+namespace Chinook.UI.Web.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

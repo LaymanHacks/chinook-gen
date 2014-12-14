@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Chinook.Web.UI.Models
+namespace Chinook.UI.Web.Models
 {
     // Models returned by AccountController actions.
 

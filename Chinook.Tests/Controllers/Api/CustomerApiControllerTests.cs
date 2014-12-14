@@ -6,11 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
-using Chinook.Web.UI.Controllers.Api;
+using Chinook.UI.Web.Controllers.Api;
+using Chinook.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Chinook.Web.UI.Tests.Controllers.Api
+namespace Chinook.UI.Web.Tests.Controllers.Api
 {
     [TestClass()]
     public class CustomerApiControllerTests

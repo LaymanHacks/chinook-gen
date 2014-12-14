@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Chinook.Web.UI.Models
+namespace Chinook.UI.Web.Models
 {
     // Models used as parameters to AccountController actions.
 

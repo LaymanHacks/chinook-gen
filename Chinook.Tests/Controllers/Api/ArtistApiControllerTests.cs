@@ -7,11 +7,12 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
-using Chinook.Web.UI.Controllers.APi;
+using Chinook.UI.Web.Controllers.APi;
+using Chinook.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Chinook.Web.UI.Tests.Controllers.Api
+namespace Chinook.UI.Web.Tests.Controllers.Api
 {
     [TestClass()]
     public class ArtistApiControllerTests

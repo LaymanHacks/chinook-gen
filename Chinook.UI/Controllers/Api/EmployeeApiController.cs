@@ -15,8 +15,9 @@ using System.Web.Http;
 using Chinook.Data.DbCommandProvider;
 using Chinook.Data.Repository;
 using Chinook.Domain.Entities;
+using Chinook.Web;
 
-namespace Chinook.Web.UI.Controllers.Api
+namespace Chinook.UI.Web.Controllers.Api
 {
     public class EmployeeApiController : ApiController
     {
